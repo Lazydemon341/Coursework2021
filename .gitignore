@@ -12,4 +12,5 @@
 /captures
 .externalNativeBuild
 .cxx
+google_maps_api.xml
 local.properties
