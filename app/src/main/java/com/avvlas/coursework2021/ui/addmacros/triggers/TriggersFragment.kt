@@ -18,7 +18,7 @@ internal class TriggersFragment : BasePageFragment(R.layout.fragment_triggers) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.findViewById<Button>(R.id.button).setOnClickListener{
+        view.findViewById<Button>(R.id.button).setOnClickListener {
             viewPagerFragment.increment()
         }
     }

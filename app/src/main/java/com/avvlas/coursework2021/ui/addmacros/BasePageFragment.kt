@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
-import dagger.hilt.android.AndroidEntryPoint
 
 internal abstract class BasePageFragment(@LayoutRes contentLayoutId: Int) : Fragment(contentLayoutId) {
     protected lateinit var viewPagerFragment: AddMacrosFragment
