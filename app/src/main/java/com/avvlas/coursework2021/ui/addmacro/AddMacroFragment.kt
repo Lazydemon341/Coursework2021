@@ -3,20 +3,18 @@ package com.avvlas.coursework2021.ui.addmacro
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.avvlas.coursework2021.R
-import com.avvlas.coursework2021.ui.addmacro.actions.ActionsFragment
-import com.avvlas.coursework2021.ui.addmacro.triggers.TriggersFragment
+import com.avvlas.coursework2021.ui.addmacro.pages.actions.ActionsFragment
+import com.avvlas.coursework2021.ui.addmacro.pages.triggers.TriggersFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AddMacrosFragment : Fragment(R.layout.add_macro_fragment) {
+class AddMacrosFragment : Fragment(R.layout.fragment_add_macro) {
 
     private val viewModel: AddMacroViewModel by activityViewModels()
     private lateinit var viewPager: ViewPager2

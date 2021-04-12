@@ -15,6 +15,6 @@
         android:scrollbars="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:itemCount="5"
-        tools:listitem="@layout/actions_list_item" />
+        tools:listitem="@layout/item_options_category" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

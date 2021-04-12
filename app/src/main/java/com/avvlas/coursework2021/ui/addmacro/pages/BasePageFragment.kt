@@ -1,11 +1,12 @@
-package com.avvlas.coursework2021.ui.addmacro
+package com.avvlas.coursework2021.ui.addmacro.pages
 
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
+import com.avvlas.coursework2021.ui.addmacro.AddMacroViewModel
+import com.avvlas.coursework2021.ui.addmacro.AddMacrosFragment
 
 internal abstract class BasePageFragment(@LayoutRes contentLayoutId: Int) :
     Fragment(contentLayoutId) {

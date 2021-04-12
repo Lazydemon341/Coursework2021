@@ -1,10 +1,9 @@
-package com.avvlas.coursework2021.ui.addmacro.actions
+package com.avvlas.coursework2021.ui.addmacro.pages.actions
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import com.avvlas.coursework2021.R
-import com.avvlas.coursework2021.ui.addmacro.BasePageFragment
+import com.avvlas.coursework2021.ui.addmacro.pages.BasePageFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

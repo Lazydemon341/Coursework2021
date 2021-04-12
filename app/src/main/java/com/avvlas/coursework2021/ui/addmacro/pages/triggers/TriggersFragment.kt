@@ -1,12 +1,9 @@
-package com.avvlas.coursework2021.ui.addmacro.triggers
+package com.avvlas.coursework2021.ui.addmacro.pages.triggers
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import androidx.fragment.app.viewModels
 import com.avvlas.coursework2021.R
-import com.avvlas.coursework2021.ui.addmacro.AddMacroViewModel
-import com.avvlas.coursework2021.ui.addmacro.BasePageFragment
+import com.avvlas.coursework2021.ui.addmacro.pages.BasePageFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
