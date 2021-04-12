@@ -1,14 +1,10 @@
-package com.avvlas.coursework2021.ui.addmacros.actions
+package com.avvlas.coursework2021.ui.addmacro.actions
 
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import com.avvlas.coursework2021.R
-import com.avvlas.coursework2021.ui.addmacros.AddMacrosFragment
-import com.avvlas.coursework2021.ui.addmacros.AddMacrosViewModel
-import com.avvlas.coursework2021.ui.addmacros.BasePageFragment
+import com.avvlas.coursework2021.ui.addmacro.BasePageFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -16,10 +12,6 @@ internal class ActionsFragment : BasePageFragment(R.layout.fragment_actions) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        view.findViewById<Button>(R.id.button).setOnClickListener {
-            viewPagerFragment.increment()
-        }
     }
 
     companion object {
