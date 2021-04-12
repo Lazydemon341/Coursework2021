@@ -31,7 +31,11 @@ class AddMacrosFragment : Fragment(R.layout.fragment_add_macro) {
         viewPager = view.findViewById<ViewPager2>(R.id.pager)
         viewPager.adapter = PagerAdapter(this@AddMacrosFragment)
         TabLayoutMediator(view.findViewById(R.id.tab_layout), viewPager) { tab, position ->
-            tab.text = tabsTitles[position]
+            tab.text = when (position) {
+                0 -> TriggersFragment.TITLE
+                1 -> ActionsFragment.TITLE
+                else -> TriggersFragment.TITLE
+            }
         }.attach()
     }
 
