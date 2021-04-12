@@ -10,7 +10,7 @@ import com.avvlas.coursework2021.ui.addmacro.pages.BasePageFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-internal class TriggersFragment : BasePageFragment<Trigger>(R.layout.fragment_triggers) {
+internal class TriggersFragment : BasePageFragment<Trigger>(R.layout.fragment_add_macro_options) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

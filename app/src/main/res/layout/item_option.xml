@@ -8,8 +8,7 @@
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
     app:cardBackgroundColor="@color/blue_600"
-    app:cardCornerRadius="4dp"
-    app:cardElevation="8dp">
+    app:cardCornerRadius="4dp">
 
     <TextView
         android:id="@+id/option_title_text"

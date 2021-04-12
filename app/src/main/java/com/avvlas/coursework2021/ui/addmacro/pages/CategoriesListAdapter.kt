@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.domain.model.options.Category
 import com.avvlas.coursework2021.domain.model.options.Option
+import kotlin.math.roundToInt
 
 class CategoriesListAdapter<T : Option> :
     ListAdapter<Category<T>, CategoriesListAdapter<T>.CategoriesViewHolder>(DiffCallback<T>()) {
@@ -36,8 +37,18 @@ class CategoriesListAdapter<T : Option> :
 
         fun bind(category: Category<T>) {
             setTitleAndIcon(category)
-            optionsRecyclerView.adapter = OptionsListAdapter<T>().also {
-                this.adapter = it
+
+            optionsRecyclerView.apply {
+                optionsRecyclerView.adapter = OptionsListAdapter<T>().also {
+                    this@CategoriesViewHolder.adapter = it
+                }
+                addItemDecoration(
+                    GridSpacingItemDecoration(
+                        2,
+                        (8 * resources.displayMetrics.density).roundToInt(),
+                        false
+                    )
+                )
             }
             adapter.submitList(category.items)
         }
