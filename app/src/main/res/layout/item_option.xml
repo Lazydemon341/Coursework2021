@@ -8,20 +8,22 @@
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
     app:cardBackgroundColor="@color/blue_600"
-    app:cardCornerRadius="4dp">
+    app:cardCornerRadius="8dp"
+    app:cardElevation="0dp"
+    app:contentPadding="6dp">
 
     <TextView
         android:id="@+id/option_title_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginStart="2dp"
+        android:drawablePadding="@dimen/margin_small"
         android:maxLines="2"
         android:paddingTop="@dimen/margin_small"
         android:paddingBottom="@dimen/margin_small"
         android:textColor="@color/white"
         tools:drawableLeft="@drawable/ic_baseline_watch_24"
-        tools:drawablePadding="@dimen/margin_small"
         tools:text="Call Active" />
 
 </androidx.cardview.widget.CardView>

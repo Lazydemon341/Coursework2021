@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.avvlas.coursework2021.R
@@ -14,9 +15,9 @@ import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AddMacrosFragment : Fragment(R.layout.fragment_add_macro) {
+class AddMacroFragment : Fragment(R.layout.fragment_add_macro) {
 
-    private val viewModel: AddMacroViewModel by activityViewModels()
+    private val viewModel: AddMacroViewModel by viewModels()
     private lateinit var viewPager: ViewPager2
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -29,7 +30,7 @@ class AddMacrosFragment : Fragment(R.layout.fragment_add_macro) {
 
     private fun initViewPager(view: View) {
         viewPager = view.findViewById<ViewPager2>(R.id.pager)
-        viewPager.adapter = PagerAdapter(this@AddMacrosFragment)
+        viewPager.adapter = PagerAdapter(this@AddMacroFragment)
         TabLayoutMediator(view.findViewById(R.id.tab_layout), viewPager) { tab, position ->
             tab.text = when (position) {
                 0 -> TriggersFragment.TITLE
@@ -41,7 +42,7 @@ class AddMacrosFragment : Fragment(R.layout.fragment_add_macro) {
 
     companion object {
         @JvmStatic
-        fun newInstance() = AddMacrosFragment()
+        fun newInstance() = AddMacroFragment()
 
         private val tabsTitles = arrayOf("Triggers", "Actions")
 

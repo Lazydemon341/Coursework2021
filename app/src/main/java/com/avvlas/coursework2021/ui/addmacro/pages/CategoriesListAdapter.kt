@@ -1,5 +1,7 @@
 package com.avvlas.coursework2021.ui.addmacro.pages
 
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.domain.model.options.Category
 import com.avvlas.coursework2021.domain.model.options.Option
+import com.avvlas.coursework2021.utils.Utils
+import com.google.android.material.color.MaterialColors
 import kotlin.math.roundToInt
 
 class CategoriesListAdapter<T : Option> :
@@ -45,7 +49,7 @@ class CategoriesListAdapter<T : Option> :
                 addItemDecoration(
                     GridSpacingItemDecoration(
                         2,
-                        (8 * resources.displayMetrics.density).roundToInt(),
+                        Utils.dpToPx(resources, 8),
                         false
                     )
                 )
@@ -55,11 +59,20 @@ class CategoriesListAdapter<T : Option> :
 
         private fun setTitleAndIcon(category: Category<T>) {
             titleTextView.text = category.title
-            titleTextView.setCompoundDrawables(
+            titleTextView.setCompoundDrawablesWithIntrinsicBounds(
                 ContextCompat.getDrawable(
                     itemView.context,
                     category.icon
-                ), null, null, null
+                )?.apply {
+                    mutate().colorFilter = PorterDuffColorFilter(
+                        MaterialColors.getColor(
+                            itemView,
+                            R.attr.colorPrimary,
+                            ContextCompat.getColor(itemView.context, R.color.white)
+                        ),
+                        PorterDuff.Mode.SRC_IN
+                    )
+                }, null, null, null
             )
 
         }

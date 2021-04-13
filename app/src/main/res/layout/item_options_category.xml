@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_small"
     android:orientation="vertical">
 
     <TextView
@@ -11,10 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginStart="2dp"
+        android:drawablePadding="@dimen/margin_small"
         android:maxLines="1"
-        tools:drawableLeft="@drawable/ic_baseline_watch_24"
-        tools:drawablePadding="@dimen/margin_small"
+        android:textColor="?android:colorPrimary"
+        tools:drawableLeft="@drawable/ic_baseline_check_24"
         tools:text="Call Active" />
 
     <androidx.recyclerview.widget.RecyclerView

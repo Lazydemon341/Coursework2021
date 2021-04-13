@@ -3,9 +3,8 @@ package com.avvlas.coursework2021.ui
 import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentActivity
 import com.avvlas.coursework2021.R
-import com.avvlas.coursework2021.ui.addmacro.AddMacrosFragment
+import com.avvlas.coursework2021.ui.addmacro.AddMacroFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,7 +16,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         setSupportActionBar(findViewById(R.id.app_toolbar))
 
         supportFragmentManager.beginTransaction()
-            .add(R.id.fragment_container, AddMacrosFragment.newInstance())
+            .add(R.id.fragment_container, AddMacroFragment.newInstance())
             .commit()
     }
 

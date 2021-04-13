@@ -33,7 +33,7 @@ class OptionsListAdapter<T : Option> :
 
         fun bind(option: T) {
             titleTextView.text = option.title
-            titleTextView.setCompoundDrawables(
+            titleTextView.setCompoundDrawablesWithIntrinsicBounds(
                 ContextCompat.getDrawable(
                     itemView.context,
                     option.icon
