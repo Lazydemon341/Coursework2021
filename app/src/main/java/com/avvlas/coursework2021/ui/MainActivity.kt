@@ -5,6 +5,7 @@ import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.ui.addmacro.AddMacroFragment
+import com.avvlas.coursework2021.ui.macroslist.MacrosListFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

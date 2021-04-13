@@ -1,4 +1,4 @@
-package com.avvlas.coursework2021.ui.addmacro.pages
+package com.avvlas.coursework2021.ui.addmacro.pages.listadapters
 
 import android.view.LayoutInflater
 import android.view.View

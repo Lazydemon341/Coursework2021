@@ -1,4 +1,4 @@
-package com.avvlas.coursework2021.ui.addmacro.pages
+package com.avvlas.coursework2021.ui.addmacro.pages.listadapters
 
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
@@ -15,7 +15,6 @@ import com.avvlas.coursework2021.domain.model.options.Category
 import com.avvlas.coursework2021.domain.model.options.Option
 import com.avvlas.coursework2021.utils.Utils
 import com.google.android.material.color.MaterialColors
-import kotlin.math.roundToInt
 
 class CategoriesListAdapter<T : Option> :
     ListAdapter<Category<T>, CategoriesListAdapter<T>.CategoriesViewHolder>(DiffCallback<T>()) {
