@@ -1,11 +1,14 @@
 package com.avvlas.coursework2021.ui.addmacro
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.avvlas.coursework2021.R
@@ -19,12 +22,17 @@ class AddMacroFragment : Fragment(R.layout.fragment_add_macro) {
 
     private val viewModel: AddMacroViewModel by viewModels()
     private lateinit var viewPager: ViewPager2
+    private lateinit var navController: NavController
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // TODO: Use the ViewModel
 
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = TITLE
+        (requireActivity() as AppCompatActivity).supportActionBar?.apply {
+            title = TITLE
+            setDisplayHomeAsUpEnabled(true)
+        }
+        navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
         initViewPager(view)
     }
 

@@ -23,8 +23,10 @@ class MacrosListFragment : Fragment(R.layout.fragment_macros_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = TITLE
-
+        (requireActivity() as AppCompatActivity).supportActionBar?.apply {
+            title = TITLE
+            setDisplayHomeAsUpEnabled(false)
+        }
         navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
 
         view.findViewById<FloatingActionButton>(R.id.add_macro_fab).setOnClickListener {
