@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/macrosListFragment">
+
+    <fragment
+        android:id="@+id/macrosListFragment"
+        android:name="com.avvlas.coursework2021.ui.macroslist.MacrosListFragment"
+        android:label="fragment_macros_list"
+        tools:layout="@layout/fragment_macros_list" >
+        <action
+            android:id="@+id/action_macrosListFragment_to_addMacroFragment"
+            app:destination="@id/addMacroFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/macrosListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addMacroFragment"
+        android:name="com.avvlas.coursework2021.ui.addmacro.AddMacroFragment"
+        android:label="AddMacroFragment" />
+</navigation>

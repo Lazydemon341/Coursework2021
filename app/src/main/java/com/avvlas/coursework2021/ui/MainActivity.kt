@@ -15,10 +15,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
 
         setSupportActionBar(findViewById(R.id.app_toolbar))
-
-        supportFragmentManager.beginTransaction()
-            .add(R.id.fragment_container, AddMacroFragment.newInstance())
-            .commit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
