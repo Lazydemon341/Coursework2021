@@ -1,10 +1,12 @@
 package com.avvlas.coursework2021.ui.addmacro
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -50,7 +52,17 @@ class AddMacroFragment : Fragment(R.layout.fragment_add_macro) {
     }
 
     fun onBackPressed() {
-        // TODO: show dialog
+        requireActivity().let {
+            val builder = AlertDialog.Builder(it)
+            builder.setMessage("Quit without saving?")
+                .setPositiveButton("yes") { _, _ ->
+                    navController.navigateUp()
+                }
+                .setNegativeButton("no") { _, _ ->
+                    // Stay
+                }
+            builder.show()
+        }
     }
 
     companion object {

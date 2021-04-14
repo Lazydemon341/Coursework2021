@@ -27,14 +27,19 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                val currentFragment = supportFragmentManager.currentNavigationFragment
-                if (currentFragment is AddMacroFragment){
-                    currentFragment.onBackPressed()
-                }
                 onBackPressed()
                 return true
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        val currentFragment = supportFragmentManager.currentNavigationFragment
+        if (currentFragment is AddMacroFragment) {
+            currentFragment.onBackPressed()
+        } else {
+            super.onBackPressed()
+        }
     }
 }
