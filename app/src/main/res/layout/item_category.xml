@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/margin_small"
     android:orientation="vertical">
 
     <View
@@ -19,9 +18,11 @@
         android:layout_gravity="center"
         android:layout_marginStart="2dp"
         android:layout_marginTop="12dp"
+        android:layout_marginBottom="@dimen/margin_small"
         android:drawablePadding="@dimen/margin_small"
         android:maxLines="1"
         android:textColor="?android:colorPrimary"
+        android:textSize="16sp"
         tools:drawableLeft="@drawable/ic_baseline_check_24"
         tools:text="Call Active" />
 
@@ -29,7 +30,8 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"
         tools:listitem="@layout/item_option" />
