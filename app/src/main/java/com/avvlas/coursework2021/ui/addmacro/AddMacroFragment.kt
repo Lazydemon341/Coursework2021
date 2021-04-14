@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -46,6 +47,10 @@ class AddMacroFragment : Fragment(R.layout.fragment_add_macro) {
                 else -> TriggersFragment.TITLE
             }
         }.attach()
+    }
+
+    fun onBackPressed() {
+        // TODO: show dialog
     }
 
     companion object {
