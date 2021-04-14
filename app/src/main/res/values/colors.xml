@@ -7,4 +7,5 @@
     <color name="blue_A100_dark">#FF49a7cc</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="blue_600_transparent">#1A039be5</color>
 </resources>

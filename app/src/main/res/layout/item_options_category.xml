@@ -7,12 +7,18 @@
     android:layout_marginTop="@dimen/margin_small"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/blue_600_transparent" />
+
     <TextView
         android:id="@+id/category_title_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginStart="2dp"
+        android:layout_marginTop="12dp"
         android:drawablePadding="@dimen/margin_small"
         android:maxLines="1"
         android:textColor="?android:colorPrimary"
