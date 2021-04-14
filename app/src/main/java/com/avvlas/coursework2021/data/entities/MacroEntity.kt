@@ -11,10 +11,10 @@ import com.avvlas.coursework2021.domain.model.options.triggers.Trigger
 @Entity(tableName = "macros")
 class MacroEntity(
     var name: String,
-    @Embedded var triggers: ArrayList<Trigger>,
-    @Embedded var actions: ArrayList<Action>
+    @Embedded(prefix = "triggers_") var triggers: ArrayList<Trigger>,
+    @Embedded(prefix = "actions_") var actions: ArrayList<Action>
 ) {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     var id: Int = 0
 }
 

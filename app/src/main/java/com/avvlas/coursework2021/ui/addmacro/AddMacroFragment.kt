@@ -17,6 +17,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.ui.addmacro.pages.actions.ActionsFragment
 import com.avvlas.coursework2021.ui.addmacro.pages.triggers.TriggersFragment
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,6 +38,12 @@ class AddMacroFragment : Fragment(R.layout.fragment_add_macro) {
         }
         navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
         initViewPager(view)
+
+        view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
+            // TODO: check if valid
+            viewModel.saveMacro()
+            // quit after saving
+        }
     }
 
     private fun initViewPager(view: View) {

@@ -1,6 +1,6 @@
 package com.avvlas.coursework2021.di
 
-import com.avvlas.coursework2021.data.MacrosRepositoryImpl
+import com.avvlas.coursework2021.data.repository.MacrosRepositoryImpl
 import com.avvlas.coursework2021.domain.repository.MacrosRepository
 import dagger.Binds
 import dagger.Module
