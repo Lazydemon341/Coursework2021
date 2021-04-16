@@ -11,9 +11,10 @@ import com.avvlas.coursework2021.domain.model.options.Option
 import com.avvlas.coursework2021.ui.addmacro.AddMacroViewModel
 import com.avvlas.coursework2021.ui.addmacro.AddMacroFragment
 import com.avvlas.coursework2021.ui.addmacro.pages.listadapters.CategoriesListAdapter
+import com.avvlas.coursework2021.ui.addmacro.pages.listadapters.OptionsListAdapter
 
 internal abstract class BasePageFragment<T : Option>(@LayoutRes contentLayoutId: Int) :
-    Fragment(contentLayoutId) {
+    Fragment(contentLayoutId), OptionsListAdapter.OnOptionClickListener<T> {
 
     protected val viewModel: AddMacroViewModel by viewModels(
         ownerProducer = { requireParentFragment() }
@@ -30,7 +31,7 @@ internal abstract class BasePageFragment<T : Option>(@LayoutRes contentLayoutId:
     private fun initRecyclerView(view: View) {
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
 
-        recyclerView.adapter = CategoriesListAdapter<T>().also {
+        recyclerView.adapter = CategoriesListAdapter<T>(this).also {
             this.adapter = it
         }
     }

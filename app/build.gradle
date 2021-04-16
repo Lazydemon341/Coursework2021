@@ -71,4 +71,7 @@ dependencies {
     // Material Dialogs
     implementation 'com.afollestad.material-dialogs:core:3.3.0'
     implementation 'com.afollestad.material-dialogs:datetime:3.3.0'
+
+    // GSON
+    implementation 'com.google.code.gson:gson:2.8.6'
 }

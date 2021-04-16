@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Coursework2021</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="title_main_activity">Main</string>
 
     <string name="action_settings">Settings</string>
     <string name="add_macro_button">Add macro button</string>

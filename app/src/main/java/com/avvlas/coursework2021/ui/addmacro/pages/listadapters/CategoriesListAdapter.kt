@@ -25,7 +25,9 @@ import com.avvlas.coursework2021.utils.Utils
 import com.google.android.material.color.MaterialColors
 import kotlin.properties.Delegates
 
-class CategoriesListAdapter<T : Option> :
+class CategoriesListAdapter<T : Option>(
+    private val onOptionClickListener: OptionsListAdapter.OnOptionClickListener<T>
+) :
     ListAdapter<Category<T>, CategoriesListAdapter<T>.CategoriesViewHolder>(DiffCallback<T>()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriesViewHolder {
@@ -87,7 +89,7 @@ class CategoriesListAdapter<T : Option> :
 
         private fun initRecyclerView(category: Category<T>) {
             optionsRecyclerView.apply {
-                optionsRecyclerView.adapter = OptionsListAdapter<T>().also {
+                optionsRecyclerView.adapter = OptionsListAdapter<T>(onOptionClickListener).also {
                     this@CategoriesViewHolder.adapter = it
                 }
                 addItemDecoration(

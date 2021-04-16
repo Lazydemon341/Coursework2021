@@ -15,22 +15,27 @@ import com.avvlas.coursework2021.domain.model.options.Option
 import com.avvlas.coursework2021.domain.model.options.triggers.DayTimeTrigger
 import com.avvlas.coursework2021.domain.model.options.triggers.Trigger
 
-class OptionsListAdapter<T : Option> :
-    ListAdapter<T, OptionsListAdapter<T>.OptionsViewHolder>(DiffCallback<T>()) {
+class OptionsListAdapter<T : Option>(
+    private val onOptionClickListener: OnOptionClickListener<T>
+) : ListAdapter<T, OptionsListAdapter<T>.OptionsViewHolder>(DiffCallback<T>()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OptionsViewHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_option, parent, false)
-        return OptionsViewHolder(itemView)
+        return OptionsViewHolder(itemView, onOptionClickListener)
     }
 
     override fun onBindViewHolder(holder: OptionsViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
+    interface OnOptionClickListener<T : Option> {
+        fun onOptionClick(option: T)
+    }
 
     inner class OptionsViewHolder(
-        itemView: View
+        itemView: View,
+        private val onOptionClickListener: OnOptionClickListener<T>
     ) : RecyclerView.ViewHolder(itemView) {
 
         private val titleTextView: TextView = itemView.findViewById(R.id.option_title_text)
@@ -45,16 +50,7 @@ class OptionsListAdapter<T : Option> :
             )
 
             itemView.setOnClickListener {
-                // TODO: move this to fragment
-                if (option is Trigger) {
-                    when (option) {
-                        is DayTimeTrigger -> MaterialDialog(itemView.context).show {
-                            dateTimePicker(requireFutureDateTime = true) { _, dateTime ->
-                                // TODO: Use dateTime (Calendar)
-                            }
-                        }
-                    }
-                }
+                onOptionClickListener.onOptionClick(option)
             }
         }
     }

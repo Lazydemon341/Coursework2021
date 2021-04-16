@@ -18,10 +18,14 @@ internal class ActionsFragment : BasePageFragment<Action>(R.layout.fragment_opti
         adapter.submitList(items)
     }
 
+    override fun onOptionClick(option: Action) {
+        //TODO:
+        viewModel.macro.actions.add(option)
+    }
+
     companion object {
         const val TITLE = "Actions"
 
-        @JvmStatic
         fun newInstance() =
             ActionsFragment()
 

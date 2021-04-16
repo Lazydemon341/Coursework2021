@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
@@ -32,12 +33,15 @@ class MacrosListFragment : Fragment(R.layout.fragment_macros_list) {
         view.findViewById<FloatingActionButton>(R.id.add_macro_fab).setOnClickListener {
             navController.navigate(R.id.action_macrosListFragment_to_addMacroFragment)
         }
+
+        viewModel.macros.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
+        }
     }
 
     companion object {
         private const val TITLE = "Macros"
 
-        @JvmStatic
         fun newInstance() = MacrosListFragment()
     }
 }

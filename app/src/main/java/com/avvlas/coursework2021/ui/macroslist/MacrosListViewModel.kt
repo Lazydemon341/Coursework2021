@@ -10,4 +10,5 @@ class MacrosListViewModel @Inject constructor(
     macrosRepository: MacrosRepository
 ) : ViewModel() {
     // TODO: Implement the ViewModel
+    val macros = macrosRepository.getAllWithUpdates()
 }

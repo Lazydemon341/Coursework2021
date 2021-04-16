@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
+import com.avvlas.coursework2021.domain.model.options.triggers.DateTrigger
 import com.avvlas.coursework2021.domain.model.options.triggers.DayTimeTrigger
 import java.util.*
 
@@ -12,10 +13,8 @@ class TriggerBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         val trigger = intent?.extras?.get(TRIGGER)
         when (trigger) {
-            is DayTimeTrigger -> {
-                if (isDayTimeTriggerToday(trigger)) {
-                    Toast.makeText(context, "Day/Time Trigger", Toast.LENGTH_SHORT).show()
-                }
+            is DateTrigger -> {
+                Toast.makeText(context, "Date Trigger", Toast.LENGTH_SHORT).show()
             }
         }
     }
