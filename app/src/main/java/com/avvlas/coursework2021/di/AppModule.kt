@@ -3,6 +3,7 @@ package com.avvlas.coursework2021.di
 import android.content.Context
 import com.avvlas.coursework2021.data.MacrosDao
 import com.avvlas.coursework2021.data.MacrosDatabase
+import com.avvlas.coursework2021.domain.repository.MacrosRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,7 +13,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DataModule {
+object AppModule {
 
     @Provides
     @Singleton
@@ -23,4 +24,9 @@ object DataModule {
     @Singleton
     fun provideMacrosDao(database: MacrosDatabase): MacrosDao =
         database.macrosDao
+
+    @Provides
+    @Singleton
+    fun provideMacrosRepository(macrosDao: MacrosDao) =
+        MacrosRepository(macrosDao)
 }

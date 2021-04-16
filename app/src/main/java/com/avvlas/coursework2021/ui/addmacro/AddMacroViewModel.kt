@@ -12,7 +12,7 @@ import javax.inject.Inject
 class AddMacroViewModel @Inject constructor(
     private val macrosRepository: MacrosRepository
 ) : ViewModel() {
-    private val macro = Macro()
+    val macro = Macro()
 
     fun saveMacro() =
         viewModelScope.launch {

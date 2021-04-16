@@ -41,6 +41,7 @@ class AddMacroFragment : Fragment(R.layout.fragment_add_macro) {
 
         view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
             // TODO: check if valid
+            viewModel.macro.activate(requireContext())
             viewModel.saveMacro()
             // quit after saving
         }

@@ -55,20 +55,7 @@ class CategoriesListAdapter<T : Option> :
             setTitleAndIcon(category)
             initRecyclerView(category)
 
-            itemView.doOnLayout { view ->
-                originalHeight = view.height
-
-                // show expandView and record expandedHeight in next
-                // layout pass (doOnNextLayout) and hide it immediately
-                optionsRecyclerView.isVisible = true
-                itemView.doOnNextLayout {
-                    expandedHeight = it.height
-
-                    // We use post{} to hide the view. Otherwise the parent will not
-                    // measure itt again, since this block is done on the layout pass
-                    optionsRecyclerView.post { optionsRecyclerView.isVisible = false }
-                }
-            }
+            getCollapsedAndExpandedHeights()
 
             itemView.setOnClickListener {
                 if (expanded)
@@ -114,6 +101,23 @@ class CategoriesListAdapter<T : Option> :
             adapter.submitList(category.items)
         }
 
+        private fun getCollapsedAndExpandedHeights() {
+            itemView.doOnLayout { view ->
+                originalHeight = view.height
+
+                // show expandView and record expandedHeight in next
+                // layout pass (doOnNextLayout) and hide it immediately
+                optionsRecyclerView.isVisible = true
+                itemView.doOnNextLayout {
+                    expandedHeight = it.height
+
+                    // We use post{} to hide the view. Otherwise the parent will not
+                    // measure itt again, since this block is done on the layout pass
+                    optionsRecyclerView.post { optionsRecyclerView.isVisible = false }
+                }
+            }
+        }
+
         private fun expandCategory() {
             val animator = ValueAnimator.ofInt(originalHeight, expandedHeight)
             animator.interpolator = AccelerateDecelerateInterpolator()
@@ -152,8 +156,7 @@ class CategoriesListAdapter<T : Option> :
     }
 
 
-
-    companion object{
+    companion object {
         private const val EXPAND_DURATION = 200L
     }
 }

@@ -8,8 +8,12 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.datetime.dateTimePicker
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.domain.model.options.Option
+import com.avvlas.coursework2021.domain.model.options.triggers.DayTimeTrigger
+import com.avvlas.coursework2021.domain.model.options.triggers.Trigger
 
 class OptionsListAdapter<T : Option> :
     ListAdapter<T, OptionsListAdapter<T>.OptionsViewHolder>(DiffCallback<T>()) {
@@ -39,14 +43,27 @@ class OptionsListAdapter<T : Option> :
                     option.icon
                 ), null, null, null
             )
+
+            itemView.setOnClickListener {
+                // TODO: move this to fragment
+                if (option is Trigger) {
+                    when (option) {
+                        is DayTimeTrigger -> MaterialDialog(itemView.context).show {
+                            dateTimePicker(requireFutureDateTime = true) { _, dateTime ->
+                                // TODO: Use dateTime (Calendar)
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
     class DiffCallback<T : Option> : DiffUtil.ItemCallback<T>() {
         override fun areItemsTheSame(oldItem: T, newItem: T): Boolean =
-            oldItem.title == newItem.title
+            oldItem::class == newItem::class
 
         override fun areContentsTheSame(oldItem: T, newItem: T): Boolean =
-            oldItem == newItem
+            areItemsTheSame(oldItem, newItem)
     }
 }
