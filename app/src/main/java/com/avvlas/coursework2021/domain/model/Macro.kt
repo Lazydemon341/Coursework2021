@@ -10,8 +10,6 @@ import com.avvlas.coursework2021.domain.model.options.triggers.Trigger
 import kotlinx.parcelize.Parcelize
 
 // TODO: location, time, battery level, device boot...
-// TODO: one to many in db?
-// TODO: how to make lists immutable?
 @Parcelize
 data class Macro(
     var name: String = "",
@@ -30,5 +28,9 @@ data class Macro(
         for (trigger in triggers)
             trigger.cancel(this, context)
         activated = false
+    }
+
+    companion object{
+
     }
 }

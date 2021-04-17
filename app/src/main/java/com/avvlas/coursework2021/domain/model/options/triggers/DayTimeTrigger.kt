@@ -25,7 +25,7 @@ class DayTimeTrigger(
 
         val intent = Intent(context, TriggerBroadcastReceiver::class.java)
         intent.putExtra(TriggerBroadcastReceiver.MACRO, macro)
-        intent.putExtra(TriggerBroadcastReceiver.TRIGGER, this)
+        intent.putExtra(TriggerBroadcastReceiver.TRIGGER_TYPE, "Day/Time Trigger")
 
         val alarmPendingIntent = PendingIntent.getBroadcast(context, macro.hashCode(), intent, 0)
 

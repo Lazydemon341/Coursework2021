@@ -6,7 +6,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.datetime.dateTimePicker
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.domain.model.options.Category
-import com.avvlas.coursework2021.domain.model.options.triggers.DateTrigger
+import com.avvlas.coursework2021.domain.model.options.triggers.DateTimeTrigger
 import com.avvlas.coursework2021.domain.model.options.triggers.DayTimeTrigger
 import com.avvlas.coursework2021.domain.model.options.triggers.LocationTrigger
 import com.avvlas.coursework2021.domain.model.options.triggers.Trigger
@@ -23,7 +23,7 @@ internal class TriggersFragment : BasePageFragment<Trigger>(R.layout.fragment_op
 
     override fun onOptionClick(option: Trigger) {
         when (option) {
-            is DateTrigger -> MaterialDialog(viewPagerFragment.requireContext()).show {
+            is DateTimeTrigger -> MaterialDialog(viewPagerFragment.requireContext()).show {
                 dateTimePicker(
                     show24HoursView = true,
                     requireFutureDateTime = true
@@ -46,7 +46,7 @@ internal class TriggersFragment : BasePageFragment<Trigger>(R.layout.fragment_op
                 Category<Trigger>(
                     R.drawable.ic_baseline_watch_24, "Category1", arrayListOf(
                         DayTimeTrigger(),
-                        DateTrigger()
+                        DateTimeTrigger()
                     )
                 ),
                 Category<Trigger>(

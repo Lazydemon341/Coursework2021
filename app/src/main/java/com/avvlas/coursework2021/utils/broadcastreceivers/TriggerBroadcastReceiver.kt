@@ -4,17 +4,28 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
-import com.avvlas.coursework2021.domain.model.options.triggers.DateTrigger
+import com.avvlas.coursework2021.domain.model.Macro
 import com.avvlas.coursework2021.domain.model.options.triggers.DayTimeTrigger
+import com.avvlas.coursework2021.utils.Parcelables.toParcelable
+import com.avvlas.coursework2021.utils.Utils.CREATOR
 import java.util.*
 
 class TriggerBroadcastReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
-        val trigger = intent?.extras?.get(TRIGGER)
-        when (trigger) {
-            is DateTrigger -> {
-                Toast.makeText(context, "Date Trigger", Toast.LENGTH_SHORT).show()
+        val triggerType = intent?.getStringExtra(TRIGGER_TYPE)
+        val macro = intent?.getByteArrayExtra(MACRO)?.toParcelable(Macro.CREATOR)
+        when (triggerType) {
+            DATETIME_TRIGGER -> {
+                Toast.makeText(context, "Date Trigger: ${macro.toString()}", Toast.LENGTH_SHORT)
+                    .show()
+                macro?.actions?.let { actions ->
+                    actions.forEach {
+                        if (context != null) {
+                            it.execute(context)
+                        }
+                    }
+                }
             }
         }
     }
@@ -37,6 +48,7 @@ class TriggerBroadcastReceiver : BroadcastReceiver() {
 
     companion object {
         const val MACRO = "macro"
-        const val TRIGGER = "trigger"
+        const val TRIGGER_TYPE = "trigger_type"
+        const val DATETIME_TRIGGER = "date_time_trigger"
     }
 }
