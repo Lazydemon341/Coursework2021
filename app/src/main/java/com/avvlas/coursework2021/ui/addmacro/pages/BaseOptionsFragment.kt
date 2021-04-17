@@ -13,7 +13,7 @@ import com.avvlas.coursework2021.ui.addmacro.AddMacroFragment
 import com.avvlas.coursework2021.ui.addmacro.pages.listadapters.CategoriesListAdapter
 import com.avvlas.coursework2021.ui.addmacro.pages.listadapters.OptionsListAdapter
 
-internal abstract class BasePageFragment<T : Option>(@LayoutRes contentLayoutId: Int) :
+internal abstract class BaseOptionsFragment<T : Option>(@LayoutRes contentLayoutId: Int) :
     Fragment(contentLayoutId), OptionsListAdapter.OnOptionClickListener<T> {
 
     protected val viewModel: AddMacroViewModel by viewModels(

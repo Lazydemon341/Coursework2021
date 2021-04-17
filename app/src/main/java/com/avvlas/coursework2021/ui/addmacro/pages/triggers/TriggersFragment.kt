@@ -10,11 +10,11 @@ import com.avvlas.coursework2021.domain.model.options.triggers.DateTimeTrigger
 import com.avvlas.coursework2021.domain.model.options.triggers.DayTimeTrigger
 import com.avvlas.coursework2021.domain.model.options.triggers.LocationTrigger
 import com.avvlas.coursework2021.domain.model.options.triggers.Trigger
-import com.avvlas.coursework2021.ui.addmacro.pages.BasePageFragment
+import com.avvlas.coursework2021.ui.addmacro.pages.BaseOptionsFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-internal class TriggersFragment : BasePageFragment<Trigger>(R.layout.fragment_options_list) {
+internal class TriggersFragment : BaseOptionsFragment<Trigger>(R.layout.fragment_options_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

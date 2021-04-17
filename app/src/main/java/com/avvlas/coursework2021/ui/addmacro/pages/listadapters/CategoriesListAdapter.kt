@@ -11,7 +11,6 @@ import android.widget.TextView
 import androidx.core.animation.doOnEnd
 import androidx.core.animation.doOnStart
 import androidx.core.content.ContextCompat
-import androidx.core.view.doOnLayout
 import androidx.core.view.doOnNextLayout
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
@@ -23,7 +22,6 @@ import com.avvlas.coursework2021.domain.model.options.Category
 import com.avvlas.coursework2021.domain.model.options.Option
 import com.avvlas.coursework2021.utils.Utils
 import com.google.android.material.color.MaterialColors
-import kotlin.properties.Delegates
 
 class CategoriesListAdapter<T : Option>(
     private val onOptionClickListener: OptionsListAdapter.OnOptionClickListener<T>
@@ -104,7 +102,7 @@ class CategoriesListAdapter<T : Option>(
         }
 
         private fun getCollapsedAndExpandedHeights() {
-            itemView.doOnLayout { view ->
+            itemView.doOnPreDraw { view ->
                 originalHeight = view.height
 
                 // show expandView and record expandedHeight in next
@@ -114,7 +112,7 @@ class CategoriesListAdapter<T : Option>(
                     expandedHeight = it.height
 
                     // We use post{} to hide the view. Otherwise the parent will not
-                    // measure itt again, since this block is done on the layout pass
+                    // measure it again, since this block is done on the layout pass
                     optionsRecyclerView.post { optionsRecyclerView.isVisible = false }
                 }
             }
@@ -123,13 +121,13 @@ class CategoriesListAdapter<T : Option>(
         private fun expandCategory() {
             val animator = ValueAnimator.ofInt(originalHeight, expandedHeight)
             animator.interpolator = AccelerateDecelerateInterpolator()
-            animator.duration = EXPAND_DURATION
+            animator.duration = ANIMATOR_DURATION
             animator.addUpdateListener {
                 itemView.layoutParams.height = it.animatedValue as Int
 
                 itemView.requestLayout()
             }
-            animator.doOnEnd { optionsRecyclerView.isVisible = true }
+            animator.doOnStart { optionsRecyclerView.isVisible = true }
 
             animator.start()
         }
@@ -137,13 +135,13 @@ class CategoriesListAdapter<T : Option>(
         private fun collapseCategory() {
             val animator = ValueAnimator.ofInt(expandedHeight, originalHeight)
             animator.interpolator = AccelerateDecelerateInterpolator()
-            animator.duration = EXPAND_DURATION
+            animator.duration = ANIMATOR_DURATION
             animator.addUpdateListener {
                 itemView.layoutParams.height = it.animatedValue as Int
 
                 itemView.requestLayout()
             }
-            animator.doOnStart { optionsRecyclerView.isVisible = true }
+            animator.doOnEnd { optionsRecyclerView.isVisible = false }
 
             animator.start()
         }
@@ -159,6 +157,6 @@ class CategoriesListAdapter<T : Option>(
 
 
     companion object {
-        private const val EXPAND_DURATION = 200L
+        private const val ANIMATOR_DURATION = 200L
     }
 }

@@ -25,7 +25,10 @@ class DateTimeTrigger(
         val intent = Intent(context, TriggerBroadcastReceiver::class.java)
         val bundle = Bundle().apply {
             putByteArray(TriggerBroadcastReceiver.MACRO, macro.toByteArray())
-            putString(TriggerBroadcastReceiver.TRIGGER_TYPE, TriggerBroadcastReceiver.DATETIME_TRIGGER)
+            putString(
+                TriggerBroadcastReceiver.TRIGGER_TYPE,
+                TriggerBroadcastReceiver.DATETIME_TRIGGER
+            )
         }
         intent.putExtras(bundle)
         intent.action = "DateTrigger"
@@ -45,6 +48,14 @@ class DateTimeTrigger(
     }
 
     override fun cancel(macro: Macro, context: Context) {
-        TODO("Not yet implemented")
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, TriggerBroadcastReceiver::class.java)
+        val alarmPendingIntent = PendingIntent.getBroadcast(
+            context,
+            macro.hashCode(),
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+        alarmManager.cancel(alarmPendingIntent)
     }
 }

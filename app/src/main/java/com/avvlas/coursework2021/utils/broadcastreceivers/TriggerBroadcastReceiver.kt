@@ -46,6 +46,8 @@ class TriggerBroadcastReceiver : BroadcastReceiver() {
         }
     }
 
+
+
     companion object {
         const val MACRO = "macro"
         const val TRIGGER_TYPE = "trigger_type"

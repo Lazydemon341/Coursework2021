@@ -5,13 +5,12 @@ import android.view.View
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.domain.model.options.Category
 import com.avvlas.coursework2021.domain.model.options.actions.Action
-import com.avvlas.coursework2021.domain.model.options.triggers.Trigger
-import com.avvlas.coursework2021.ui.addmacro.pages.BasePageFragment
-import com.avvlas.coursework2021.ui.addmacro.pages.triggers.TriggersFragment
+import com.avvlas.coursework2021.domain.model.options.actions.ClearNotificationsAction
+import com.avvlas.coursework2021.ui.addmacro.pages.BaseOptionsFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-internal class ActionsFragment : BasePageFragment<Action>(R.layout.fragment_options_list) {
+internal class ActionsFragment : BaseOptionsFragment<Action>(R.layout.fragment_options_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,7 +30,13 @@ internal class ActionsFragment : BasePageFragment<Action>(R.layout.fragment_opti
 
         private val items =
             arrayListOf(
-                Category<Action>(R.drawable.ic_baseline_watch_24, "Category1", arrayListOf()),
+                Category<Action>(
+                    R.drawable.ic_baseline_circle_notifications_24,
+                    "Notifications",
+                    arrayListOf(
+                        ClearNotificationsAction()
+                    )
+                ),
                 Category<Action>(R.drawable.ic_baseline_watch_24, "Category1", arrayListOf()),
                 Category<Action>(R.drawable.ic_baseline_watch_24, "Category1", arrayListOf())
             )
