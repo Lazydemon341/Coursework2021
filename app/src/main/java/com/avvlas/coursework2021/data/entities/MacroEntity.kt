@@ -11,13 +11,10 @@ import com.avvlas.coursework2021.domain.model.options.triggers.Trigger
 @Entity(tableName = "macros")
 @TypeConverters(OptionsConverter::class)
 class MacroEntity(
-    var name: String,
+    @PrimaryKey var name: String,
     var triggers: ArrayList<Trigger>,
     var actions: ArrayList<Action>
-) {
-    @PrimaryKey(autoGenerate = true)
-    var id: Int = 0
-}
+)
 
 fun MacroEntity.toMacro(): Macro =
     Macro(

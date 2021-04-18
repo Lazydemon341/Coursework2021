@@ -1,8 +1,7 @@
-package com.avvlas.coursework2021.domain.repository
+package com.avvlas.coursework2021.data
 
 import androidx.lifecycle.liveData
 import androidx.lifecycle.map
-import com.avvlas.coursework2021.data.MacrosDao
 import com.avvlas.coursework2021.data.entities.toMacro
 import com.avvlas.coursework2021.data.entities.toMacroEntity
 import com.avvlas.coursework2021.domain.model.Macro
@@ -17,7 +16,7 @@ class MacrosRepository @Inject constructor(
         macrosDao.insert(macro.toMacroEntity())
     }
 
-    fun getAllWithUpdates() = liveData<List<Macro>>(Dispatchers.IO) {
+    fun getAllWithUpdates() = liveData(Dispatchers.IO) {
         emitSource(macrosDao.getAll().map { entities ->
             entities.map {
                 it.toMacro()

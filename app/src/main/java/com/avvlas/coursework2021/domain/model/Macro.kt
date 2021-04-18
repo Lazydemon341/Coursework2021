@@ -16,19 +16,24 @@ data class Macro(
     var name: String = "",
     val triggers: ArrayList<Trigger> = arrayListOf(),
     val actions: ArrayList<Action> = arrayListOf(),
-    var activated: Boolean = false
+    var isActivated: Boolean = false
 ) : Parcelable {
 
     fun activate(context: Context) {
         for (trigger in triggers)
             trigger.schedule(this, context)
-        activated = true
+        isActivated = true
     }
 
     fun deactivate(context: Context) {
         for (trigger in triggers)
             trigger.cancel(this, context)
-        activated = false
+        isActivated = false
+    }
+
+    fun runTest(context: Context) {
+        for (action in actions)
+            action.execute(context)
     }
 
     companion object {

@@ -36,7 +36,7 @@ object Parcelables {
         return result
     }
 
-    fun <T> ByteArray.toParcelable(
+    fun <T : Parcelable> ByteArray.toParcelable(
         creator: Parcelable.Creator<T>
     ): T {
         val parcel = Parcel.obtain()

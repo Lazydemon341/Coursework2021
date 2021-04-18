@@ -3,7 +3,7 @@ package com.avvlas.coursework2021.di
 import android.content.Context
 import com.avvlas.coursework2021.data.MacrosDao
 import com.avvlas.coursework2021.data.MacrosDatabase
-import com.avvlas.coursework2021.domain.repository.MacrosRepository
+import com.avvlas.coursework2021.data.MacrosRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

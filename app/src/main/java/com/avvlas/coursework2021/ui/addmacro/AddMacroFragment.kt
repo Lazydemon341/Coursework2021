@@ -14,6 +14,8 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.input.input
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.ui.addmacro.pages.actions.ActionsFragment
 import com.avvlas.coursework2021.ui.addmacro.pages.triggers.TriggersFragment
@@ -41,9 +43,18 @@ class AddMacroFragment : Fragment(R.layout.fragment_add_macro) {
 
         view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
             // TODO: check if valid
-            viewModel.macro.activate(requireContext())
-            viewModel.saveMacro()
-            // quit after saving
+            MaterialDialog(requireContext()).show {
+                title(text = "Macro name")
+                input(hint = "Enter macro name") { dialog, text ->
+                    viewModel.macro.name = text.toString()
+                    // Check if name if unique
+                    viewModel.macro.activate(requireContext())
+                    viewModel.saveMacro()
+                    navController.navigateUp()
+                }
+                positiveButton(text = "OK")
+                negativeButton(text = "CANCEL")
+            }
         }
     }
 
