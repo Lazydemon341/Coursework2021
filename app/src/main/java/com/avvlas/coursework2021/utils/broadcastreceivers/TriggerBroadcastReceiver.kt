@@ -15,6 +15,8 @@ class TriggerBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         val triggerType = intent?.getStringExtra(TRIGGER_TYPE)
         val macro = intent?.getByteArrayExtra(MACRO)?.toParcelable(Macro.CREATOR)
+
+        // TODO: this should be done in a service
         when (triggerType) {
             DATETIME_TRIGGER -> {
                 Toast.makeText(context, "Date Trigger: ${macro.toString()}", Toast.LENGTH_SHORT)
