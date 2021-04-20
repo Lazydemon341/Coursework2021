@@ -2,9 +2,6 @@ package com.avvlas.coursework2021.domain.model
 
 import android.content.Context
 import android.os.Parcelable
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.avvlas.coursework2021.domain.model.options.actions.Action
 import com.avvlas.coursework2021.domain.model.options.triggers.Trigger
 import kotlinx.parcelize.Parcelize
@@ -20,13 +17,13 @@ data class Macro(
 
     fun activate(context: Context) {
         for (trigger in triggers)
-            trigger.schedule(this, context)
+            trigger.schedule(context, this)
         isActivated = true
     }
 
     fun deactivate(context: Context) {
         for (trigger in triggers)
-            trigger.cancel(this, context)
+            trigger.cancel(context, this)
         isActivated = false
     }
 

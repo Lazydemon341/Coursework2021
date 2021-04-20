@@ -10,7 +10,11 @@ abstract class Trigger(
     title: String
 ) : Option(icon, title) {
 
-    abstract fun schedule(macro: Macro, context: Context)
+    abstract fun schedule(context: Context, macro: Macro)
 
-    abstract fun cancel(macro: Macro, context: Context)
+    abstract fun cancel(context: Context, macro: Macro)
+
+    open fun onClick(context: Context, macro: Macro){
+        macro.triggers.add(this)
+    }
 }

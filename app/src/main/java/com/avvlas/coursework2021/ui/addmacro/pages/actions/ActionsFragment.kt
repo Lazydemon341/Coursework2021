@@ -20,7 +20,7 @@ internal class ActionsFragment : BaseOptionsFragment<Action>(R.layout.fragment_o
     }
 
     override fun onOptionClick(option: Action) {
-        option.onClick(requireContext(), viewModel.macro)
+        option.onClick(requireActivity(), viewModel.macro)
     }
 
     companion object {
@@ -28,20 +28,20 @@ internal class ActionsFragment : BaseOptionsFragment<Action>(R.layout.fragment_o
 
         fun newInstance() =
             ActionsFragment()
-
-        private val items =
-            arrayListOf(
-                Category<Action>(
-                    R.drawable.ic_baseline_circle_notifications_24,
-                    "Notifications",
-                    arrayListOf(
-                        ChangeAutoRotateAction(),
-                        ChangeWifiStateAction(),
-                        ChangeBluetoothStateAction()
-                    )
-                ),
-                Category<Action>(R.drawable.ic_baseline_watch_24, "Category1", arrayListOf()),
-                Category<Action>(R.drawable.ic_baseline_watch_24, "Category1", arrayListOf())
-            )
     }
+
+    private val items =
+        arrayListOf(
+            Category<Action>(
+                R.drawable.ic_baseline_circle_notifications_24,
+                "Notifications",
+                arrayListOf(
+                    ChangeAutoRotateAction(),
+                    ChangeWifiStateAction(),
+                    ChangeBluetoothStateAction()
+                )
+            ),
+            Category<Action>(R.drawable.ic_baseline_watch_24, "Category1", arrayListOf()),
+            Category<Action>(R.drawable.ic_baseline_watch_24, "Category1", arrayListOf())
+        )
 }

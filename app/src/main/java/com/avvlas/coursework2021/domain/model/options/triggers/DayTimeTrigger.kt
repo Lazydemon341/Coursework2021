@@ -20,7 +20,7 @@ class DayTimeTrigger(
     val days: ArrayList<Boolean> = arrayListOf()
 ) : Trigger(icon, title) {
 
-    override fun schedule(macro: Macro, context: Context) {
+    override fun schedule(context: Context, macro: Macro) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         val intent = Intent(context, TriggerBroadcastReceiver::class.java)
@@ -49,10 +49,14 @@ class DayTimeTrigger(
         )
     }
 
-    override fun cancel(macro: Macro, context: Context) {
+    override fun cancel(context: Context, macro: Macro) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, TriggerBroadcastReceiver::class.java)
         val alarmPendingIntent = PendingIntent.getBroadcast(context, macro.hashCode(), intent, 0)
         alarmManager.cancel(alarmPendingIntent)
+    }
+
+    override fun onClick(context: Context, macro: Macro) {
+        TODO("Not yet implemented")
     }
 }
