@@ -5,7 +5,7 @@ import android.view.View
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.domain.model.options.Category
 import com.avvlas.coursework2021.domain.model.options.actions.Action
-import com.avvlas.coursework2021.domain.model.options.actions.ClearNotificationsAction
+import com.avvlas.coursework2021.domain.model.options.actions.ChangeAutoRotateAction
 import com.avvlas.coursework2021.ui.addmacro.pages.BaseOptionsFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,8 +18,7 @@ internal class ActionsFragment : BaseOptionsFragment<Action>(R.layout.fragment_o
     }
 
     override fun onOptionClick(option: Action) {
-        //TODO:
-        viewModel.macro.actions.add(option)
+        option.onClick(requireContext(), viewModel.macro)
     }
 
     companion object {
@@ -34,7 +33,7 @@ internal class ActionsFragment : BaseOptionsFragment<Action>(R.layout.fragment_o
                     R.drawable.ic_baseline_circle_notifications_24,
                     "Notifications",
                     arrayListOf(
-                        ClearNotificationsAction()
+                        ChangeAutoRotateAction()
                     )
                 ),
                 Category<Action>(R.drawable.ic_baseline_watch_24, "Category1", arrayListOf()),

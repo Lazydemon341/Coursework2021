@@ -45,7 +45,7 @@ class AddMacroFragment : Fragment(R.layout.fragment_add_macro) {
             // TODO: check if valid
             MaterialDialog(requireContext()).show {
                 title(text = "Macro name")
-                input(hint = "Enter macro name") { dialog, text ->
+                input(hint = "Enter macro name") { _, text ->
                     viewModel.macro.name = text.toString()
                     // Check if name if unique
                     viewModel.macro.activate(requireContext())

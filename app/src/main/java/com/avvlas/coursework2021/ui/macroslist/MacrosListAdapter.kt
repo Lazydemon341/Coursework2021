@@ -40,7 +40,9 @@ class MacrosListAdapter(
         fun bind(macro: Macro) {
             name.text = macro.name
             switch.isChecked = macro.isActivated
-            // TODO: deactivate
+            switch.setOnCheckedChangeListener { buttonView, isChecked ->
+                // TODO: change activation state
+            }
             itemView.setOnClickListener {
                 onMacroClickListener.onMacroClick(macro)
             }
