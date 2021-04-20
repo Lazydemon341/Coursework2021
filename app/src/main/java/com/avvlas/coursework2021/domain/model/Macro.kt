@@ -9,8 +9,7 @@ import com.avvlas.coursework2021.domain.model.options.actions.Action
 import com.avvlas.coursework2021.domain.model.options.triggers.Trigger
 import kotlinx.parcelize.Parcelize
 
-// TODO: make a test button which fires all the actions
-// TODO: location, time, battery level, device boot...
+// TODO: location, time, battery level, device boot, settings change...
 @Parcelize
 data class Macro(
     var name: String = "",
