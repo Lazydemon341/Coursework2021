@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Coursework2021</string>
+    <string name="app_name">AutoDroid</string>
     <string name="title_main_activity">AutoDroid</string>
 
     <string name="action_settings">Settings</string>

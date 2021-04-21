@@ -18,7 +18,7 @@ import kotlinx.parcelize.Parcelize
 class BluetoothStateChangeTrigger(
     @DrawableRes override val icon: Int = R.drawable.ic_baseline_calendar_today_24,
     override val title: String = "Bluetooth state",
-    var enabled: Boolean = false
+    var mode: Mode = Mode.CHANGED
 ) : Trigger(icon, title) {
 
     @IgnoredOnParcel
@@ -33,15 +33,19 @@ class BluetoothStateChangeTrigger(
                             BluetoothAdapter.EXTRA_STATE,
                             BluetoothAdapter.ERROR
                         )
-                        if (enabled && (state == BluetoothAdapter.STATE_ON || state == BluetoothAdapter.STATE_TURNING_ON) ||
-                            !enabled && (state == BluetoothAdapter.STATE_OFF || state == BluetoothAdapter.STATE_TURNING_OFF)
-                        ) {
+                        val flag = when (mode) {
+                            Mode.ON ->
+                                state == BluetoothAdapter.STATE_ON || state == BluetoothAdapter.STATE_TURNING_ON
+                            Mode.OFF ->
+                                state == BluetoothAdapter.STATE_OFF || state == BluetoothAdapter.STATE_TURNING_OFF
+                            Mode.CHANGED -> true
+                        }
+                        if (flag) {
                             for (action in macro.actions) {
                                 action.execute(context)
                             }
                         }
                     }
-                    context.unregisterReceiver(this)
                 }
             }
             context.registerReceiver(
@@ -63,13 +67,15 @@ class BluetoothStateChangeTrigger(
             title(text = "Choose trigger type")
             listItemsSingleChoice(
                 items = listOf(
+                    "Bluetooth On",
                     "Bluetooth Off",
-                    "Bluetooth On"
+                    "Bluetooth On/Off"
                 ), initialSelection = 0
             ) { _, choice, _ ->
                 when (choice) {
-                    0 -> enabled = false
-                    1 -> enabled = true
+                    0 -> mode = Mode.ON
+                    1 -> mode = Mode.OFF
+                    2 -> mode = Mode.CHANGED
                 }
             }
             positiveButton(text = "OK") {
@@ -77,5 +83,11 @@ class BluetoothStateChangeTrigger(
             }
             negativeButton(text = "CANCEL")
         }
+    }
+
+    enum class Mode {
+        ON,
+        OFF,
+        CHANGED
     }
 }
