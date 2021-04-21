@@ -13,7 +13,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 class ChangeWifiStateAction(
-    @DrawableRes override val icon: Int = R.drawable.ic_baseline_screen_rotation_24,
+    @DrawableRes override val icon: Int = R.drawable.ic_baseline_wifi_24,
     override val title: String = "Wifi On/Off",
     private var enable: Boolean = false
 ) : Action(icon, title) {

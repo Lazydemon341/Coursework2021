@@ -3,8 +3,8 @@ package com.avvlas.coursework2021.ui.addmacro
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.avvlas.coursework2021.R
-import com.avvlas.coursework2021.domain.model.Macro
 import com.avvlas.coursework2021.data.MacrosRepository
+import com.avvlas.coursework2021.domain.model.Macro
 import com.avvlas.coursework2021.domain.model.options.Category
 import com.avvlas.coursework2021.domain.model.options.actions.*
 import com.avvlas.coursework2021.domain.model.options.triggers.*
@@ -25,7 +25,9 @@ class AddMacroViewModel @Inject constructor(
                 R.drawable.ic_baseline_watch_24, "Category1", arrayListOf(
                     DayTimeTrigger(),
                     DateTimeTrigger(),
-                    BluetoothStateChangeTrigger()
+                    BluetoothStateChangeTrigger(),
+                    RingerModeChangeTrigger(),
+                    //WifiStateChangeTrigger()
                 )
             ),
             Category<Trigger>(

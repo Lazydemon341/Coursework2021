@@ -1,6 +1,5 @@
 package com.avvlas.coursework2021.domain.model.options.triggers
 
-import android.bluetooth.BluetoothAdapter
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent

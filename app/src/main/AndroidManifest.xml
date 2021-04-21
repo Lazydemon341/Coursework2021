@@ -9,6 +9,7 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
@@ -56,14 +57,13 @@
             android:enabled="true"
             android:permission="TODO">
             <intent-filter>
-                <action android:name="BluetoothAdapter.ACTION_STATE_CHANGED" />
                 <action android:name="android.intent.action.NOTIFY" />
             </intent-filter>
         </receiver>
 
-        <service android:name=".utils.services.AppForegroundService"
-            android:enabled="true">
-        </service>
+        <service
+            android:name=".utils.services.AppForegroundService"
+            android:enabled="true" />
     </application>
 
 </manifest>

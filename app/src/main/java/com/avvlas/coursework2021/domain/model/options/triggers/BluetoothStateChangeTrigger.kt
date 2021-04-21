@@ -17,7 +17,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 class BluetoothStateChangeTrigger(
     @DrawableRes override val icon: Int = R.drawable.ic_baseline_calendar_today_24,
-    override val title: String = "Bluetooth state",
+    override val title: String = "Bluetooth",
     var mode: Mode = Mode.CHANGED
 ) : Trigger(icon, title) {
 

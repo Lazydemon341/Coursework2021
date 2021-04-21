@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import com.avvlas.coursework2021.App
+import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.ui.MainActivity
 
 
@@ -19,7 +20,7 @@ class AppForegroundService : Service() {
 
         // do your jobs here
         startForeground()
-        return super.onStartCommand(intent, flags, startId)
+        return super.onStartCommand(intent, flags, startId) // TODO: start sticky?
     }
 
     private fun startForeground() {
@@ -34,7 +35,7 @@ class AppForegroundService : Service() {
                 // TODO: set icon and title
                 .setOngoing(true)
                 //.setSmallIcon(R.drawable.ic_notification)
-                //.setContentTitle(getString(R.string.app_name))
+                .setContentTitle(getString(R.string.app_name))
                 .setContentText("Service is running background")
                 .setContentIntent(pendingIntent)
                 .build()
