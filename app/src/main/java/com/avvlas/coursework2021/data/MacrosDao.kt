@@ -1,10 +1,7 @@
 package com.avvlas.coursework2021.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.avvlas.coursework2021.data.entities.MacroEntity
 
 @Dao
@@ -18,4 +15,7 @@ interface MacrosDao {
 
     @Update
     fun update(macro: MacroEntity)
+
+    @Delete
+    fun delete(macro: MacroEntity)
 }

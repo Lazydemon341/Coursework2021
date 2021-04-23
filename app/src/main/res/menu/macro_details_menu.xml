@@ -3,18 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_delete_macro"
+        android:id="@+id/delete_macro"
         android:icon="@drawable/ic_baseline_delete_outline_24"
         android:title="@string/action_delete_macro"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_test_actions"
+        android:id="@+id/test_actions"
         android:title="@string/action_test_actions"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_rename_macro"
+        android:id="@+id/rename_macro"
         android:title="@string/action_rename_macro"
         app:showAsAction="never" />
 

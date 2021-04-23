@@ -3,6 +3,7 @@ package com.avvlas.coursework2021.ui.macrodetails
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -53,24 +54,6 @@ class MacroDetailsFragment : Fragment(R.layout.fragment_macro_details) {
         navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
     }
 
-    fun onBackPressed() {
-        navController.navigateUp()
-    }
-
-    fun renameMacro() {
-        MaterialDialog(requireContext()).show {
-            title(text = "Rename macro")
-            input(hint = "Enter new name") { _, text ->
-                viewModel.macro.name = text.toString()
-                // Check if name is unique
-                viewModel.updateMacro()
-                navController.navigateUp()
-            }
-            positiveButton(text = "OK")
-            negativeButton(text = "CANCEL")
-        }
-    }
-
     private fun setupMacroDetails(view: View, macro: Macro) {
         actionBar.title = viewModel.macro.name
     }
@@ -79,13 +62,61 @@ class MacroDetailsFragment : Fragment(R.layout.fragment_macro_details) {
         // TODO
     }
 
+
+    fun onBackPressed() {
+        navController.navigateUp()
+    }
+
+    private fun renameMacro() {
+        MaterialDialog(requireContext()).show {
+            title(text = "Rename macro")
+            input(hint = "Enter new name") { _, text ->
+                viewModel.macro.name = text.toString()
+                this@MacroDetailsFragment.actionBar.title = viewModel.macro.name
+                // TODO: check if name is unique
+                viewModel.updateMacro()
+            }
+            positiveButton(text = "OK")
+            negativeButton(text = "CANCEL")
+        }
+    }
+
+    private fun deleteMacro() {
+        MaterialDialog(requireContext()).show {
+            title(text = "Delete macro")
+            message(text = "Are you sure to delete this macro?")
+            positiveButton(text = "YES") {
+                viewModel.macro.deactivate(requireContext())
+                viewModel.deleteMacro()
+                viewModel.deletionState.observe(viewLifecycleOwner) {
+                    if (it) {
+                        navController.navigateUp()
+                    }
+                }
+            }
+            negativeButton(text = "NO")
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.macro_details_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.rename_macro -> {
+                renameMacro()
+            }
+            R.id.delete_macro -> {
+                deleteMacro()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {
         private const val TITLE = "MacroDetails"
 
-        private const val ARG_MACRO = "macro"
+        internal const val ARG_MACRO = "macro"
     }
 }

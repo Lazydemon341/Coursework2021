@@ -1,10 +1,7 @@
 package com.avvlas.coursework2021.ui.macrodetails
 
 import android.os.Bundle
-import androidx.lifecycle.AbstractSavedStateViewModelFactory
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.savedstate.SavedStateRegistryOwner
 import com.avvlas.coursework2021.data.MacrosRepository
 import com.avvlas.coursework2021.domain.model.Macro
@@ -18,11 +15,19 @@ class MacroDetailsViewModel @AssistedInject constructor(
     @Assisted savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    internal val macro = savedStateHandle.get<Macro>("macro")
+    internal val macro = savedStateHandle.get<Macro>(MacroDetailsFragment.ARG_MACRO)
         ?: throw IllegalArgumentException("Macro required")
+
+    private val mutableDeletionState = MutableLiveData<Boolean>(false)
+    internal val deletionState: LiveData<Boolean> get() = mutableDeletionState
 
     internal fun updateMacro() = viewModelScope.launch {
         macrosRepository.update(macro)
+    }
+
+    internal fun deleteMacro() = viewModelScope.launch {
+        macrosRepository.delete(macro)
+        mutableDeletionState.value = true
     }
 
     @AssistedFactory
