@@ -85,11 +85,6 @@ class AddMacroFragment : Fragment(R.layout.fragment_add_macro) {
     }
 
     companion object {
-        @JvmStatic
-        fun newInstance() = AddMacroFragment()
-
-        private val tabsTitles = arrayOf("Triggers", "Actions")
-
         private const val TITLE = "Create macro"
     }
 }

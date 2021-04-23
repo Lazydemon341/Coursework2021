@@ -9,7 +9,7 @@
         android:id="@+id/macrosListFragment"
         android:name="com.avvlas.coursework2021.ui.macroslist.MacrosListFragment"
         android:label="fragment_macros_list"
-        tools:layout="@layout/fragment_macros_list" >
+        tools:layout="@layout/fragment_macros_list">
         <action
             android:id="@+id/action_macrosListFragment_to_addMacroFragment"
             app:destination="@id/addMacroFragment"
@@ -18,9 +18,28 @@
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right"
             app:popUpTo="@id/macrosListFragment" />
+        <action
+            android:id="@+id/action_macrosListFragment_to_macroDetailsFragment"
+            app:destination="@id/macroDetailsFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
+            app:popUpTo="@id/macrosListFragment">
+        </action>
     </fragment>
     <fragment
         android:id="@+id/addMacroFragment"
         android:name="com.avvlas.coursework2021.ui.addmacro.AddMacroFragment"
         android:label="AddMacroFragment" />
+    <fragment
+        android:id="@+id/macroDetailsFragment"
+        android:name="com.avvlas.coursework2021.ui.macrodetails.MacroDetailsFragment"
+        android:label="MacroDetailsFragment" >
+        <argument
+            android:name="macro"
+            app:argType="com.avvlas.coursework2021.domain.model.Macro"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 </navigation>

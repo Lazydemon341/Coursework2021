@@ -1,23 +1,16 @@
 package com.avvlas.coursework2021.ui.macroslist
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.domain.model.Macro
-import com.avvlas.coursework2021.ui.addmacro.AddMacroFragment
-import com.avvlas.coursework2021.ui.addmacro.pages.listadapters.CategoriesListAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -41,7 +34,6 @@ class MacrosListFragment : Fragment(R.layout.fragment_macros_list),
     private fun setupStatusBar() {
         (requireActivity() as AppCompatActivity).supportActionBar?.apply {
             title = TITLE
-            setDisplayHomeAsUpEnabled(false)
         }
     }
 
@@ -68,8 +60,9 @@ class MacrosListFragment : Fragment(R.layout.fragment_macros_list),
     }
 
     override fun onMacroClick(macro: Macro) {
-        // TODO: Open macro details fragment
-        macro.runTest(requireContext())
+        val bundle = bundleOf("macro" to macro)
+        navController.navigate(R.id.action_macrosListFragment_to_macroDetailsFragment, bundle)
+        //macro.runTest(requireContext()) TODO: move this to macroDetailsFragment
     }
 
     companion object {

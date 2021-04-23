@@ -6,7 +6,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.ui.addmacro.AddMacroFragment
-import com.avvlas.coursework2021.ui.macroslist.MacrosListFragment
+import com.avvlas.coursework2021.ui.macrodetails.MacroDetailsFragment
 import com.avvlas.coursework2021.utils.Utils.currentNavigationFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.action_bar, menu)
+        menuInflater.inflate(R.menu.main_menu, menu)
         return true
     }
 
@@ -37,6 +37,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onBackPressed() {
         val currentFragment = supportFragmentManager.currentNavigationFragment
         if (currentFragment is AddMacroFragment) {
+            currentFragment.onBackPressed()
+        } else if (currentFragment is MacroDetailsFragment) {
             currentFragment.onBackPressed()
         } else {
             super.onBackPressed()
