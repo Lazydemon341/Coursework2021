@@ -4,4 +4,7 @@
 
     <string name="action_settings">Settings</string>
     <string name="add_macro_button">Add macro button</string>
+    <string name="action_delete_macro">Delete</string>
+    <string name="action_test_actions">Test actions</string>
+    <string name="action_rename_macro">Rename</string>
 </resources>

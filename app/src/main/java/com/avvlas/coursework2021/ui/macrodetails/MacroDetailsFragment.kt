@@ -22,6 +22,11 @@ class MacroDetailsFragment : Fragment(R.layout.fragment_macro_details) {
 
     private lateinit var actionBar: ActionBar
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
