@@ -16,4 +16,8 @@
         <item name="android:itemTextAppearance">@style/MenuTextAppearance</item>
         <item name="android:textColorPrimary">@color/black</item>
     </style>
+
+    <style name="Theme.MySwitchTheme" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">?colorSecondary</item>
+    </style>
 </resources>

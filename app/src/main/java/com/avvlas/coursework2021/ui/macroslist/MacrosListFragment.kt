@@ -16,7 +16,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MacrosListFragment : Fragment(R.layout.fragment_macros_list),
-    MacrosListAdapter.OnMacroClickListener {
+    MacrosListAdapter.OnMacroClickListener,
+    MacrosListAdapter.OnMacroSwitchListener {
 
     private val viewModel: MacrosListViewModel by viewModels()
     private lateinit var navController: NavController
@@ -48,7 +49,7 @@ class MacrosListFragment : Fragment(R.layout.fragment_macros_list),
     private fun setupRecyclerView(view: View) {
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
 
-        recyclerView.adapter = MacrosListAdapter(this).also {
+        recyclerView.adapter = MacrosListAdapter(this, this).also {
             this.adapter = it
         }
     }
@@ -62,7 +63,15 @@ class MacrosListFragment : Fragment(R.layout.fragment_macros_list),
     override fun onMacroClick(macro: Macro) {
         val bundle = bundleOf("macro" to macro)
         navController.navigate(R.id.action_macrosListFragment_to_macroDetailsFragment, bundle)
-        //macro.runTest(requireContext()) TODO: move this to macroDetailsFragment
+    }
+
+    override fun onMacroSwitch(macro: Macro) {
+        if (macro.isActivated) {
+            macro.deactivate(requireContext())
+        } else {
+            macro.activate(requireContext())
+        }
+        viewModel.updateMacro(macro)
     }
 
     companion object {

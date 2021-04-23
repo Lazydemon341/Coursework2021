@@ -46,22 +46,16 @@ class MacroDetailsFragment : Fragment(R.layout.fragment_macro_details) {
         setupNavController()
 
         val macro = arguments?.getParcelable<Macro>(ARG_MACRO) ?: return
-        setupMacroDetails(view, macro)
-        setupViewModel()
+        setupMacroDetails(view)
     }
 
     private fun setupNavController() {
         navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
     }
 
-    private fun setupMacroDetails(view: View, macro: Macro) {
+    private fun setupMacroDetails(view: View) {
         actionBar.title = viewModel.macro.name
     }
-
-    private fun setupViewModel() {
-        // TODO
-    }
-
 
     fun onBackPressed() {
         navController.navigateUp()
@@ -109,6 +103,9 @@ class MacroDetailsFragment : Fragment(R.layout.fragment_macro_details) {
             }
             R.id.delete_macro -> {
                 deleteMacro()
+            }
+            R.id.test_actions -> {
+                viewModel.macro.runTest(requireContext())
             }
         }
         return super.onOptionsItemSelected(item)
