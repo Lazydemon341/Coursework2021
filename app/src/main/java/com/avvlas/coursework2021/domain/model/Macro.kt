@@ -9,6 +9,7 @@ import kotlinx.parcelize.Parcelize
 // TODO: location, time, battery level, device boot, settings change...
 @Parcelize
 data class Macro(
+    var id: Long = 0,
     var name: String = "",
     val triggers: ArrayList<Trigger> = arrayListOf(),
     val actions: ArrayList<Action> = arrayListOf(),

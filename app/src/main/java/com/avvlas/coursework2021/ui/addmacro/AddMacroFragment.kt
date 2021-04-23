@@ -1,14 +1,10 @@
 package com.avvlas.coursework2021.ui.addmacro
 
-import android.content.DialogInterface
 import android.os.Bundle
-import android.view.MenuItem
-import androidx.fragment.app.Fragment
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -42,7 +38,7 @@ class AddMacroFragment : Fragment(R.layout.fragment_add_macro) {
         initViewPager(view)
 
         view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
-            // TODO: check if valid
+            // TODO: check if valid( at least one trigger and action)
             MaterialDialog(requireContext()).show {
                 title(text = "Macro name")
                 input(hint = "Enter macro name") { _, text ->

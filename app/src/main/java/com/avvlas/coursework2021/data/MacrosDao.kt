@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.avvlas.coursework2021.data.entities.MacroEntity
-import com.avvlas.coursework2021.domain.model.Macro
 
 @Dao
 interface MacrosDao {
@@ -15,4 +15,7 @@ interface MacrosDao {
 
     @Insert // TODO: onconflict?
     fun insert(macro: MacroEntity)
+
+    @Update
+    fun update(macro: MacroEntity)
 }

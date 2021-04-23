@@ -10,17 +10,24 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.input.input
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.domain.model.Macro
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MacroDetailsFragment : Fragment(R.layout.fragment_macro_details) {
 
-    private val viewModel: MacroDetailsViewModel by viewModels()
     private lateinit var navController: NavController
-
     private lateinit var actionBar: ActionBar
+
+    @Inject
+    lateinit var viewModelFactory: MacroDetailsViewModel.Factory
+    private val viewModel: MacroDetailsViewModel by viewModels {
+        MacroDetailsViewModel.provideFactory(viewModelFactory, this, arguments)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,8 +57,22 @@ class MacroDetailsFragment : Fragment(R.layout.fragment_macro_details) {
         navController.navigateUp()
     }
 
+    fun renameMacro() {
+        MaterialDialog(requireContext()).show {
+            title(text = "Rename macro")
+            input(hint = "Enter new name") { _, text ->
+                viewModel.macro.name = text.toString()
+                // Check if name is unique
+                viewModel.updateMacro()
+                navController.navigateUp()
+            }
+            positiveButton(text = "OK")
+            negativeButton(text = "CANCEL")
+        }
+    }
+
     private fun setupMacroDetails(view: View, macro: Macro) {
-        actionBar.title = macro.name
+        actionBar.title = viewModel.macro.name
     }
 
     private fun setupViewModel() {
