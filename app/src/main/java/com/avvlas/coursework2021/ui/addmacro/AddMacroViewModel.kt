@@ -27,6 +27,7 @@ class AddMacroViewModel @Inject constructor(
                     DateTimeTrigger(),
                     BluetoothStateChangeTrigger(),
                     RingerModeChangeTrigger(),
+                    PowerConnectionTrigger()
                     //WifiStateChangeTrigger()
                 )
             ),

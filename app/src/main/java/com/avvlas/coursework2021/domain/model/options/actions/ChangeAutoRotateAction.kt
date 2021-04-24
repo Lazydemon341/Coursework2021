@@ -22,7 +22,7 @@ class ChangeAutoRotateAction(
     private var enable: Boolean = false
 ) : Action(icon, title) {
 
-    override fun execute(context: Context) {
+    override suspend fun execute(context: Context) {
         if (Settings.System.canWrite(context)) {
             Settings.System.putInt(
                 context.contentResolver,

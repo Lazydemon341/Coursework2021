@@ -20,7 +20,7 @@ class ChangeWifiStateAction(
     private var enable: Boolean = false
 ) : Action(icon, title) {
 
-    override fun execute(context: Context) {
+    override suspend fun execute(context: Context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             val panelIntent = Intent(Settings.Panel.ACTION_INTERNET_CONNECTIVITY)
             startActivity(context, panelIntent, null)

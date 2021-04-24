@@ -10,10 +10,6 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItemsSingleChoice
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.domain.model.Macro
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -25,7 +21,7 @@ class RingerModeChangeTrigger(
 
     override fun schedule(context: Context, macro: Macro) {
         if (receiver == null) {
-            receiver = object : BaseRingerModeChangeReceiver() {
+            receiver = object : RingerModeChangeReceiver() {
                 override fun onReceive(context: Context, intent: Intent) {
                     if (intent.action == AudioManager.RINGER_MODE_CHANGED_ACTION) {
                         val mode = intent.getIntExtra(
@@ -40,11 +36,7 @@ class RingerModeChangeTrigger(
                                 Mode.CHANGED -> true
                             }
                             if (flag) {
-                                CoroutineScope(SupervisorJob() + Dispatchers.Default).launch() {
-                                    for (action in pair.first.actions) {
-                                        action.execute(context)
-                                    }
-                                }
+                                pair.first.runActions(context)
                             }
                         }
                     }
@@ -60,8 +52,13 @@ class RingerModeChangeTrigger(
 
     override fun cancel(context: Context, macro: Macro) {
         receiver?.let {
-            context.unregisterReceiver(it)
-            receiver = null
+            it.macrosWithRingerModes.removeAll { pair ->
+                pair.first == macro
+            }
+            if (it.macrosWithRingerModes.size == 0) {
+                context.unregisterReceiver(it)
+                receiver = null
+            }
         }
     }
 
@@ -95,11 +92,11 @@ class RingerModeChangeTrigger(
     }
 
     companion object {
-        private var receiver: BaseRingerModeChangeReceiver? = null
+        private var receiver: RingerModeChangeReceiver? = null
     }
 }
 
-private abstract class BaseRingerModeChangeReceiver : BroadcastReceiver() {
+private abstract class RingerModeChangeReceiver : BroadcastReceiver() {
     val macrosWithRingerModes = arrayListOf<Pair<Macro, RingerModeChangeTrigger.Mode>>()
 }
 

@@ -4,6 +4,10 @@ import android.content.Context
 import android.os.Parcelable
 import com.avvlas.coursework2021.domain.model.options.actions.Action
 import com.avvlas.coursework2021.domain.model.options.triggers.Trigger
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 
 // TODO: location, time, battery level, device boot, settings change...
@@ -28,9 +32,12 @@ data class Macro(
         isActivated = false
     }
 
-    fun runTest(context: Context) {
-        for (action in actions)
-            action.execute(context)
+    fun runActions(context: Context) {
+        CoroutineScope(SupervisorJob() + Dispatchers.Default).launch {
+            for (action in actions) {
+                action.execute(context)
+            }
+        }
     }
 
     companion object {

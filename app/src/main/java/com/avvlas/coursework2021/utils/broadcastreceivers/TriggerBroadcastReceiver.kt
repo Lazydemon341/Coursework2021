@@ -16,17 +16,13 @@ class TriggerBroadcastReceiver : BroadcastReceiver() {
         val triggerType = intent?.getStringExtra(TRIGGER_TYPE)
         val macro = intent?.getByteArrayExtra(MACRO)?.toParcelable(Macro.CREATOR)
 
-        // TODO: this should be done in a service
+        // TODO: this should be done in a service?
         when (triggerType) {
             DATETIME_TRIGGER -> {
                 Toast.makeText(context, "Date Trigger: ${macro.toString()}", Toast.LENGTH_SHORT)
                     .show()
-                macro?.actions?.let { actions ->
-                    actions.forEach {
-                        if (context != null) {
-                            it.execute(context)
-                        }
-                    }
+                context?.let {
+                    macro?.runActions(it)
                 }
             }
         }
@@ -47,7 +43,6 @@ class TriggerBroadcastReceiver : BroadcastReceiver() {
             else -> false
         }
     }
-
 
 
     companion object {

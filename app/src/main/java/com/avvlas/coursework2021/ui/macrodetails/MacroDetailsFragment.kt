@@ -105,7 +105,7 @@ class MacroDetailsFragment : Fragment(R.layout.fragment_macro_details) {
                 deleteMacro()
             }
             R.id.test_actions -> {
-                viewModel.macro.runTest(requireContext())
+                viewModel.macro.runActions(requireContext())
             }
         }
         return super.onOptionsItemSelected(item)

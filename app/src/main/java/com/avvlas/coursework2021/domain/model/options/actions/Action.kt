@@ -10,9 +10,9 @@ abstract class Action(
     title: String
 ) : Option(icon, title) {
 
-    abstract fun execute(context: Context)
+    abstract suspend fun execute(context: Context)
 
-    open fun onClick(context: Context, macro: Macro){
+    open fun onClick(context: Context, macro: Macro) {
         macro.actions.add(this)
     }
 }

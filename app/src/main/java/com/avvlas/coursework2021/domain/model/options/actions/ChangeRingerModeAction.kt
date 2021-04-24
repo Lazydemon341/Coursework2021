@@ -19,18 +19,17 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 class ChangeRingerModeAction(
-    @DrawableRes override val icon: Int = R.drawable.ic_baseline_volume_up_24,
-    override val title: String = "Sound mode",
+    @DrawableRes override val icon: Int = R.drawable.ic_baseline_battery_charging_full_24,
+    override val title: String = "Sound Mode",
     private var mode: Int = AudioManager.RINGER_MODE_NORMAL
 ) : Action(icon, title) {
 
-    override fun execute(context: Context) {
+    override suspend fun execute(context: Context) {
         val audioManager = context.getSystemService(AUDIO_SERVICE) as AudioManager
         audioManager.ringerMode = mode
     }
 
     override fun onClick(context: Context, macro: Macro) {
-        requireDoNotDisturbPermission(context)
         MaterialDialog(context).show {
             title(text = "Choose action type")
             listItemsSingleChoice(
@@ -43,7 +42,10 @@ class ChangeRingerModeAction(
                 when (choice) {
                     0 -> mode = AudioManager.RINGER_MODE_NORMAL
                     1 -> mode = AudioManager.RINGER_MODE_VIBRATE
-                    2 -> mode = AudioManager.RINGER_MODE_SILENT
+                    2 -> {
+                        requireDoNotDisturbPermission(context)
+                        mode = AudioManager.RINGER_MODE_SILENT
+                    }
                 }
             }
             positiveButton(text = "OK") {
@@ -66,6 +68,7 @@ class ChangeRingerModeAction(
                     DO_NOT_DISTURB_ACCESS_PERMISSION
                 ) == PackageManager.PERMISSION_DENIED
             ) {
+                // TODO: launch AlertDialog
                 if (intent.resolveActivity(packageManager) != null) {
                     startActivity(context, intent, null)
                 } else {

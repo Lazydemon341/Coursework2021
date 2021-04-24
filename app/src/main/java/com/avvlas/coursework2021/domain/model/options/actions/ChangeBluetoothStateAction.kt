@@ -17,7 +17,7 @@ class ChangeBluetoothStateAction(
     private var mode: Mode = Mode.TURN_OFF
 ) : Action(icon, title) {
 
-    override fun execute(context: Context) {
+    override suspend fun execute(context: Context) {
         val adapter = BluetoothAdapter.getDefaultAdapter()
         when (mode) {
             Mode.TURN_OFF -> adapter.disable()

@@ -10,10 +10,6 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItemsSingleChoice
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.domain.model.Macro
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 
 
@@ -26,7 +22,7 @@ class BluetoothStateChangeTrigger(
 
     override fun schedule(context: Context, macro: Macro) {
         if (receiver == null) {
-            receiver = object : BaseBluetoothStateChangeReceiver() {
+            receiver = object : BluetoothStateChangeReceiver() {
                 override fun onReceive(context: Context, intent: Intent) {
                     if (intent.action == BluetoothAdapter.ACTION_STATE_CHANGED) {
                         val state = intent.getIntExtra(
@@ -44,13 +40,7 @@ class BluetoothStateChangeTrigger(
                                 Mode.CHANGED -> true
                             }
                             if (flag) {
-                                CoroutineScope(SupervisorJob() + Dispatchers.Default).launch(
-                                    Dispatchers.Default
-                                ) {
-                                    for (action in pair.first.actions) {
-                                        action.execute(context)
-                                    }
-                                }
+                                pair.first.runActions(context)
                             }
 
                         }
@@ -67,8 +57,13 @@ class BluetoothStateChangeTrigger(
 
     override fun cancel(context: Context, macro: Macro) {
         receiver?.let {
-            context.unregisterReceiver(it)
-            receiver = null
+            it.macrosWithBluetoothModes.removeAll { pair ->
+                pair.first == macro
+            }
+            if (it.macrosWithBluetoothModes.size == 0) {
+                context.unregisterReceiver(it)
+                receiver = null
+            }
         }
     }
 
@@ -102,10 +97,10 @@ class BluetoothStateChangeTrigger(
     }
 
     companion object {
-        private var receiver: BaseBluetoothStateChangeReceiver? = null
+        private var receiver: BluetoothStateChangeReceiver? = null
     }
 }
 
-private abstract class BaseBluetoothStateChangeReceiver : BroadcastReceiver() {
+private abstract class BluetoothStateChangeReceiver : BroadcastReceiver() {
     val macrosWithBluetoothModes = arrayListOf<Pair<Macro, BluetoothStateChangeTrigger.Mode>>()
 }
