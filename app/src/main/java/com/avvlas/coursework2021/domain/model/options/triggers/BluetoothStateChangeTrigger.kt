@@ -10,8 +10,9 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItemsSingleChoice
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.domain.model.Macro
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 
@@ -43,7 +44,9 @@ class BluetoothStateChangeTrigger(
                                 Mode.CHANGED -> true
                             }
                             if (flag) {
-                                GlobalScope.launch(Dispatchers.Default) {
+                                CoroutineScope(SupervisorJob() + Dispatchers.Default).launch(
+                                    Dispatchers.Default
+                                ) {
                                     for (action in pair.first.actions) {
                                         action.execute(context)
                                     }

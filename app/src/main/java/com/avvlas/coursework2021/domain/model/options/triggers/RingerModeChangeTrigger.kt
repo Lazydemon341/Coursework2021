@@ -10,10 +10,10 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItemsSingleChoice
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.domain.model.Macro
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
-import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -23,28 +23,27 @@ class RingerModeChangeTrigger(
     var mode: Mode = Mode.NORMAL
 ) : Trigger(icon, title) {
 
-    @IgnoredOnParcel
-    private var receiver: BroadcastReceiver? = null
-
     override fun schedule(context: Context, macro: Macro) {
         if (receiver == null) {
-            receiver = object : BroadcastReceiver() {
+            receiver = object : BaseRingerModeChangeReceiver() {
                 override fun onReceive(context: Context, intent: Intent) {
                     if (intent.action == AudioManager.RINGER_MODE_CHANGED_ACTION) {
                         val mode = intent.getIntExtra(
                             AudioManager.EXTRA_RINGER_MODE,
                             AudioManager.ERROR
                         )
-                        val flag: Boolean = when (this@RingerModeChangeTrigger.mode) {
-                            Mode.NORMAL -> mode == AudioManager.RINGER_MODE_NORMAL
-                            Mode.VIBRATE -> mode == AudioManager.RINGER_MODE_VIBRATE
-                            Mode.SILENT -> mode == AudioManager.RINGER_MODE_SILENT
-                            Mode.CHANGED -> true
-                        }
-                        if (flag) {
-                            GlobalScope.launch(Dispatchers.Default) {
-                                for (action in macro.actions) {
-                                    action.execute(context)
+                        for (pair in macrosWithRingerModes) {
+                            val flag: Boolean = when (pair.second) {
+                                Mode.NORMAL -> mode == AudioManager.RINGER_MODE_NORMAL
+                                Mode.VIBRATE -> mode == AudioManager.RINGER_MODE_VIBRATE
+                                Mode.SILENT -> mode == AudioManager.RINGER_MODE_SILENT
+                                Mode.CHANGED -> true
+                            }
+                            if (flag) {
+                                CoroutineScope(SupervisorJob() + Dispatchers.Default).launch() {
+                                    for (action in pair.first.actions) {
+                                        action.execute(context)
+                                    }
                                 }
                             }
                         }
@@ -56,6 +55,7 @@ class RingerModeChangeTrigger(
                 IntentFilter(AudioManager.RINGER_MODE_CHANGED_ACTION)
             )
         }
+        receiver!!.macrosWithRingerModes.add(Pair(macro, mode))
     }
 
     override fun cancel(context: Context, macro: Macro) {
@@ -93,9 +93,13 @@ class RingerModeChangeTrigger(
     enum class Mode {
         NORMAL, VIBRATE, SILENT, CHANGED
     }
+
+    companion object {
+        private var receiver: BaseRingerModeChangeReceiver? = null
+    }
 }
 
 private abstract class BaseRingerModeChangeReceiver : BroadcastReceiver() {
-    val macrosWithBluetoothModes = arrayListOf<Pair<Macro, RingerModeChangeTrigger.Mode>>()
+    val macrosWithRingerModes = arrayListOf<Pair<Macro, RingerModeChangeTrigger.Mode>>()
 }
 
