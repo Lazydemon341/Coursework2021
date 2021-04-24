@@ -9,6 +9,8 @@ import com.avvlas.coursework2021.utils.services.AppForegroundService
 import dagger.hilt.android.HiltAndroidApp
 
 
+// TODO:
+
 @HiltAndroidApp
 class App : Application() {
 

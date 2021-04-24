@@ -25,10 +25,16 @@ class MacrosRepository @Inject constructor(
     }
 
     fun getAllWithUpdates() = liveData(Dispatchers.IO) {
-        emitSource(macrosDao.getAll().map { entities ->
+        emitSource(macrosDao.getAllWithUpdates().map { entities ->
             entities.map {
                 it.toMacro()
             }
         })
+    }
+
+    suspend fun getAll() = withContext(Dispatchers.IO) {
+        macrosDao.getAll().map {
+            it.toMacro()
+        }
     }
 }

@@ -7,6 +7,8 @@ import android.os.Build
 import android.provider.Settings
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat.startActivity
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.list.listItemsSingleChoice
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.domain.model.Macro
 import kotlinx.parcelize.Parcelize
@@ -30,7 +32,23 @@ class ChangeWifiStateAction(
     }
 
     override fun onClick(context: Context, macro: Macro) {
-        // TODO: show dialog to choose action type
-        super.onClick(context, macro)
+        MaterialDialog(context).show {
+            title(text = "Choose action type")
+            listItemsSingleChoice(
+                items = listOf(
+                    "Wifi On",
+                    "Wifi Off"
+                ), initialSelection = 0
+            ) { _, choice, _ ->
+                when (choice) {
+                    0 -> enable = true
+                    1 -> enable = false
+                }
+            }
+            positiveButton(text = "OK") {
+                super.onClick(context, macro)
+            }
+            negativeButton(text = "CANCEL")
+        }
     }
 }
