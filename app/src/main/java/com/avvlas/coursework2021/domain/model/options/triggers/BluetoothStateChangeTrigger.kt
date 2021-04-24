@@ -10,7 +10,9 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItemsSingleChoice
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.domain.model.Macro
-import kotlinx.parcelize.IgnoredOnParcel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 
 
@@ -21,29 +23,33 @@ class BluetoothStateChangeTrigger(
     var mode: Mode = Mode.CHANGED
 ) : Trigger(icon, title) {
 
-    @IgnoredOnParcel
-    private var receiver: BroadcastReceiver? = null
-
     override fun schedule(context: Context, macro: Macro) {
         if (receiver == null) {
-            receiver = object : BroadcastReceiver() {
+            receiver = object : BaseBluetoothStateChangeReceiver() {
                 override fun onReceive(context: Context, intent: Intent) {
                     if (intent.action == BluetoothAdapter.ACTION_STATE_CHANGED) {
                         val state = intent.getIntExtra(
                             BluetoothAdapter.EXTRA_STATE,
                             BluetoothAdapter.ERROR
                         )
-                        val flag = when (mode) {
-                            Mode.ON ->
-                                state == BluetoothAdapter.STATE_ON || state == BluetoothAdapter.STATE_TURNING_ON
-                            Mode.OFF ->
-                                state == BluetoothAdapter.STATE_OFF || state == BluetoothAdapter.STATE_TURNING_OFF
-                            Mode.CHANGED -> true
-                        }
-                        if (flag) {
-                            for (action in macro.actions) {
-                                action.execute(context)
+                        for (pair in macrosWithBluetoothModes) {
+                            val flag = when (pair.second) {
+                                Mode.ON ->
+                                    state == BluetoothAdapter.STATE_ON
+                                            || state == BluetoothAdapter.STATE_TURNING_ON
+                                Mode.OFF ->
+                                    state == BluetoothAdapter.STATE_OFF
+                                            || state == BluetoothAdapter.STATE_TURNING_OFF
+                                Mode.CHANGED -> true
                             }
+                            if (flag) {
+                                GlobalScope.launch(Dispatchers.Default) {
+                                    for (action in pair.first.actions) {
+                                        action.execute(context)
+                                    }
+                                }
+                            }
+
                         }
                     }
                 }
@@ -53,6 +59,7 @@ class BluetoothStateChangeTrigger(
                 IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED)
             )
         }
+        receiver!!.macrosWithBluetoothModes.add(Pair(macro, mode))
     }
 
     override fun cancel(context: Context, macro: Macro) {
@@ -90,4 +97,12 @@ class BluetoothStateChangeTrigger(
         OFF,
         CHANGED
     }
+
+    companion object {
+        private var receiver: BaseBluetoothStateChangeReceiver? = null
+    }
+}
+
+private abstract class BaseBluetoothStateChangeReceiver : BroadcastReceiver() {
+    val macrosWithBluetoothModes = arrayListOf<Pair<Macro, BluetoothStateChangeTrigger.Mode>>()
 }

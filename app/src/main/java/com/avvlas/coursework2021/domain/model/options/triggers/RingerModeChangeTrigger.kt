@@ -10,6 +10,9 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItemsSingleChoice
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.domain.model.Macro
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
@@ -39,8 +42,10 @@ class RingerModeChangeTrigger(
                             Mode.CHANGED -> true
                         }
                         if (flag) {
-                            for (action in macro.actions) {
-                                action.execute(context)
+                            GlobalScope.launch(Dispatchers.Default) {
+                                for (action in macro.actions) {
+                                    action.execute(context)
+                                }
                             }
                         }
                     }
@@ -89,3 +94,8 @@ class RingerModeChangeTrigger(
         NORMAL, VIBRATE, SILENT, CHANGED
     }
 }
+
+private abstract class BaseRingerModeChangeReceiver : BroadcastReceiver() {
+    val macrosWithBluetoothModes = arrayListOf<Pair<Macro, RingerModeChangeTrigger.Mode>>()
+}
+

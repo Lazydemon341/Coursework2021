@@ -55,7 +55,7 @@ class OptionAdapter<T : Option> : JsonSerializer<T>,
         typeOfT: Type?,
         context: JsonDeserializationContext
     ): T {
-        val jsonObject: JsonObject = json.getAsJsonObject()
+        val jsonObject: JsonObject = json.asJsonObject
         val type: String = jsonObject["type"].asString
         val element = jsonObject["properties"]
         try {

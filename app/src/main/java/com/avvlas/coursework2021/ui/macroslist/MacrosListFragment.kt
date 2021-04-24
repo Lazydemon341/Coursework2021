@@ -32,11 +32,12 @@ class MacrosListFragment : Fragment(R.layout.fragment_macros_list),
         setupViewModel()
     }
 
-    private fun setupStatusBar() {
+    private fun setupStatusBar() =
         (requireActivity() as AppCompatActivity).supportActionBar?.apply {
             title = TITLE
+            setDisplayHomeAsUpEnabled(false)
         }
-    }
+
 
     private fun setupNavController(view: View) {
         navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)

@@ -2,8 +2,14 @@ package com.avvlas.coursework2021.domain.model.options.actions
 
 import android.content.Context
 import android.content.Context.AUDIO_SERVICE
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.media.AudioManager
+import android.os.Build
+import android.util.Log
 import androidx.annotation.DrawableRes
+import androidx.core.app.ActivityCompat.startActivity
+import androidx.core.content.ContextCompat
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItemsSingleChoice
 import com.avvlas.coursework2021.R
@@ -24,6 +30,7 @@ class ChangeRingerModeAction(
     }
 
     override fun onClick(context: Context, macro: Macro) {
+        requireDoNotDisturbPermission(context)
         MaterialDialog(context).show {
             title(text = "Choose action type")
             listItemsSingleChoice(
@@ -44,5 +51,33 @@ class ChangeRingerModeAction(
             }
             negativeButton(text = "CANCEL")
         }
+    }
+
+    private fun requireDoNotDisturbPermission(context: Context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            // Ask for Do Not Disturb Access permission on API 24+
+
+            val packageManager: PackageManager = context.packageManager
+            val intent = Intent()
+            intent.action = DO_NOT_DISTURB_ACCESS_PERMISSION
+
+            if (ContextCompat.checkSelfPermission(
+                    context,
+                    DO_NOT_DISTURB_ACCESS_PERMISSION
+                ) == PackageManager.PERMISSION_DENIED
+            ) {
+                if (intent.resolveActivity(packageManager) != null) {
+                    startActivity(context, intent, null)
+                } else {
+                    Log.d("ask_permission", "No Intent available to handle action")
+                }
+
+            }
+        }
+    }
+
+    companion object {
+        private const val DO_NOT_DISTURB_ACCESS_PERMISSION =
+            "android.settings.NOTIFICATION_POLICY_ACCESS_SETTINGS"
     }
 }
