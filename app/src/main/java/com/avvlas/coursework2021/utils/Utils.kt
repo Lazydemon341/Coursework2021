@@ -1,17 +1,11 @@
 package com.avvlas.coursework2021.utils
 
 import android.content.res.Resources
-import android.graphics.BlendMode
-import android.graphics.BlendModeColorFilter
-import android.graphics.PorterDuff
-import android.graphics.drawable.Drawable
-import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
-import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.avvlas.coursework2021.domain.model.Macro
+import com.avvlas.coursework2021.model.Macro
 import kotlin.math.roundToInt
 
 

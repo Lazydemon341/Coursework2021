@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.lifecycle.*
 import androidx.savedstate.SavedStateRegistryOwner
 import com.avvlas.coursework2021.data.MacrosRepository
-import com.avvlas.coursework2021.domain.model.Macro
+import com.avvlas.coursework2021.model.Macro
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject

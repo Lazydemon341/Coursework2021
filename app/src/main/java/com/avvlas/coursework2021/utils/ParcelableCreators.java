@@ -4,7 +4,7 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-import com.avvlas.coursework2021.domain.model.Macro;
+import com.avvlas.coursework2021.model.Macro;
 
 public class ParcelableCreators {
     @NonNull

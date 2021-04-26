@@ -1,7 +1,6 @@
-package com.avvlas.coursework2021.domain.model.options
+package com.avvlas.coursework2021.model.options
 
 import androidx.annotation.DrawableRes
-import com.avvlas.coursework2021.domain.model.options.Option
 
 data class Category<out T : Option>(
     @DrawableRes val icon: Int,

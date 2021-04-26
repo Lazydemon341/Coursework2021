@@ -4,8 +4,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
-import com.avvlas.coursework2021.domain.model.Macro
-import com.avvlas.coursework2021.domain.model.options.triggers.DayTimeTrigger
+import com.avvlas.coursework2021.model.Macro
+import com.avvlas.coursework2021.model.options.triggers.DayTimeTrigger
 import com.avvlas.coursework2021.utils.Parcelables.toParcelable
 import com.avvlas.coursework2021.utils.Utils.CREATOR
 import java.util.*

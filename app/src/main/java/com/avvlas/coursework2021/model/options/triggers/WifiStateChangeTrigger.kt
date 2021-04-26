@@ -1,4 +1,4 @@
-package com.avvlas.coursework2021.domain.model.options.triggers
+package com.avvlas.coursework2021.model.options.triggers
 //
 //import android.content.BroadcastReceiver
 //import android.content.Context
@@ -6,7 +6,7 @@ package com.avvlas.coursework2021.domain.model.options.triggers
 //import androidx.annotation.DrawableRes
 //import androidx.work.*
 //import com.avvlas.coursework2021.R
-//import com.avvlas.coursework2021.domain.model.Macro
+//import com.avvlas.coursework2021.model.Macro
 //import com.avvlas.coursework2021.utils.Parcelables.toByteArray
 //import com.avvlas.coursework2021.utils.Parcelables.toParcelable
 //import com.avvlas.coursework2021.utils.Utils.CREATOR

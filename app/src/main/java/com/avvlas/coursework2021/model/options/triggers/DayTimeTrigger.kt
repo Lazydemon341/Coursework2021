@@ -1,4 +1,4 @@
-package com.avvlas.coursework2021.domain.model.options.triggers
+package com.avvlas.coursework2021.model.options.triggers
 
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -6,7 +6,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.annotation.DrawableRes
 import com.avvlas.coursework2021.R
-import com.avvlas.coursework2021.domain.model.Macro
+import com.avvlas.coursework2021.model.Macro
 import com.avvlas.coursework2021.utils.broadcastreceivers.TriggerBroadcastReceiver
 import kotlinx.parcelize.Parcelize
 import java.util.*

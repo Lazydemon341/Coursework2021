@@ -14,7 +14,7 @@ import androidx.navigation.Navigation
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.input.input
 import com.avvlas.coursework2021.R
-import com.avvlas.coursework2021.domain.model.Macro
+import com.avvlas.coursework2021.model.Macro
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

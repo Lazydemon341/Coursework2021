@@ -1,25 +1,18 @@
 package com.avvlas.coursework2021.ui.addmacro.pages.listadapters
 
-import android.animation.ValueAnimator
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AccelerateDecelerateInterpolator
-import android.widget.TextView
-import androidx.core.animation.doOnEnd
-import androidx.core.animation.doOnStart
 import androidx.core.content.ContextCompat
-import androidx.core.view.doOnNextLayout
-import androidx.core.view.doOnPreDraw
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.alespero.expandablecardview.ExpandableCardView
 import com.avvlas.coursework2021.R
-import com.avvlas.coursework2021.domain.model.options.Category
-import com.avvlas.coursework2021.domain.model.options.Option
+import com.avvlas.coursework2021.model.options.Category
+import com.avvlas.coursework2021.model.options.Option
 import com.avvlas.coursework2021.utils.Utils
 import com.google.android.material.color.MaterialColors
 
@@ -43,46 +36,34 @@ class CategoriesListAdapter<T : Option>(
         itemView: View
     ) : RecyclerView.ViewHolder(itemView) {
 
-        private val titleTextView: TextView = itemView.findViewById(R.id.category_title_text)
         private val optionsRecyclerView: RecyclerView = itemView.findViewById(R.id.recycler_view)
         private lateinit var adapter: OptionsListAdapter<T>
-
-        private var originalHeight = 0
-        private var expandedHeight = 0
-        private var expanded = false
 
         fun bind(category: Category<T>) {
             setTitleAndIcon(category)
             initRecyclerView(category)
-
-            getCollapsedAndExpandedHeights()
-
-            itemView.setOnClickListener {
-                if (expanded)
-                    collapseCategory()
-                else
-                    expandCategory()
-                expanded = !expanded
-            }
         }
 
         private fun setTitleAndIcon(category: Category<T>) {
-            titleTextView.text = category.title
-            titleTextView.setCompoundDrawablesWithIntrinsicBounds(
-                ContextCompat.getDrawable(
-                    itemView.context,
-                    category.icon
-                )?.apply {
-                    mutate().colorFilter = PorterDuffColorFilter(
-                        MaterialColors.getColor(
-                            itemView,
-                            R.attr.colorPrimary,
-                            ContextCompat.getColor(itemView.context, R.color.white)
-                        ),
-                        PorterDuff.Mode.SRC_IN
-                    )
-                }, null, null, null
-            )
+            (itemView as ExpandableCardView).apply {
+                setTitle(category.title)
+                setIcon(
+                    ContextCompat.getDrawable(
+                        itemView.context,
+                        category.icon
+                    )?.apply {
+                        // Change color of the icon to colorPrimary
+                        mutate().colorFilter = PorterDuffColorFilter(
+                            MaterialColors.getColor(
+                                itemView,
+                                R.attr.colorPrimary,
+                                ContextCompat.getColor(itemView.context, R.color.white)
+                            ),
+                            PorterDuff.Mode.SRC_IN
+                        )
+                    }
+                )
+            }
         }
 
         private fun initRecyclerView(category: Category<T>) {
@@ -99,51 +80,6 @@ class CategoriesListAdapter<T : Option>(
                 )
             }
             adapter.submitList(category.items)
-        }
-
-        private fun getCollapsedAndExpandedHeights() {
-            itemView.doOnPreDraw { view ->
-                originalHeight = view.height
-
-                // show expandView and record expandedHeight in next
-                // layout pass (doOnNextLayout) and hide it immediately
-                optionsRecyclerView.isVisible = true
-                itemView.doOnNextLayout {
-                    expandedHeight = it.height
-
-                    // We use post{} to hide the view. Otherwise the parent will not
-                    // measure it again, since this block is done on the layout pass
-                    optionsRecyclerView.post { optionsRecyclerView.isVisible = false }
-                }
-            }
-        }
-
-        private fun expandCategory() {
-            val animator = ValueAnimator.ofInt(originalHeight, expandedHeight)
-            animator.interpolator = AccelerateDecelerateInterpolator()
-            animator.duration = ANIMATOR_DURATION
-            animator.addUpdateListener {
-                itemView.layoutParams.height = it.animatedValue as Int
-
-                itemView.requestLayout()
-            }
-            animator.doOnStart { optionsRecyclerView.isVisible = true }
-
-            animator.start()
-        }
-
-        private fun collapseCategory() {
-            val animator = ValueAnimator.ofInt(expandedHeight, originalHeight)
-            animator.interpolator = AccelerateDecelerateInterpolator()
-            animator.duration = ANIMATOR_DURATION
-            animator.addUpdateListener {
-                itemView.layoutParams.height = it.animatedValue as Int
-
-                itemView.requestLayout()
-            }
-            animator.doOnEnd { optionsRecyclerView.isVisible = false }
-
-            animator.start()
         }
     }
 

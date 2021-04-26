@@ -10,7 +10,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.avvlas.coursework2021.R
-import com.avvlas.coursework2021.domain.model.Macro
+import com.avvlas.coursework2021.model.Macro
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 

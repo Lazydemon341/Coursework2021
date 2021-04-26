@@ -3,9 +3,9 @@ package com.avvlas.coursework2021.data.entities
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import com.avvlas.coursework2021.domain.model.Macro
-import com.avvlas.coursework2021.domain.model.options.actions.Action
-import com.avvlas.coursework2021.domain.model.options.triggers.Trigger
+import com.avvlas.coursework2021.model.Macro
+import com.avvlas.coursework2021.model.options.actions.Action
+import com.avvlas.coursework2021.model.options.triggers.Trigger
 
 @Entity(tableName = "macros")
 @TypeConverters(OptionsConverter::class)

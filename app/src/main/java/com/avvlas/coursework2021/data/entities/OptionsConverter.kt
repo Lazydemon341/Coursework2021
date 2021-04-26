@@ -1,9 +1,9 @@
 package com.avvlas.coursework2021.data.entities
 
 import androidx.room.TypeConverter
-import com.avvlas.coursework2021.domain.model.options.Option
-import com.avvlas.coursework2021.domain.model.options.actions.Action
-import com.avvlas.coursework2021.domain.model.options.triggers.Trigger
+import com.avvlas.coursework2021.model.options.Option
+import com.avvlas.coursework2021.model.options.actions.Action
+import com.avvlas.coursework2021.model.options.triggers.Trigger
 import com.google.gson.*
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type

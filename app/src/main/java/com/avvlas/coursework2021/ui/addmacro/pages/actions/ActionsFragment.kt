@@ -3,8 +3,7 @@ package com.avvlas.coursework2021.ui.addmacro.pages.actions
 import android.os.Bundle
 import android.view.View
 import com.avvlas.coursework2021.R
-import com.avvlas.coursework2021.domain.model.options.Category
-import com.avvlas.coursework2021.domain.model.options.actions.*
+import com.avvlas.coursework2021.model.options.actions.*
 import com.avvlas.coursework2021.ui.addmacro.pages.BaseOptionsFragment
 import dagger.hilt.android.AndroidEntryPoint
 

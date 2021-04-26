@@ -3,7 +3,7 @@ package com.avvlas.coursework2021.ui.macroslist
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.avvlas.coursework2021.data.MacrosRepository
-import com.avvlas.coursework2021.domain.model.Macro
+import com.avvlas.coursework2021.model.Macro
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

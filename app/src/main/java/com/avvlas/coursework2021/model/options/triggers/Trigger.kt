@@ -1,9 +1,9 @@
-package com.avvlas.coursework2021.domain.model.options.triggers
+package com.avvlas.coursework2021.model.options.triggers
 
 import android.content.Context
 import androidx.annotation.DrawableRes
-import com.avvlas.coursework2021.domain.model.Macro
-import com.avvlas.coursework2021.domain.model.options.Option
+import com.avvlas.coursework2021.model.Macro
+import com.avvlas.coursework2021.model.options.Option
 
 abstract class Trigger(
     @DrawableRes icon: Int,

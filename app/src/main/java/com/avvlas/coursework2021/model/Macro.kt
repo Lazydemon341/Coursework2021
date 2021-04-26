@@ -1,9 +1,9 @@
-package com.avvlas.coursework2021.domain.model
+package com.avvlas.coursework2021.model
 
 import android.content.Context
 import android.os.Parcelable
-import com.avvlas.coursework2021.domain.model.options.actions.Action
-import com.avvlas.coursework2021.domain.model.options.triggers.Trigger
+import com.avvlas.coursework2021.model.options.actions.Action
+import com.avvlas.coursework2021.model.options.triggers.Trigger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob

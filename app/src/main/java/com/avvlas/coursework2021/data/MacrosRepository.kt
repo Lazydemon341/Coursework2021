@@ -4,7 +4,7 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.map
 import com.avvlas.coursework2021.data.entities.toMacro
 import com.avvlas.coursework2021.data.entities.toMacroEntity
-import com.avvlas.coursework2021.domain.model.Macro
+import com.avvlas.coursework2021.model.Macro
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

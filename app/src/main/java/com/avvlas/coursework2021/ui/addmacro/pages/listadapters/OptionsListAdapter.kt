@@ -8,12 +8,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.datetime.dateTimePicker
 import com.avvlas.coursework2021.R
-import com.avvlas.coursework2021.domain.model.options.Option
-import com.avvlas.coursework2021.domain.model.options.triggers.DayTimeTrigger
-import com.avvlas.coursework2021.domain.model.options.triggers.Trigger
+import com.avvlas.coursework2021.model.options.Option
 
 class OptionsListAdapter<T : Option>(
     private val onOptionClickListener: OnOptionClickListener<T>

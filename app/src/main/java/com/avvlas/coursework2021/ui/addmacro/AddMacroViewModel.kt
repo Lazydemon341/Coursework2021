@@ -4,10 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.data.MacrosRepository
-import com.avvlas.coursework2021.domain.model.Macro
-import com.avvlas.coursework2021.domain.model.options.Category
-import com.avvlas.coursework2021.domain.model.options.actions.*
-import com.avvlas.coursework2021.domain.model.options.triggers.*
+import com.avvlas.coursework2021.model.Macro
+import com.avvlas.coursework2021.model.options.Category
+import com.avvlas.coursework2021.model.options.actions.*
+import com.avvlas.coursework2021.model.options.triggers.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -48,12 +48,16 @@ class AddMacroViewModel @Inject constructor(
                 "Notifications",
                 arrayListOf(
                     ChangeAutoRotateAction(),
-                    ChangeWifiStateAction(),
                     ChangeBluetoothStateAction(),
                     ChangeRingerModeAction()
                 )
             ),
-            Category<Action>(R.drawable.ic_baseline_watch_24, "Category1", arrayListOf()),
+            Category<Action>(
+                R.drawable.ic_baseline_watch_24, "Category1", arrayListOf(
+                    ChangeBluetoothStateAction(),
+                    ChangeWifiStateAction()
+                )
+            ),
             Category<Action>(R.drawable.ic_baseline_watch_24, "Category1", arrayListOf())
         )
 

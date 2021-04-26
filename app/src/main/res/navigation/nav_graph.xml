@@ -38,7 +38,7 @@
         android:label="MacroDetailsFragment" >
         <argument
             android:name="macro"
-            app:argType="com.avvlas.coursework2021.domain.model.Macro"
+            app:argType="com.avvlas.coursework2021.model.Macro"
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>

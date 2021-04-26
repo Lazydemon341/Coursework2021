@@ -20,7 +20,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AddMacroFragment : Fragment(R.layout.fragment_add_macro) {
+internal class AddMacroFragment : Fragment(R.layout.fragment_add_macro) {
 
     private val viewModel: AddMacroViewModel by viewModels()
     private lateinit var viewPager: ViewPager2
@@ -56,7 +56,11 @@ class AddMacroFragment : Fragment(R.layout.fragment_add_macro) {
 
     private fun initViewPager(view: View) {
         viewPager = view.findViewById<ViewPager2>(R.id.pager)
-        viewPager.adapter = PagerAdapter(this@AddMacroFragment)
+        viewPager.adapter = PagerAdapter(
+            this@AddMacroFragment,
+            TriggersFragment.newInstance(),
+            ActionsFragment.newInstance()
+        )
         TabLayoutMediator(view.findViewById(R.id.tab_layout), viewPager) { tab, position ->
             tab.text = when (position) {
                 0 -> TriggersFragment.TITLE
@@ -85,7 +89,11 @@ class AddMacroFragment : Fragment(R.layout.fragment_add_macro) {
     }
 }
 
-class PagerAdapter(fragment: Fragment) :
+internal class PagerAdapter(
+    fragment: Fragment,
+    private val triggersFragment: TriggersFragment,
+    private val actionsFragment: ActionsFragment
+) :
     FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int {
@@ -94,9 +102,9 @@ class PagerAdapter(fragment: Fragment) :
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> TriggersFragment.newInstance()
-            1 -> ActionsFragment.newInstance()
-            else -> TriggersFragment.newInstance()
+            0 -> triggersFragment
+            1 -> actionsFragment
+            else -> triggersFragment
         }
     }
 

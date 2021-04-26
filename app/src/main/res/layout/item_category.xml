@@ -1,40 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.alespero.expandablecardview.ExpandableCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    style="@style/ClickableItem"
-    android:orientation="vertical">
+    app:icon="@drawable/ic_baseline_watch_24"
+    app:title=""
+    app:inner_view="@layout/item_category_expanded_content"
+    app:animationDuration="150"
+    app:expandOnClick="true"
+    app:startExpanded="false">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/blue_600_transparent" />
 
-    <TextView
-        android:id="@+id/category_title_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="@dimen/margin_small"
-        android:drawablePadding="@dimen/margin_small"
-        android:maxLines="1"
-        android:textColor="?android:colorPrimary"
-        android:textSize="16sp"
-        tools:drawableLeft="@drawable/ic_baseline_check_24"
-        tools:text="Call Active" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_small"
-        android:visibility="gone"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"
-        tools:listitem="@layout/item_option" />
-
-</LinearLayout>
+</com.alespero.expandablecardview.ExpandableCardView>
