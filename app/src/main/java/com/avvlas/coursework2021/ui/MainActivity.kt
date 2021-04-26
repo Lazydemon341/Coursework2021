@@ -1,6 +1,7 @@
 package com.avvlas.coursework2021.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -60,5 +61,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         } else {
             super.onBackPressed()
         }
+    }
+
+    override fun onDestroy() {
+        Log.d("myTag", "Main Activity onDestroy called")
+        super.onDestroy()
     }
 }

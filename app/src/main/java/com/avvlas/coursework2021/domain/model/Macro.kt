@@ -22,13 +22,13 @@ data class Macro(
 
     fun activate(context: Context) {
         for (trigger in triggers)
-            trigger.schedule(context, this)
+            trigger.schedule(context.applicationContext, this)
         isActivated = true
     }
 
     fun deactivate(context: Context) {
         for (trigger in triggers)
-            trigger.cancel(context, this)
+            trigger.cancel(context.applicationContext, this)
         isActivated = false
     }
 

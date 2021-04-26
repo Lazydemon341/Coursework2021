@@ -20,14 +20,14 @@ class DayTimeTrigger(
     val days: ArrayList<Boolean> = arrayListOf()
 ) : Trigger(icon, title) {
 
-    override fun schedule(context: Context, macro: Macro) {
-        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+    override fun schedule(appContext: Context, macro: Macro) {
+        val alarmManager = appContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-        val intent = Intent(context, TriggerBroadcastReceiver::class.java)
+        val intent = Intent(appContext, TriggerBroadcastReceiver::class.java)
         intent.putExtra(TriggerBroadcastReceiver.MACRO, macro)
         intent.putExtra(TriggerBroadcastReceiver.TRIGGER_TYPE, "Day/Time Trigger")
 
-        val alarmPendingIntent = PendingIntent.getBroadcast(context, macro.hashCode(), intent, 0)
+        val alarmPendingIntent = PendingIntent.getBroadcast(appContext, macro.hashCode(), intent, 0)
 
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()

@@ -19,10 +19,10 @@ class DateTimeTrigger(
     var timeInMillis: Long = -1
 ) : Trigger(icon, title) {
 
-    override fun schedule(context: Context, macro: Macro) {
-        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+    override fun schedule(appContext: Context, macro: Macro) {
+        val alarmManager = appContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-        val intent = Intent(context, TriggerBroadcastReceiver::class.java)
+        val intent = Intent(appContext, TriggerBroadcastReceiver::class.java)
         val bundle = Bundle().apply {
             putByteArray(TriggerBroadcastReceiver.MACRO, macro.toByteArray())
             putString(
@@ -34,7 +34,7 @@ class DateTimeTrigger(
         intent.action = "DateTrigger"
 
         val alarmPendingIntent = PendingIntent.getBroadcast(
-            context,
+            appContext,
             macro.hashCode(),
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT

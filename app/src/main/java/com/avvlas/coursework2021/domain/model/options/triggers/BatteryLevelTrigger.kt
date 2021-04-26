@@ -12,26 +12,26 @@ import com.avvlas.coursework2021.domain.model.Macro
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-class PowerConnectionTrigger(
-    @DrawableRes override val icon: Int = R.drawable.ic_baseline_calendar_today_24,
-    override val title: String = "Battery Charging",
-    private var connected: Boolean = false
+class BatteryLevelTrigger(
+    @DrawableRes override val icon: Int = R.drawable.ic_baseline_battery_full_24,
+    override val title: String = "Battery Level",
+    private var lowLevel: Boolean = false
 ) : Trigger(icon, title) {
 
-    override fun schedule(context: Context, macro: Macro) {
+    override fun schedule(appContext: Context, macro: Macro) {
         if (receiver == null) {
-            receiver = object : PowerConnectionReceiver() {
+            receiver = object : BatteryLevelReceiver() {
                 override fun onReceive(context: Context, intent: Intent) {
-                    if (intent.action == ACTION_POWER_CONNECTED
-                        || intent.action == ACTION_POWER_DISCONNECTED
+                    if (intent.action == ACTION_BATTERY_LOW
+                        || intent.action == ACTION_BATTERY_OKAY
                     ) {
-                        for (pair in macrosWithConnectionState) {
+                        for (pair in macrosWithBatteryLevel) {
 
                             val flag =
-                                if (intent.action == ACTION_POWER_CONNECTED)
-                                    connected
+                                if (intent.action == ACTION_BATTERY_LOW)
+                                    lowLevel
                                 else
-                                    !connected
+                                    !lowLevel
 
                             if (flag) {
                                 pair.first.runActions(context)
@@ -40,23 +40,23 @@ class PowerConnectionTrigger(
                     }
                 }
             }
-            context.registerReceiver(
+            appContext.registerReceiver(
                 receiver,
                 IntentFilter().apply {
-                    addAction(ACTION_POWER_CONNECTED)
-                    addAction(ACTION_POWER_DISCONNECTED)
+                    addAction(ACTION_BATTERY_LOW)
+                    addAction(ACTION_BATTERY_OKAY)
                 }
             )
         }
-        receiver!!.macrosWithConnectionState.add(Pair(macro, connected))
+        receiver!!.macrosWithBatteryLevel.add(Pair(macro, lowLevel))
     }
 
     override fun cancel(context: Context, macro: Macro) {
         receiver?.let {
-            it.macrosWithConnectionState.removeAll { pair ->
+            it.macrosWithBatteryLevel.removeAll { pair ->
                 pair.first == macro
             }
-            if (it.macrosWithConnectionState.size == 0) {
+            if (it.macrosWithBatteryLevel.isEmpty()) {
                 context.unregisterReceiver(it)
                 receiver = null
             }
@@ -68,13 +68,13 @@ class PowerConnectionTrigger(
             title(text = "Choose trigger type")
             listItemsSingleChoice(
                 items = listOf(
-                    "Power Connected",
-                    "Power Disconnected"
+                    "Battery Level is Low",
+                    "Battery Level is back to Okay"
                 ), initialSelection = 0
-            ) { _, choice, _ ->
+            ) { B, choice, _ ->
                 when (choice) {
-                    0 -> connected = true
-                    1 -> connected = false
+                    0 -> lowLevel = true
+                    1 -> lowLevel = false
                 }
             }
             positiveButton(text = "OK") {
@@ -86,15 +86,15 @@ class PowerConnectionTrigger(
 
     companion object {
 
-        private const val ACTION_POWER_CONNECTED =
-            "android.intent.action.ACTION_POWER_CONNECTED"
-        private const val ACTION_POWER_DISCONNECTED =
-            "android.intent.action.ACTION_POWER_DISCONNECTED"
+        private const val ACTION_BATTERY_LOW =
+            "android.intent.action.BATTERY_LOW"
+        private const val ACTION_BATTERY_OKAY =
+            "android.intent.action.BATTERY_OKAY"
 
-        private var receiver: PowerConnectionReceiver? = null
+        private var receiver: BatteryLevelReceiver? = null
     }
 }
 
-private abstract class PowerConnectionReceiver : BroadcastReceiver() {
-    val macrosWithConnectionState = arrayListOf<Pair<Macro, Boolean>>()
+private abstract class BatteryLevelReceiver : BroadcastReceiver() {
+    val macrosWithBatteryLevel = arrayListOf<Pair<Macro, Boolean>>()
 }

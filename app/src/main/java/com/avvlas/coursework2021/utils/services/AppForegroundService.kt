@@ -20,7 +20,7 @@ class AppForegroundService : Service() {
 
         // do your jobs here
         startForeground()
-        return super.onStartCommand(intent, flags, startId) // TODO: start sticky?
+        return START_STICKY
     }
 
     private fun startForeground() {

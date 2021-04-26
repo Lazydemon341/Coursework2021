@@ -20,7 +20,7 @@ class BluetoothStateChangeTrigger(
     var mode: Mode = Mode.CHANGED
 ) : Trigger(icon, title) {
 
-    override fun schedule(context: Context, macro: Macro) {
+    override fun schedule(appContext: Context, macro: Macro) {
         if (receiver == null) {
             receiver = object : BluetoothStateChangeReceiver() {
                 override fun onReceive(context: Context, intent: Intent) {
@@ -47,7 +47,7 @@ class BluetoothStateChangeTrigger(
                     }
                 }
             }
-            context.registerReceiver(
+            appContext.registerReceiver(
                 receiver,
                 IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED)
             )
@@ -60,7 +60,7 @@ class BluetoothStateChangeTrigger(
             it.macrosWithBluetoothModes.removeAll { pair ->
                 pair.first == macro
             }
-            if (it.macrosWithBluetoothModes.size == 0) {
+            if (it.macrosWithBluetoothModes.isEmpty()) {
                 context.unregisterReceiver(it)
                 receiver = null
             }

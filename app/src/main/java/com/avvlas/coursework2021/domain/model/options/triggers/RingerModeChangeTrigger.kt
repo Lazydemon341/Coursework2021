@@ -19,7 +19,7 @@ class RingerModeChangeTrigger(
     var mode: Mode = Mode.NORMAL
 ) : Trigger(icon, title) {
 
-    override fun schedule(context: Context, macro: Macro) {
+    override fun schedule(appContext: Context, macro: Macro) {
         if (receiver == null) {
             receiver = object : RingerModeChangeReceiver() {
                 override fun onReceive(context: Context, intent: Intent) {
@@ -42,7 +42,7 @@ class RingerModeChangeTrigger(
                     }
                 }
             }
-            context.registerReceiver(
+            appContext.registerReceiver(
                 receiver,
                 IntentFilter(AudioManager.RINGER_MODE_CHANGED_ACTION)
             )

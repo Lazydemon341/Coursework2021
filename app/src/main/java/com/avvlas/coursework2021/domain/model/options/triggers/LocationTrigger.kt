@@ -11,7 +11,7 @@ class LocationTrigger(
     override val title: String
 ) : Trigger(icon, title) {
 
-    override fun schedule(context: Context, macro: Macro) {
+    override fun schedule(appContext: Context, macro: Macro) {
         TODO("Not yet implemented")
     }
 
