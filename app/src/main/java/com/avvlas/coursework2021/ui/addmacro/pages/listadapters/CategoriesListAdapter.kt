@@ -90,9 +90,4 @@ class CategoriesListAdapter<T : Option>(
         override fun areContentsTheSame(oldItem: Category<T>, newItem: Category<T>): Boolean =
             oldItem == newItem
     }
-
-
-    companion object {
-        private const val ANIMATOR_DURATION = 200L
-    }
 }

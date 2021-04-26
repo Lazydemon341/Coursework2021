@@ -77,4 +77,7 @@ dependencies {
 
     // ExpandableCardView
     implementation 'com.alespero:expandable-cardview:0.8'
+
+    // Permissions
+    implementation 'com.nabinbhandari.android:permissions:3.8'
 }
