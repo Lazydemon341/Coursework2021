@@ -1,13 +1,16 @@
 package com.avvlas.coursework2021.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.avvlas.coursework2021.App
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.data.MacrosRepository
+import com.avvlas.coursework2021.model.options.actions.SendSmsAction
 import com.avvlas.coursework2021.ui.addmacro.AddMacroFragment
 import com.avvlas.coursework2021.ui.macrodetails.MacroDetailsFragment
 import com.avvlas.coursework2021.utils.Utils.currentNavigationFragment
@@ -35,6 +38,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 }
             }
         }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -52,16 +56,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onBackPressed() {
-        val currentFragment = supportFragmentManager.currentNavigationFragment
-        if (currentFragment is AddMacroFragment) {
-            currentFragment.onBackPressed()
-        } else if (currentFragment is MacroDetailsFragment) {
-            currentFragment.onBackPressed()
-        } else {
-            super.onBackPressed()
+    override fun onBackPressed() =
+        when (val currentFragment = supportFragmentManager.currentNavigationFragment) {
+            is AddMacroFragment -> currentFragment.onBackPressed()
+            is MacroDetailsFragment -> currentFragment.onBackPressed()
+            else -> super.onBackPressed()
         }
-    }
 
     override fun onDestroy() {
         Log.d("myTag", "Main Activity onDestroy called")

@@ -68,9 +68,9 @@ class MacrosListFragment : Fragment(R.layout.fragment_macros_list),
 
     override fun onMacroSwitch(macro: Macro) {
         if (macro.isActivated) {
-            macro.deactivate(requireContext())
+            macro.deactivate(requireActivity())
         } else {
-            macro.activate(requireContext())
+            macro.activate(requireActivity())
         }
         viewModel.updateMacro(macro)
     }

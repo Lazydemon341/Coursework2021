@@ -1,5 +1,6 @@
 package com.avvlas.coursework2021.model.options.actions
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -32,9 +33,9 @@ class ChangeAutoRotateAction(
         }
     }
 
-    override fun onClick(context: Context, macro: Macro) {
-        if (checkSystemWritePermission(context)) {
-            MaterialDialog(context).show {
+    override fun onClick(activity: Activity, macro: Macro) {
+        if (checkSystemWritePermission(activity)) {
+            MaterialDialog(activity).show {
                 title(text = "Choose action type")
                 listItemsSingleChoice(
                     items = listOf(
@@ -48,7 +49,7 @@ class ChangeAutoRotateAction(
                     }
                 }
                 positiveButton(text = "OK") {
-                    super.onClick(context, macro)
+                    super.onClick(activity, macro)
                 }
                 negativeButton(text = "CANCEL")
             }

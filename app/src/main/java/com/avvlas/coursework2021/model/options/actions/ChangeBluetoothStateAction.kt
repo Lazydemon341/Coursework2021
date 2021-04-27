@@ -1,5 +1,6 @@
 package com.avvlas.coursework2021.model.options.actions
 
+import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.content.Context
 import androidx.annotation.DrawableRes
@@ -27,8 +28,8 @@ class ChangeBluetoothStateAction(
         }
     }
 
-    override fun onClick(context: Context, macro: Macro) {
-        MaterialDialog(context).show {
+    override fun onClick(activity: Activity, macro: Macro) {
+        MaterialDialog(activity).show {
             title(text = "Choose action type")
             listItemsSingleChoice(
                 items = listOf(
@@ -44,7 +45,7 @@ class ChangeBluetoothStateAction(
                 }
             }
             positiveButton(text = "OK") {
-                super.onClick(context, macro)
+                super.onClick(activity, macro)
             }
             negativeButton(text = "CANCEL")
         }

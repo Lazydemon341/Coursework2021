@@ -43,8 +43,8 @@ internal class AddMacroFragment : Fragment(R.layout.fragment_add_macro) {
                 title(text = "Macro name")
                 input(hint = "Enter macro name") { _, text ->
                     viewModel.macro.name = text.toString()
-                    // Check if name if unique
-                    viewModel.macro.activate(requireContext())
+                    // TODO: Check if name if unique
+                    viewModel.macro.activate(requireActivity())
                     viewModel.saveMacro()
                     navController.navigateUp()
                 }

@@ -18,7 +18,7 @@ class MacroDetailsViewModel @AssistedInject constructor(
     internal val macro = savedStateHandle.get<Macro>(MacroDetailsFragment.ARG_MACRO)
         ?: throw IllegalArgumentException("Macro required")
 
-    private val mutableDeletionState = MutableLiveData<Boolean>(false)
+    private val mutableDeletionState = MutableLiveData(false)
     internal val deletionState: LiveData<Boolean> get() = mutableDeletionState
 
     internal fun updateMacro() = viewModelScope.launch {

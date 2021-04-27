@@ -37,6 +37,7 @@ class App : Application() {
 
     companion object {
         const val CHANNEL_ID: String = "APP_SERVICE_CHANNEL"
+        const val TAG = "myTag"
 
         val foregroundService: AppForegroundService? = null
     }

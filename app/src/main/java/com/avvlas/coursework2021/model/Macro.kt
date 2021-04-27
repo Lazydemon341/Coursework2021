@@ -1,5 +1,6 @@
 package com.avvlas.coursework2021.model
 
+import android.app.Activity
 import android.content.Context
 import android.os.Parcelable
 import com.avvlas.coursework2021.model.options.actions.Action
@@ -20,15 +21,15 @@ data class Macro(
     var isActivated: Boolean = false
 ) : Parcelable {
 
-    fun activate(context: Context) {
+    fun activate(activity: Activity) {
         for (trigger in triggers)
-            trigger.schedule(context.applicationContext, this)
+            trigger.schedule(activity.applicationContext, this)
         isActivated = true
     }
 
-    fun deactivate(context: Context) {
+    fun deactivate(activity: Activity) {
         for (trigger in triggers)
-            trigger.cancel(context.applicationContext, this)
+            trigger.cancel(activity.applicationContext, this)
         isActivated = false
     }
 

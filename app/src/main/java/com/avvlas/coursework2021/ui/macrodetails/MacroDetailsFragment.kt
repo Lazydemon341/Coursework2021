@@ -80,7 +80,7 @@ class MacroDetailsFragment : Fragment(R.layout.fragment_macro_details) {
             title(text = "Delete macro")
             message(text = "Are you sure to delete this macro?")
             positiveButton(text = "YES") {
-                viewModel.macro.deactivate(requireContext())
+                viewModel.macro.deactivate(requireActivity())
                 viewModel.deleteMacro()
                 viewModel.deletionState.observe(viewLifecycleOwner) {
                     if (it) {

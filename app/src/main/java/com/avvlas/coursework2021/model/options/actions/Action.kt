@@ -1,5 +1,6 @@
 package com.avvlas.coursework2021.model.options.actions
 
+import android.app.Activity
 import android.content.Context
 import androidx.annotation.DrawableRes
 import com.avvlas.coursework2021.model.Macro
@@ -12,7 +13,7 @@ abstract class Action(
 
     abstract suspend fun execute(context: Context)
 
-    open fun onClick(context: Context, macro: Macro) {
+    open fun onClick(activity: Activity, macro: Macro) {
         macro.actions.add(this)
     }
 }

@@ -1,5 +1,6 @@
 package com.avvlas.coursework2021.model.options.actions
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.wifi.WifiManager
@@ -31,8 +32,8 @@ class ChangeWifiStateAction(
         }
     }
 
-    override fun onClick(context: Context, macro: Macro) {
-        MaterialDialog(context).show {
+    override fun onClick(activity: Activity, macro: Macro) {
+        MaterialDialog(activity).show {
             title(text = "Choose action type")
             listItemsSingleChoice(
                 items = listOf(
@@ -46,7 +47,7 @@ class ChangeWifiStateAction(
                 }
             }
             positiveButton(text = "OK") {
-                super.onClick(context, macro)
+                super.onClick(activity, macro)
             }
             negativeButton(text = "CANCEL")
         }
