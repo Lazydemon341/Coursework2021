@@ -50,7 +50,8 @@ class AddMacroViewModel @Inject constructor(
                     ChangeAutoRotateAction(),
                     ChangeBluetoothStateAction(),
                     ChangeRingerModeAction(),
-                    SendSmsAction()
+                    SendSmsAction(),
+                    OpenCallLogAction()
                 )
             ),
             Category<Action>(

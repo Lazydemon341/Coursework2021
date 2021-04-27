@@ -6,14 +6,11 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.telephony.SmsManager
-import android.util.Log
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.DrawableRes
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.fragment.app.Fragment
-import com.avvlas.coursework2021.App
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.input.input
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.model.Macro
 import com.nabinbhandari.android.permissions.PermissionHandler
@@ -51,7 +48,7 @@ class SendSmsAction(
             }
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                //TODO()
+                //TODO: require permissions?
             }
         }
 
@@ -65,66 +62,92 @@ class SendSmsAction(
             null,
             object : PermissionHandler() {
                 override fun onGranted() {
-                    chooseMessageAndDestination(activity, macro)
+//                    requireDestination(activity, macro)
+                    enterPhoneNumber(activity, macro)
                 }
             }
         )
     }
 
-    private fun chooseMessageAndDestination(activity: Activity, macro: Macro) {
-//        val contacts = context.retrieveAllContacts()
-//        MaterialDialog(context).show {
-//            title(text = "Message and destination")
-//            input(hint = "Message text:") { _, text ->
+    private fun enterPhoneNumber(activity: Activity, macro: Macro) {
+        MaterialDialog(activity).show {
+            title(text = "Enter phone number")
+            input(hint = "Phone number:") { _, text ->
+                // TODO: check number format
+                phoneNumber = text.toString()
+            }
+            positiveButton(text = "OK") {
+                enterMessageText(activity, macro)
+            }
+            negativeButton(text = "CANCEL")
+            // TODO: add button to pick from contacts
+        }
+    }
+
+    private fun enterMessageText(activity: Activity, macro: Macro) {
+        MaterialDialog(activity).show {
+            title(text = "Enter message text")
+            input(hint = "Message text:") { _, text ->
+                // TODO: check number format
+                phoneNumber = text.toString()
+            }
+            positiveButton(text = "OK") {
+                super.onClick(activity, macro)
+            }
+            negativeButton(text = "CANCEL")
+        }
+    }
+
+//    private fun requireDestination(activity: Activity, macro: Macro) {
+//        (activity as AppCompatActivity).supportFragmentManager
+//            .beginTransaction()
+//            .add(PickContactFragment(this, macro), "PickContact")
+//            .commit()
+//
+//    }
+
+//    private fun requireMessageText(activity: Activity, macro: Macro) {
+//        MaterialDialog(activity).show {
+//            title(text = "Message text")
+//            input { _, text ->
 //                messageText = text.toString()
 //            }
-//            listItemsSingleChoice(
-//                items = contacts.map { it.name },
-//                initialSelection = 0
-//            ) { _, choice, _ ->
-//                phoneNumber = contacts[choice].phoneNumber[0]
-//                Log.d("myTag", phoneNumber)
-//            }
 //            positiveButton(text = "OK") {
-//                super.onClick(context, macro)
+//                super.onClick(activity, macro)
 //            }
 //            negativeButton(text = "CANCEL")
 //        }
+//    }
 
-//        val intent = Intent(Intent.ACTION_PICK)
-//        intent.type = ContactsContract.Contacts.CONTENT_TYPE
-//        startActivityForResult(activity, intent, PICK_ACCOUNT_REQUEST_CODE, null)
-
-        (activity as AppCompatActivity).supportFragmentManager
-            .beginTransaction()
-            .add(PickContactFragment.newInstance(), "PickContact")
-            .commit()
-
-    }
-
-    class PickContactFragment : Fragment() {
-
-        override fun onAttach(context: Context) {
-            super.onAttach(context)
-
-            Log.d(App.TAG, "PickContact onAttach")
-            val pickContactLauncher =
-                registerForActivityResult(ActivityResultContracts.PickContact()) { result ->
-                    val cursor = activity?.contentResolver?.query(result, null, null, null, null)
-
-
-                    cursor?.close()
-                }
-            pickContactLauncher.launch(null)
-        }
-
-        companion object {
-            fun newInstance() = PickContactFragment()
-        }
-    }
-
-
-    companion object {
-        const val PICK_ACCOUNT_REQUEST_CODE = 1
-    }
+//    class PickContactFragment(private val sendSmsAction: SendSmsAction, private val macro: Macro) :
+//        Fragment() {
+//
+//        override fun onAttach(context: Context) {
+//            super.onAttach(context)
+//
+//            Log.d(App.TAG, "PickContact onAttach")
+//
+//            registerForActivityResult(ActivityResultContracts.PickContact()) { result ->
+//                requireActivity().contentResolver.query(result, null, null, null, null)?.use {
+//                    if (it.moveToFirst()) {
+//                        do {
+//                            val name =
+//                                it.getString(it.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME_PRIMARY))
+//                                    ?: ""
+//                            val hasPhoneNumber =
+//                                it.getString(it.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))
+//                                    .toInt()
+//                            Log.d(App.TAG, "$name, $hasPhoneNumber")
+////                            sendSmsAction.phoneNumber =
+////                                ContactsContract.Contacts.retrievePhoneNumber(contactId)
+//
+//                        } while (it.moveToNext())
+//                    }
+//                }
+//
+//                sendSmsAction.requireMessageText(requireActivity(), macro)
+//            }
+//                .launch(null)
+//        }
+//    }
 }
