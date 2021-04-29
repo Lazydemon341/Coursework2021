@@ -24,25 +24,23 @@ class AppForegroundService : Service() {
     }
 
     private fun startForeground() {
-        val notificationIntent = Intent(this, MainActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
+        val pendingIntent = Intent(this, MainActivity::class.java).let {
+            PendingIntent.getActivity(this, 0, it, 0)
+        }
 
-        startForeground(
-            NOTIFICATION_ID, NotificationCompat.Builder(
-                this,
-                App.CHANNEL_ID
-            )
-                // TODO: set icon and title
-                .setOngoing(true)
-                //.setSmallIcon(R.drawable.ic_notification)
-                .setContentTitle(getString(R.string.app_name))
-                .setContentText("Service is running background")
-                .setContentIntent(pendingIntent)
-                .build()
-        )
+        val notification = NotificationCompat.Builder(this, App.CHANNEL_ID)
+            .setOngoing(true)
+            .setSubText("AutoDroid is running in background")
+            .setSmallIcon(R.mipmap.ic_launcher)
+            .setContentText("AutoDroid is running in background")
+            .setContentTitle(getString(R.string.app_name))
+            .setContentIntent(pendingIntent)
+            .build()
+
+        startForeground(ONGOING_NOTIFICATION_ID, notification)
     }
 
     companion object {
-        private const val NOTIFICATION_ID = 1
+        private const val ONGOING_NOTIFICATION_ID = 1
     }
 }

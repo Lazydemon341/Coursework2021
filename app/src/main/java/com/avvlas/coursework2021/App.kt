@@ -25,8 +25,8 @@ class App : Application() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val serviceChannel = NotificationChannel(
                 CHANNEL_ID,
-                "AutoDroid notification",
-                NotificationManager.IMPORTANCE_DEFAULT
+                "AutoDroid notification channel",
+                NotificationManager.IMPORTANCE_LOW
             )
             val manager = getSystemService(
                 NotificationManager::class.java

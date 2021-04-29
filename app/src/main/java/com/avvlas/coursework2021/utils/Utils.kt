@@ -1,10 +1,13 @@
 package com.avvlas.coursework2021.utils
 
+import android.content.Context
 import android.content.res.Resources
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.input.input
 import com.avvlas.coursework2021.model.Macro
 import kotlin.math.roundToInt
 
@@ -18,6 +21,20 @@ object Utils {
 
     val Macro.Companion.CREATOR: Parcelable.Creator<Macro>
         get() = ParcelableCreators.getMacroCreator()
+
+    fun Context.showInputDialog(
+        title: String,
+        hint: String,
+        onInput: (dialog: MaterialDialog, text: CharSequence) -> Unit,
+        onPositiveButtonClick: (dialog: MaterialDialog) -> Unit
+    ) {
+        MaterialDialog(this).show {
+            title(text = title)
+            input(hint = hint, callback = onInput)
+            positiveButton(text = "OK", click = onPositiveButtonClick)
+            negativeButton(text = "CANCEL")
+        }
+    }
 }
 
 object Parcelables {

@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         }
 
     override fun onDestroy() {
-        Log.d("myTag", "Main Activity onDestroy called")
+        Log.d(App.TAG, "Main Activity onDestroy called")
         super.onDestroy()
     }
 }
