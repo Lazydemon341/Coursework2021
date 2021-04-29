@@ -9,6 +9,7 @@ import android.media.AudioManager
 import android.os.Build
 import android.util.Log
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.core.app.ActivityCompat.startActivity
 import androidx.core.content.ContextCompat
 import com.afollestad.materialdialogs.MaterialDialog
@@ -21,7 +22,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 class ChangeRingerModeAction(
     @DrawableRes override val icon: Int = R.drawable.ic_baseline_battery_charging_full_24,
-    override val title: String = "Sound Mode",
+    @StringRes override val title: Int = R.string.change_ringer_mode_action_title,
     private var mode: Int = AudioManager.RINGER_MODE_NORMAL
 ) : Action(icon, title) {
 

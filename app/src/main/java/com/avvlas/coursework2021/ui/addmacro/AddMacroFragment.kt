@@ -28,34 +28,49 @@ internal class AddMacroFragment : Fragment(R.layout.fragment_add_macro) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // TODO: Use the ViewModel
 
         (requireActivity() as AppCompatActivity).supportActionBar?.apply {
-            title = TITLE
+            title = getString(R.string.add_macro_fragment_title)
             setDisplayHomeAsUpEnabled(true)
         }
         navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
         initViewPager(view)
 
         view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
-            // TODO: check if valid( at least one trigger and action)
-            MaterialDialog(requireContext()).show {
-                title(text = "Macro name")
-                input(hint = "Enter macro name") { _, text ->
-                    viewModel.macro.name = text.toString()
-                    // TODO: Check if name if unique
-                    viewModel.macro.activate(requireActivity())
-                    viewModel.saveMacro()
-                    navController.navigateUp()
-                }
-                positiveButton(text = "OK")
-                negativeButton(text = "CANCEL")
+            // TODO: check if valid (at least one trigger and action)
+            if (viewModel.macro.actions.isNotEmpty() && viewModel.macro.triggers.isNotEmpty()) {
+                enterNameAndSaveMacro()
+            } else {
+                showInvalidMacroMessage()
             }
         }
     }
 
+    private fun showInvalidMacroMessage() =
+        MaterialDialog(requireContext()).show {
+            title(text = "Macro name")
+            message()
+            positiveButton(text = "OK")
+        }
+
+
+    private fun enterNameAndSaveMacro() =
+        MaterialDialog(requireContext()).show {
+            title(R.string.enter_macro_name)
+            input(hintRes = R.string.macro_name_hint) { _, text ->
+                viewModel.macro.name = text.toString()
+                // TODO: Check if name if unique
+                viewModel.macro.activate(requireActivity())
+                viewModel.saveMacro()
+                navController.navigateUp()
+            }
+            positiveButton(R.string.ok)
+            negativeButton(R.string.cancel)
+        }
+
+
     private fun initViewPager(view: View) {
-        viewPager = view.findViewById<ViewPager2>(R.id.pager)
+        viewPager = view.findViewById(R.id.pager)
         viewPager.adapter = PagerAdapter(
             this@AddMacroFragment,
             TriggersFragment.newInstance(),
@@ -63,9 +78,9 @@ internal class AddMacroFragment : Fragment(R.layout.fragment_add_macro) {
         )
         TabLayoutMediator(view.findViewById(R.id.tab_layout), viewPager) { tab, position ->
             tab.text = when (position) {
-                0 -> TriggersFragment.TITLE
-                1 -> ActionsFragment.TITLE
-                else -> TriggersFragment.TITLE
+                0 -> getString(R.string.triggers_fragment_title)
+                1 -> getString(R.string.actions_fragment_title)
+                else -> getString(R.string.triggers_fragment_title)
             }
         }.attach()
     }
@@ -73,19 +88,14 @@ internal class AddMacroFragment : Fragment(R.layout.fragment_add_macro) {
     fun onBackPressed() {
         requireActivity().let {
             val builder = AlertDialog.Builder(it)
-            builder.setMessage("Quit without saving?")
-                .setPositiveButton("yes") { _, _ ->
+            builder.setMessage(getString(R.string.quit_without_saving))
+                .setPositiveButton(R.string.yes) { _, _ ->
                     navController.navigateUp()
                 }
-                .setNegativeButton("no") { _, _ ->
-                    // Stay
+                .setNegativeButton(R.string.no) { _, _ -> // Stay
                 }
             builder.show()
         }
-    }
-
-    companion object {
-        private const val TITLE = "Create macro"
     }
 }
 

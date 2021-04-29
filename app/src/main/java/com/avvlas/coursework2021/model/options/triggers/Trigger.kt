@@ -2,12 +2,13 @@ package com.avvlas.coursework2021.model.options.triggers
 
 import android.content.Context
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import com.avvlas.coursework2021.model.Macro
 import com.avvlas.coursework2021.model.options.Option
 
 abstract class Trigger(
     @DrawableRes icon: Int,
-    title: String
+    @StringRes title: Int
 ) : Option(icon, title) {
 
     abstract fun schedule(appContext: Context, macro: Macro)

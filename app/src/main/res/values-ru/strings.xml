@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AutoDroid</string>
+    <string name="title_main_activity">AutoDroid</string>
+
+    <string name="action_settings">Настройки</string>
+    <string name="add_macro_button">Кнопка для добавления макроса</string>
+    <string name="action_delete_macro">Удалить</string>
+    <string name="action_test_actions">Запустить действия</string>
+    <string name="action_rename_macro">Переименовать</string>
+
+    <string name="macros_list_fragment_title">Макросы</string>
+    <string name="actions_fragment_title">Действия</string>
+    <string name="triggers_fragment_title">Триггеры</string>
+    <string name="add_macro_fragment_title">Новый Макрос</string>
+
+    <string name="change_auto_rotate_action_title">Автоповорот</string>
+    <string name="change_ringer_mode_action_title">Звук и вибрация</string>
+    <string name="send_email_action_title">Отправить E-Mail</string>
+    <string name="send_sms_action_title">Отправить SMS</string>
+    <string name="send_whatsapp_message_action_title">Отправить сообщение в WhatsApp</string>
+
+    <string name="battery_charging_trigger_title">Батарея заряжается</string>
+    <string name="battery_level_trigger_title">Уровень заряда</string>
+    <string name="date_time_trigger_title">Дата/время</string>
+    <string name="day_time_trigger_title">День и время</string>
+    <string name="ringer_mode_trigger_title">Звук и вибрация</string>
+
+    <string name="quit_without_saving">Отменить создание макроса?</string>
+
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="cancel">Отмена</string>
+    <string name="ok">ОК</string>
+
+    <string name="enter_macro_name">Введите название макроса</string>
+    <string name="macro_name_hint">Название:</string>
+</resources>

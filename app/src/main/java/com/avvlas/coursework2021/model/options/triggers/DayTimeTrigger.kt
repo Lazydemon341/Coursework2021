@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.model.Macro
 import com.avvlas.coursework2021.utils.broadcastreceivers.TriggerBroadcastReceiver
@@ -14,7 +15,7 @@ import java.util.*
 @Parcelize
 class DayTimeTrigger(
     @DrawableRes override val icon: Int = R.drawable.ic_baseline_watch_24,
-    override val title: String = "Day/Time Trigger",
+    @StringRes override val title: Int = R.string.day_time_trigger_title,
     var hour: Int = -1,
     var minute: Int = -1,
     val days: ArrayList<Boolean> = arrayListOf()

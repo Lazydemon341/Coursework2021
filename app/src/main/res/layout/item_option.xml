@@ -10,18 +10,23 @@
     app:cardElevation="0dp"
     app:contentPadding="6dp">
 
-    <TextView
-        android:id="@+id/option_title_text"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="2dp"
-        android:drawablePadding="@dimen/margin_small"
-        android:maxLines="2"
-        android:paddingTop="@dimen/margin_small"
-        android:paddingBottom="@dimen/margin_small"
-        android:textColor="@color/white"
-        tools:drawableLeft="@drawable/ic_baseline_watch_24"
-        tools:text="Call Active" />
+        android:layout_height="wrap_content">
 
+        <TextView
+            android:id="@+id/option_title_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="2dp"
+            android:drawablePadding="@dimen/margin_small"
+            android:maxLines="1"
+            android:paddingTop="@dimen/margin_small"
+            android:paddingBottom="@dimen/margin_small"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            tools:drawableLeft="@drawable/ic_baseline_watch_24"
+            tools:text="Call Active" />
+    </LinearLayout>
 </androidx.cardview.widget.CardView>

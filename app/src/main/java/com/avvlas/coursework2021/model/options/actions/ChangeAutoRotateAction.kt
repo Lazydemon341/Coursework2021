@@ -8,6 +8,7 @@ import android.os.Build
 import android.provider.Settings
 import android.util.Log
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat.startActivity
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItemsSingleChoice
@@ -19,7 +20,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 class ChangeAutoRotateAction(
     @DrawableRes override val icon: Int = R.drawable.ic_baseline_screen_rotation_24,
-    override val title: String = "Auto Rotation",
+    @StringRes override val title: Int = R.string.change_auto_rotate_action_title,
     private var enable: Boolean = false
 ) : Action(icon, title) {
 

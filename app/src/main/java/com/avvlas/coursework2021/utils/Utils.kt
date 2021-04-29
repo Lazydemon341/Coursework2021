@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.input.input
+import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.model.Macro
 import kotlin.math.roundToInt
 
@@ -31,8 +32,8 @@ object Utils {
         MaterialDialog(this).show {
             title(text = title)
             input(hint = hint, callback = onInput)
-            positiveButton(text = "OK", click = onPositiveButtonClick)
-            negativeButton(text = "CANCEL")
+            positiveButton(R.string.ok, click = onPositiveButtonClick)
+            negativeButton(R.string.cancel)
         }
     }
 }

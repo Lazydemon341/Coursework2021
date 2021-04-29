@@ -7,4 +7,39 @@
     <string name="action_delete_macro">Delete</string>
     <string name="action_test_actions">Test actions</string>
     <string name="action_rename_macro">Rename</string>
+
+    <!-- fragments titles -->
+    <string name="macros_list_fragment_title">Macros</string>
+    <string name="actions_fragment_title">Actions</string>
+    <string name="triggers_fragment_title">Triggers</string>
+    <string name="add_macro_fragment_title">Create Macro</string>
+
+    <!--  actions titles  -->
+    <string name="change_auto_rotate_action_title">Auto-Rotate</string>
+    <string name="change_bluetooth_state_action_title" translatable="false">Bluetooth</string>
+    <string name="change_ringer_mode_action_title">Sound/Vibration</string>
+    <string name="change_wifi_state_action_title" translatable="false">Wifi</string>
+    <string name="send_email_action_title">Send E-Mail</string>
+    <string name="send_sms_action_title">Send SMS</string>
+    <string name="send_whatsapp_message_action_title">Send WhatsApp Message</string>
+
+    <!--  triggers titles  -->
+    <string name="battery_charging_trigger_title">Battery charging</string>
+    <string name="battery_level_trigger_title">Battery level</string>
+    <string name="bluetooth_state_trigger_title" translatable="false">Bluetooth</string>
+    <string name="date_time_trigger_title">Date/time</string>
+    <string name="day_time_trigger_title">Day/time</string>
+    <string name="ringer_mode_trigger_title">Sound/Vibration</string>
+
+    <!-- AlertDialogs -->
+    <string name="quit_without_saving">Quit without saving?</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+
+    <string name="enter_macro_name">Enter macro name</string>
+    <string name="macro_name_hint">Macro name:</string>
+
 </resources>

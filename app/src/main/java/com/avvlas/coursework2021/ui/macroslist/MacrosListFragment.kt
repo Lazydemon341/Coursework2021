@@ -34,7 +34,7 @@ class MacrosListFragment : Fragment(R.layout.fragment_macros_list),
 
     private fun setupStatusBar() =
         (requireActivity() as AppCompatActivity).supportActionBar?.apply {
-            title = TITLE
+            title = getString(R.string.macros_list_fragment_title)
             setDisplayHomeAsUpEnabled(false)
         }
 
@@ -73,9 +73,5 @@ class MacrosListFragment : Fragment(R.layout.fragment_macros_list),
             macro.activate(requireActivity())
         }
         viewModel.updateMacro(macro)
-    }
-
-    companion object {
-        private const val TITLE = "Macros"
     }
 }

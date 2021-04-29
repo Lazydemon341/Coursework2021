@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItemsSingleChoice
 import com.avvlas.coursework2021.R
@@ -14,7 +15,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 class BatteryChargingTrigger(
     @DrawableRes override val icon: Int = R.drawable.ic_baseline_calendar_today_24,
-    override val title: String = "Battery Charging",
+    @StringRes override val title: Int = R.string.battery_charging_trigger_title,
     private var connected: Boolean = false
 ) : Trigger(icon, title) {
 

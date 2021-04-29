@@ -7,6 +7,7 @@ import android.net.wifi.WifiManager
 import android.os.Build
 import android.provider.Settings
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat.startActivity
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItemsSingleChoice
@@ -17,7 +18,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 class ChangeWifiStateAction(
     @DrawableRes override val icon: Int = R.drawable.ic_baseline_wifi_24,
-    override val title: String = "Wifi On/Off",
+    @StringRes override val title: Int = R.string.change_wifi_state_action_title,
     private var enable: Boolean = false
 ) : Action(icon, title) {
 

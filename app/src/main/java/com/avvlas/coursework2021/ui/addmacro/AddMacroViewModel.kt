@@ -34,8 +34,7 @@ class AddMacroViewModel @Inject constructor(
             ),
             Category<Trigger>(
                 R.drawable.ic_baseline_watch_24, "Category2", arrayListOf(
-                    LocationTrigger(R.drawable.ic_baseline_watch_24, "trigger1"),
-                    LocationTrigger(R.drawable.ic_baseline_check_24, "trigger2")
+                    LocationTrigger(R.drawable.ic_baseline_watch_24, R.string.add_macro_button)
                 )
             ),
             Category<Trigger>(R.drawable.ic_baseline_watch_24, "Category3", arrayListOf())
@@ -50,8 +49,7 @@ class AddMacroViewModel @Inject constructor(
                     ChangeAutoRotateAction(),
                     ChangeBluetoothStateAction(),
                     ChangeRingerModeAction(),
-                    SendSmsAction(),
-                    OpenCallLogAction()
+                    SendSmsAction()
                 )
             ),
             Category<Action>(

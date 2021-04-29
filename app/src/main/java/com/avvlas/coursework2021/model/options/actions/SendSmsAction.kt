@@ -8,11 +8,11 @@ import android.os.Build
 import android.telephony.SmsManager
 import android.widget.Toast
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.core.app.ActivityCompat
-import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.input.input
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.model.Macro
+import com.avvlas.coursework2021.utils.Utils.showInputDialog
 import com.nabinbhandari.android.permissions.PermissionHandler
 import com.nabinbhandari.android.permissions.Permissions
 import kotlinx.parcelize.Parcelize
@@ -21,7 +21,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 class SendSmsAction(
     @DrawableRes override val icon: Int = R.drawable.ic_baseline_screen_rotation_24,
-    override val title: String = "Send SMS",
+    @StringRes override val title: Int = R.string.send_sms_action_title,
     var phoneNumber: String = "",
     var messageText: String = ""
 ) : Action(icon, title) {
@@ -69,34 +69,32 @@ class SendSmsAction(
         )
     }
 
-    private fun enterPhoneNumber(activity: Activity, macro: Macro) {
-        MaterialDialog(activity).show {
-            title(text = "Enter phone number")
-            input(hint = "Phone number:") { _, text ->
-                // TODO: check number format
-                phoneNumber = text.toString()
-            }
-            positiveButton(text = "OK") {
-                enterMessageText(activity, macro)
-            }
-            negativeButton(text = "CANCEL")
+    private fun enterPhoneNumber(activity: Activity, macro: Macro) =
+        activity.showInputDialog(
+            // TODO: check number format
             // TODO: add button to pick from contacts
-        }
-    }
-
-    private fun enterMessageText(activity: Activity, macro: Macro) {
-        MaterialDialog(activity).show {
-            title(text = "Enter message text")
-            input(hint = "Message text:") { _, text ->
-                // TODO: check number format
+            title = "Enter phone number",
+            hint = "Phone number:",
+            onInput = { _, text ->
                 phoneNumber = text.toString()
-            }
-            positiveButton(text = "OK") {
+            },
+            onPositiveButtonClick = {
+                enterMessageText(activity, macro)
+            })
+
+
+    private fun enterMessageText(activity: Activity, macro: Macro) =
+        activity.showInputDialog(
+            title = "Enter message text",
+            hint = "Message text:",
+            onInput = { _, text ->
+                phoneNumber = text.toString()
+            },
+            onPositiveButtonClick = {
                 super.onClick(activity, macro)
             }
-            negativeButton(text = "CANCEL")
-        }
-    }
+        )
+
 
 //    private fun requireDestination(activity: Activity, macro: Macro) {
 //        (activity as AppCompatActivity).supportFragmentManager

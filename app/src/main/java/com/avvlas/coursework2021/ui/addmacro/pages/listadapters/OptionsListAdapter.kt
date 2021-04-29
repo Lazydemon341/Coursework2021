@@ -37,7 +37,7 @@ class OptionsListAdapter<T : Option>(
         private val titleTextView: TextView = itemView.findViewById(R.id.option_title_text)
 
         fun bind(option: T) {
-            titleTextView.text = option.title
+            titleTextView.text = itemView.resources.getString(option.title)
             titleTextView.setCompoundDrawablesWithIntrinsicBounds(
                 ContextCompat.getDrawable(
                     itemView.context,

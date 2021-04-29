@@ -4,6 +4,7 @@ import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.content.Context
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItemsSingleChoice
 import com.avvlas.coursework2021.R
@@ -14,7 +15,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 class ChangeBluetoothStateAction(
     @DrawableRes override val icon: Int = R.drawable.ic_baseline_bluetooth_24,
-    override val title: String = "Bluetooth",
+    @StringRes override val title: Int = R.string.change_bluetooth_state_action_title,
     private var mode: Mode = Mode.TURN_OFF
 ) : Action(icon, title) {
 

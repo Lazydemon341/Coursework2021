@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.media.AudioManager
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItemsSingleChoice
 import com.avvlas.coursework2021.R
@@ -15,7 +16,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 class RingerModeChangeTrigger(
     @DrawableRes override val icon: Int = R.drawable.ic_baseline_volume_up_24,
-    override val title: String = "Sound Mode",
+    @StringRes override val title: Int = R.string.ringer_mode_trigger_title,
     var mode: Mode = Mode.NORMAL
 ) : Trigger(icon, title) {
 
@@ -23,7 +24,9 @@ class RingerModeChangeTrigger(
         if (receiver == null) {
             receiver = object : RingerModeChangeReceiver() {
                 override fun onReceive(context: Context, intent: Intent) {
-                    if (intent.action == AudioManager.RINGER_MODE_CHANGED_ACTION) {
+                    if (intent.action == AudioManager.RINGER_MODE_CHANGED_ACTION
+                        && !isInitialStickyBroadcast
+                    ) {
                         val mode = intent.getIntExtra(
                             AudioManager.EXTRA_RINGER_MODE,
                             AudioManager.ERROR

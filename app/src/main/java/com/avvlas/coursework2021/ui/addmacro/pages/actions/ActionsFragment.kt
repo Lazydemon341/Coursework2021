@@ -20,8 +20,6 @@ internal class ActionsFragment : BaseOptionsFragment<Action>(R.layout.fragment_o
     }
 
     companion object {
-        const val TITLE = "Actions"
-
         fun newInstance() =
             ActionsFragment()
     }

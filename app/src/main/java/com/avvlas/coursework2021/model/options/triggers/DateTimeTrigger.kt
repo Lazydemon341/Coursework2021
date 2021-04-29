@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.model.Macro
 import com.avvlas.coursework2021.utils.Parcelables.toByteArray
@@ -15,7 +16,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 class DateTimeTrigger(
     @DrawableRes override val icon: Int = R.drawable.ic_baseline_calendar_today_24,
-    override val title: String = "Date and Time",
+    @StringRes override val title: Int = R.string.date_time_trigger_title,
     var timeInMillis: Long = -1
 ) : Trigger(icon, title) {
 
