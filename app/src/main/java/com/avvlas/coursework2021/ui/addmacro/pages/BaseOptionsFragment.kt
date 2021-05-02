@@ -8,10 +8,11 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.model.options.Option
-import com.avvlas.coursework2021.ui.addmacro.AddMacroViewModel
 import com.avvlas.coursework2021.ui.addmacro.AddMacroFragment
+import com.avvlas.coursework2021.ui.addmacro.AddMacroViewModel
 import com.avvlas.coursework2021.ui.addmacro.pages.listadapters.CategoriesListAdapter
 import com.avvlas.coursework2021.ui.addmacro.pages.listadapters.OptionsListAdapter
+import com.avvlas.coursework2021.ui.addmacro.pages.listadapters.SelectedOptionsListAdapter
 
 internal abstract class BaseOptionsFragment<T : Option>(@LayoutRes contentLayoutId: Int) :
     Fragment(contentLayoutId), OptionsListAdapter.OnOptionClickListener<T> {
@@ -20,7 +21,8 @@ internal abstract class BaseOptionsFragment<T : Option>(@LayoutRes contentLayout
         ownerProducer = { requireParentFragment() }
     )
     protected lateinit var viewPagerFragment: AddMacroFragment
-    protected lateinit var adapter: CategoriesListAdapter<T>
+    protected lateinit var categoriesAdapter: CategoriesListAdapter<T>
+    protected lateinit var selectedOptionsAdapter: SelectedOptionsListAdapter<T>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -29,10 +31,14 @@ internal abstract class BaseOptionsFragment<T : Option>(@LayoutRes contentLayout
     }
 
     private fun initRecyclerView(view: View) {
-        val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
+        view.findViewById<RecyclerView>(R.id.categories_recycler_view).adapter =
+            CategoriesListAdapter<T>(this).also {
+                this.categoriesAdapter = it
+            }
 
-        recyclerView.adapter = CategoriesListAdapter<T>(this).also {
-            this.adapter = it
-        }
+        view.findViewById<RecyclerView>(R.id.selected_options_recycler_view).adapter =
+            SelectedOptionsListAdapter<T>(this).also {
+                this.selectedOptionsAdapter = it
+            }
     }
 }

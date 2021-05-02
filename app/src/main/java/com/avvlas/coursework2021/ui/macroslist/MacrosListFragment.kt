@@ -48,7 +48,7 @@ class MacrosListFragment : Fragment(R.layout.fragment_macros_list),
     }
 
     private fun setupRecyclerView(view: View) {
-        val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
+        val recyclerView: RecyclerView = view.findViewById(R.id.categories_recycler_view)
 
         recyclerView.adapter = MacrosListAdapter(this, this).also {
             this.adapter = it

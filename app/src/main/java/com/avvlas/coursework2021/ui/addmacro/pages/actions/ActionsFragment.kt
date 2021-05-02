@@ -12,7 +12,8 @@ internal class ActionsFragment : BaseOptionsFragment<Action>(R.layout.fragment_o
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter.submitList(viewModel.actions)
+        categoriesAdapter.submitList(viewModel.actions)
+        selectedOptionsAdapter.submitList(viewModel.macro.actions)
     }
 
     override fun onOptionClick(option: Action) {

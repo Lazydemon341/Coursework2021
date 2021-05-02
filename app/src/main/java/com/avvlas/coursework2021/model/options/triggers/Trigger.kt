@@ -16,6 +16,6 @@ abstract class Trigger(
     abstract fun cancel(context: Context, macro: Macro)
 
     open fun onClick(context: Context, macro: Macro){
-        macro.triggers.add(this)
+        macro.addTrigger(this)
     }
 }

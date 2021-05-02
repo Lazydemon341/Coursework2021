@@ -3,12 +3,15 @@ package com.avvlas.coursework2021.model
 import android.app.Activity
 import android.content.Context
 import android.os.Parcelable
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.avvlas.coursework2021.model.options.actions.Action
 import com.avvlas.coursework2021.model.options.triggers.Trigger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
 // TODO: location, time, battery level, device boot, settings change...
@@ -20,6 +23,16 @@ data class Macro(
     val actions: ArrayList<Action> = arrayListOf(),
     var isActivated: Boolean = false
 ) : Parcelable {
+
+    @IgnoredOnParcel
+    private val triggersLiveData = MutableLiveData(triggers)
+
+    fun getTriggersLiveData(): LiveData<ArrayList<Trigger>> = triggersLiveData
+
+    fun addTrigger(trigger: Trigger) {
+        triggersLiveData.value?.add(trigger)
+        triggersLiveData.value = triggersLiveData.value
+    }
 
     fun activate(activity: Activity) {
         for (trigger in triggers)
