@@ -34,6 +34,16 @@ data class Macro(
         triggersLiveData.value = triggersLiveData.value
     }
 
+    @IgnoredOnParcel
+    private val actionsLiveData = MutableLiveData(actions)
+
+    fun getActionsLiveData(): LiveData<ArrayList<Action>> = actionsLiveData
+
+    fun addAction(action: Action) {
+        actionsLiveData.value?.add(action)
+        actionsLiveData.value = actionsLiveData.value
+    }
+
     fun activate(activity: Activity) {
         for (trigger in triggers)
             trigger.schedule(activity.applicationContext, this)

@@ -13,6 +13,7 @@ internal class TriggersFragment : BaseOptionsFragment<Trigger>(R.layout.fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         categoriesAdapter.submitList(viewModel.triggers)
         viewModel.macro.getTriggersLiveData().observe(viewLifecycleOwner) {
             selectedOptionsAdapter.submitList(it.toList())

@@ -15,6 +15,6 @@ abstract class Action(
     abstract suspend fun execute(context: Context)
 
     open fun onClick(activity: Activity, macro: Macro) {
-        macro.actions.add(this)
+        macro.addAction(this)
     }
 }
