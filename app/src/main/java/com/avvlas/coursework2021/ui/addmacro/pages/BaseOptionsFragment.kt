@@ -11,8 +11,10 @@ import com.avvlas.coursework2021.model.options.Option
 import com.avvlas.coursework2021.ui.addmacro.AddMacroFragment
 import com.avvlas.coursework2021.ui.addmacro.AddMacroViewModel
 import com.avvlas.coursework2021.ui.addmacro.pages.listadapters.CategoriesListAdapter
+import com.avvlas.coursework2021.ui.addmacro.pages.listadapters.GridSpacingItemDecoration
 import com.avvlas.coursework2021.ui.addmacro.pages.listadapters.OptionsListAdapter
 import com.avvlas.coursework2021.ui.addmacro.pages.listadapters.SelectedOptionsListAdapter
+import com.avvlas.coursework2021.utils.Utils
 
 internal abstract class BaseOptionsFragment<T : Option>(@LayoutRes contentLayoutId: Int) :
     Fragment(contentLayoutId), OptionsListAdapter.OnOptionClickListener<T> {
@@ -33,12 +35,21 @@ internal abstract class BaseOptionsFragment<T : Option>(@LayoutRes contentLayout
     private fun initRecyclerView(view: View) {
         view.findViewById<RecyclerView>(R.id.categories_recycler_view).adapter =
             CategoriesListAdapter<T>(this).also {
-                this.categoriesAdapter = it
+                categoriesAdapter = it
             }
 
-        view.findViewById<RecyclerView>(R.id.selected_options_recycler_view).adapter =
-            SelectedOptionsListAdapter<T>(this).also {
-                this.selectedOptionsAdapter = it
-            }
+        view.findViewById<RecyclerView>(R.id.selected_options_recycler_view).apply {
+            adapter =
+                SelectedOptionsListAdapter<T>(this@BaseOptionsFragment).also {
+                    selectedOptionsAdapter = it
+                }
+            addItemDecoration(
+                GridSpacingItemDecoration(
+                    1,
+                    Utils.dpToPx(resources, 8),
+                    false
+                )
+            )
+        }
     }
 }
