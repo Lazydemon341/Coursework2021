@@ -41,5 +41,7 @@
 
     <string name="enter_macro_name">Enter macro name</string>
     <string name="macro_name_hint">Macro name:</string>
+    <string name="add_trigger_button_cd">Add trigger</string>
+    <string name="add_action_button_cd">Add action</string>
 
 </resources>

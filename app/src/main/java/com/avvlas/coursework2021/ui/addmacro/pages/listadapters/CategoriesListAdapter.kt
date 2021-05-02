@@ -44,8 +44,8 @@ class CategoriesListAdapter<T : Option>(
             initRecyclerView(category)
         }
 
-        private fun setTitleAndIcon(category: Category<T>) {
-            (itemView as ExpandableCardView).apply {
+        private fun setTitleAndIcon(category: Category<T>) =
+            itemView.findViewById<ExpandableCardView>(R.id.category_expandable_card_view).apply {
                 setTitle(category.title)
                 setIcon(
                     ContextCompat.getDrawable(
@@ -64,7 +64,7 @@ class CategoriesListAdapter<T : Option>(
                     }
                 )
             }
-        }
+
 
         private fun initRecyclerView(category: Category<T>) {
             optionsRecyclerView.apply {
