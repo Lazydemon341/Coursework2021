@@ -48,8 +48,8 @@ internal class AddMacroFragment : Fragment(R.layout.fragment_add_macro) {
 
     private fun showInvalidMacroMessage() =
         MaterialDialog(requireContext()).show {
-            title(text = "Macro name")
-            message()
+            title(res = R.string.invalid_macro_title)
+            message(res = R.string.invalid_macro_message)
             positiveButton(text = "OK")
         }
 
@@ -78,9 +78,9 @@ internal class AddMacroFragment : Fragment(R.layout.fragment_add_macro) {
         )
         TabLayoutMediator(view.findViewById(R.id.tab_layout), viewPager) { tab, position ->
             tab.text = when (position) {
-                0 -> getString(R.string.triggers_fragment_title)
-                1 -> getString(R.string.actions_fragment_title)
-                else -> getString(R.string.triggers_fragment_title)
+                0 -> getString(R.string.triggers_title)
+                1 -> getString(R.string.actions_title)
+                else -> getString(R.string.triggers_title)
             }
         }.attach()
     }

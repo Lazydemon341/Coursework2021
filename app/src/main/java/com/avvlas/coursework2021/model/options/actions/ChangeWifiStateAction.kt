@@ -33,8 +33,8 @@ class ChangeWifiStateAction(
         }
     }
 
-    override fun onClick(activity: Activity, macro: Macro) {
-        MaterialDialog(activity).show {
+    override fun onClick(context: Context, macro: Macro) {
+        MaterialDialog(context).show {
             title(text = "Choose action type")
             listItemsSingleChoice(
                 items = listOf(
@@ -48,7 +48,7 @@ class ChangeWifiStateAction(
                 }
             }
             positiveButton(text = "OK") {
-                super.onClick(activity, macro)
+                super.onClick(context, macro)
             }
             negativeButton(text = "CANCEL")
         }

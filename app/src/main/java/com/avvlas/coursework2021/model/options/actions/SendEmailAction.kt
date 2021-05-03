@@ -32,7 +32,7 @@ class SendEmailAction(
         startActivity(context, Intent.createChooser(email, "Choose an Email client :"), null)
     }
 
-    override fun onClick(activity: Activity, macro: Macro) {
-        super.onClick(activity, macro)
+    override fun onClick(context: Context, macro: Macro) {
+        super.onClick(context, macro)
     }
 }

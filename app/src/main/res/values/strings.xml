@@ -10,8 +10,8 @@
 
     <!-- fragments titles -->
     <string name="macros_list_fragment_title">Macros</string>
-    <string name="actions_fragment_title">Actions</string>
-    <string name="triggers_fragment_title">Triggers</string>
+    <string name="actions_title">Actions</string>
+    <string name="triggers_title">Triggers</string>
     <string name="add_macro_fragment_title">Create Macro</string>
 
     <!--  actions titles  -->
@@ -38,10 +38,20 @@
     <string name="no">No</string>
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
 
     <string name="enter_macro_name">Enter macro name</string>
     <string name="macro_name_hint">Macro name:</string>
     <string name="add_trigger_button_cd">Add trigger</string>
     <string name="add_action_button_cd">Add action</string>
+
+    <string-array name="selected_option_options">
+        <item>@string/edit</item>
+        <item>@string/delete</item>
+    </string-array>
+
+    <string name="invalid_macro_title">Invalid Macro</string>
+    <string name="invalid_macro_message">A Macro must have at least one trigger and one action!</string>
 
 </resources>

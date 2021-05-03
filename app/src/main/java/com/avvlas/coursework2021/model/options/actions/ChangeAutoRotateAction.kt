@@ -1,6 +1,5 @@
 package com.avvlas.coursework2021.model.options.actions
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -9,6 +8,7 @@ import android.provider.Settings
 import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.startActivity
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItemsSingleChoice
@@ -34,7 +34,8 @@ class ChangeAutoRotateAction(
         }
     }
 
-    override fun onClick(activity: Activity, macro: Macro) {
+    override fun onClick(context: Context, macro: Macro) {
+        val activity = context as AppCompatActivity
         if (checkSystemWritePermission(activity)) {
             MaterialDialog(activity).show {
                 title(text = "Choose action type")

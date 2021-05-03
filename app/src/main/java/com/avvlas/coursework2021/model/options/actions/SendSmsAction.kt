@@ -9,6 +9,7 @@ import android.telephony.SmsManager
 import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.model.Macro
@@ -54,16 +55,16 @@ class SendSmsAction(
 
     }
 
-    override fun onClick(activity: Activity, macro: Macro) {
+    override fun onClick(context: Context, macro: Macro) {
         Permissions.check(
-            activity,
+            context as AppCompatActivity,
             arrayOf(Manifest.permission.SEND_SMS, Manifest.permission.READ_CONTACTS),
             null,
             null,
             object : PermissionHandler() {
                 override fun onGranted() {
 //                    requireDestination(activity, macro)
-                    enterPhoneNumber(activity, macro)
+                    enterPhoneNumber(context, macro)
                 }
             }
         )

@@ -53,7 +53,7 @@ class OptionsListAdapter<T : Option>(
 
     class DiffCallback<T : Option> : DiffUtil.ItemCallback<T>() {
         override fun areItemsTheSame(oldItem: T, newItem: T): Boolean =
-            oldItem::class == newItem::class
+            oldItem.title == newItem.title
 
         override fun areContentsTheSame(oldItem: T, newItem: T): Boolean =
             areItemsTheSame(oldItem, newItem)

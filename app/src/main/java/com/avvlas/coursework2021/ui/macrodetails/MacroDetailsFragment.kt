@@ -11,10 +11,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.input.input
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.model.Macro
+import com.avvlas.coursework2021.model.options.actions.Action
+import com.avvlas.coursework2021.model.options.triggers.Trigger
+import com.avvlas.coursework2021.ui.addmacro.pages.listadapters.OptionsListAdapter
+import com.avvlas.coursework2021.ui.macroslist.MacrosListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -29,6 +34,9 @@ class MacroDetailsFragment : Fragment(R.layout.fragment_macro_details) {
     private val viewModel: MacroDetailsViewModel by viewModels {
         MacroDetailsViewModel.provideFactory(viewModelFactory, this, arguments)
     }
+
+    private lateinit var triggersAdapter: OptionsListAdapter<Trigger>
+    private lateinit var actionsAdapter: OptionsListAdapter<Action>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +53,8 @@ class MacroDetailsFragment : Fragment(R.layout.fragment_macro_details) {
         }
         setupNavController()
 
-        val macro = arguments?.getParcelable<Macro>(ARG_MACRO) ?: return
+        arguments?.getParcelable<Macro>(ARG_MACRO)
+            ?: throw IllegalArgumentException("Macro required")
         setupMacroDetails(view)
     }
 
@@ -55,6 +64,15 @@ class MacroDetailsFragment : Fragment(R.layout.fragment_macro_details) {
 
     private fun setupMacroDetails(view: View) {
         actionBar.title = viewModel.macro.name
+        setupRecyclerViews(view)
+    }
+
+    private fun setupRecyclerViews(view: View) {
+//        view.findViewById<RecyclerView>(R.id.triggers_recycler_view).adapter =
+//            MacrosListAdapter(this, this).also {
+//                this.triggersAdapter = it
+//            }
+
     }
 
     fun onBackPressed() {
@@ -112,8 +130,6 @@ class MacroDetailsFragment : Fragment(R.layout.fragment_macro_details) {
     }
 
     companion object {
-        private const val TITLE = "MacroDetails"
-
         internal const val ARG_MACRO = "macro"
     }
 }

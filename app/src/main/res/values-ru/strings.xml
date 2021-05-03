@@ -10,8 +10,8 @@
     <string name="action_rename_macro">Переименовать</string>
 
     <string name="macros_list_fragment_title">Макросы</string>
-    <string name="actions_fragment_title">Действия</string>
-    <string name="triggers_fragment_title">Триггеры</string>
+    <string name="actions_title">Действия</string>
+    <string name="triggers_title">Триггеры</string>
     <string name="add_macro_fragment_title">Новый Макрос</string>
 
     <string name="change_auto_rotate_action_title">Автоповорот</string>
@@ -32,7 +32,16 @@
     <string name="no">Нет</string>
     <string name="cancel">Отмена</string>
     <string name="ok">ОК</string>
+    <string name="delete">Удалить</string>
+    <string name="edit">Изменить</string>
 
     <string name="enter_macro_name">Введите название макроса</string>
     <string name="macro_name_hint">Название:</string>
+
+    <string name="add_trigger_button_cd">Добавить триггер</string>
+    <string name="add_action_button_cd">Добавить действие</string>
+
+    <string name="invalid_macro_title">Некорректный Макрос</string>
+    <string name="invalid_macro_message">У Макроса должны быть, по крайней мере, один Триггер и одно Действие!</string>
+
 </resources>

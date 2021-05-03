@@ -34,6 +34,11 @@ data class Macro(
         triggersLiveData.value = triggersLiveData.value
     }
 
+    fun removeTrigger(trigger: Trigger) {
+        triggersLiveData.value?.remove(trigger)
+        triggersLiveData.value = triggersLiveData.value
+    }
+
     @IgnoredOnParcel
     private val actionsLiveData = MutableLiveData(actions)
 
@@ -41,6 +46,11 @@ data class Macro(
 
     fun addAction(action: Action) {
         actionsLiveData.value?.add(action)
+        actionsLiveData.value = actionsLiveData.value
+    }
+
+    fun removeAction(action: Action) {
+        actionsLiveData.value?.remove(action)
         actionsLiveData.value = actionsLiveData.value
     }
 

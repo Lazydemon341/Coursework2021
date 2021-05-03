@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.model.options.actions.Action
+import com.avvlas.coursework2021.model.options.triggers.Trigger
 import com.avvlas.coursework2021.ui.addmacro.pages.BaseOptionsFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,6 +22,10 @@ internal class ActionsFragment : BaseOptionsFragment<Action>(R.layout.fragment_o
 
     override fun onOptionClick(option: Action) {
         option.onClick(requireActivity(), viewModel.macro)
+    }
+
+    override fun onSelectedOptionClick(option: Action) {
+        TODO("Not yet implemented")
     }
 
     companion object {

@@ -6,18 +6,21 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
+import com.afollestad.materialdialogs.MaterialDialog
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.model.options.Option
 import com.avvlas.coursework2021.ui.addmacro.AddMacroFragment
 import com.avvlas.coursework2021.ui.addmacro.AddMacroViewModel
 import com.avvlas.coursework2021.ui.addmacro.pages.listadapters.CategoriesListAdapter
-import com.avvlas.coursework2021.ui.addmacro.pages.listadapters.GridSpacingItemDecoration
 import com.avvlas.coursework2021.ui.addmacro.pages.listadapters.OptionsListAdapter
 import com.avvlas.coursework2021.ui.addmacro.pages.listadapters.SelectedOptionsListAdapter
+import com.avvlas.coursework2021.utils.GridSpacingItemDecoration
 import com.avvlas.coursework2021.utils.Utils
 
 internal abstract class BaseOptionsFragment<T : Option>(@LayoutRes contentLayoutId: Int) :
-    Fragment(contentLayoutId), OptionsListAdapter.OnOptionClickListener<T> {
+    Fragment(contentLayoutId),
+    OptionsListAdapter.OnOptionClickListener<T>,
+    SelectedOptionsListAdapter.OnSelectedOptionClickListener<T> {
 
     protected val viewModel: AddMacroViewModel by viewModels(
         ownerProducer = { requireParentFragment() }
@@ -51,5 +54,9 @@ internal abstract class BaseOptionsFragment<T : Option>(@LayoutRes contentLayout
                 )
             )
         }
+    }
+
+    override fun onSelectedOptionClick(option: T) {
+
     }
 }

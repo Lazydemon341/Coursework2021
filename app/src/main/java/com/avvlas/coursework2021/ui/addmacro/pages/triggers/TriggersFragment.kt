@@ -35,6 +35,10 @@ internal class TriggersFragment : BaseOptionsFragment<Trigger>(R.layout.fragment
         option.onClick(requireActivity(), viewModel.macro)
     }
 
+    override fun onSelectedOptionClick(option: Trigger) {
+        TODO("Not yet implemented")
+    }
+
     companion object {
         fun newInstance() =
             TriggersFragment()

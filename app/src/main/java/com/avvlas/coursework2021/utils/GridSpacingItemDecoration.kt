@@ -1,4 +1,4 @@
-package com.avvlas.coursework2021.ui.addmacro.pages.listadapters
+package com.avvlas.coursework2021.utils
 
 import android.graphics.Rect
 import android.view.View

@@ -12,7 +12,7 @@ import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.model.options.Option
 
 class SelectedOptionsListAdapter<T : Option>(
-    private val onOptionClickListener: OptionsListAdapter.OnOptionClickListener<T>
+    private val onOptionClickListener: OnSelectedOptionClickListener<T>
 ) : ListAdapter<T, SelectedOptionsListAdapter<T>.SelectedOptionsViewHolder>(DiffCallback<T>()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectedOptionsViewHolder {
@@ -25,13 +25,13 @@ class SelectedOptionsListAdapter<T : Option>(
         holder.bind(getItem(position))
     }
 
-    interface OnOptionClickListener<T : Option> {
-        fun onOptionClick(option: T)
+    interface OnSelectedOptionClickListener<T : Option> {
+        fun onSelectedOptionClick(option: T)
     }
 
     inner class SelectedOptionsViewHolder(
         itemView: View,
-        private val onOptionClickListener: OptionsListAdapter.OnOptionClickListener<T>
+        private val onOptionClickListener: OnSelectedOptionClickListener<T>
     ) : RecyclerView.ViewHolder(itemView) {
 
         private val titleTextView: TextView = itemView.findViewById(R.id.option_title_text)
@@ -46,7 +46,7 @@ class SelectedOptionsListAdapter<T : Option>(
             )
 
             itemView.setOnClickListener {
-                onOptionClickListener.onOptionClick(option)
+                onOptionClickListener.onSelectedOptionClick(option)
             }
         }
     }

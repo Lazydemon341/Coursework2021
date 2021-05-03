@@ -1,6 +1,5 @@
 package com.avvlas.coursework2021.model.options.actions
 
-import android.app.Activity
 import android.content.Context
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -14,7 +13,11 @@ abstract class Action(
 
     abstract suspend fun execute(context: Context)
 
-    open fun onClick(activity: Activity, macro: Macro) {
+    override fun onClick(context: Context, macro: Macro) =
         macro.addAction(this)
-    }
+
+
+    override fun removeFromMacro(macro: Macro) =
+        macro.removeAction(this)
+
 }
