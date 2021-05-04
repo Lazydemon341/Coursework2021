@@ -1,6 +1,5 @@
 package com.avvlas.coursework2021.model.options.actions
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.annotation.DrawableRes

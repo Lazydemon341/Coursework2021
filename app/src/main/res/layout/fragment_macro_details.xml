@@ -4,12 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/triggers_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_mid"
+        android:layout_marginEnd="@dimen/margin_small"
         app:cardBackgroundColor="@color/gray_light"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
@@ -57,7 +61,9 @@
         android:id="@+id/actions_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_small"
         android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginEnd="@dimen/margin_small"
         app:cardBackgroundColor="@color/gray_light"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"

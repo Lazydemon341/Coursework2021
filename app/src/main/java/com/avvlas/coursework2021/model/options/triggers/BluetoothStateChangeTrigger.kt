@@ -84,10 +84,10 @@ class BluetoothStateChangeTrigger(
                     2 -> mode = Mode.CHANGED
                 }
             }
-            positiveButton(text = "OK") {
+            positiveButton(res = R.string.ok) {
                 super.onClick(context, macro)
             }
-            negativeButton(text = "CANCEL")
+            negativeButton(res = R.string.cancel)
         }
     }
 

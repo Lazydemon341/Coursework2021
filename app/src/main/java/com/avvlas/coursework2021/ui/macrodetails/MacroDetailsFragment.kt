@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -16,15 +17,13 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.input.input
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.model.Macro
-import com.avvlas.coursework2021.model.options.actions.Action
-import com.avvlas.coursework2021.model.options.triggers.Trigger
-import com.avvlas.coursework2021.ui.addmacro.pages.listadapters.OptionsListAdapter
-import com.avvlas.coursework2021.ui.macroslist.MacrosListAdapter
+import com.avvlas.coursework2021.model.options.Option
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MacroDetailsFragment : Fragment(R.layout.fragment_macro_details) {
+class MacroDetailsFragment : Fragment(R.layout.fragment_macro_details),
+    OptionsListAdapter.OnOptionClickListener {
 
     private lateinit var navController: NavController
     private lateinit var actionBar: ActionBar
@@ -35,8 +34,8 @@ class MacroDetailsFragment : Fragment(R.layout.fragment_macro_details) {
         MacroDetailsViewModel.provideFactory(viewModelFactory, this, arguments)
     }
 
-    private lateinit var triggersAdapter: OptionsListAdapter<Trigger>
-    private lateinit var actionsAdapter: OptionsListAdapter<Action>
+    private lateinit var triggersAdapter: OptionsListAdapter
+    private lateinit var actionsAdapter: OptionsListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,34 +45,58 @@ class MacroDetailsFragment : Fragment(R.layout.fragment_macro_details) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // setupStatusBar
+        // Check if has macro
+        arguments?.getParcelable<Macro>(ARG_MACRO)
+            ?: throw IllegalArgumentException("Macro required")
+
+        // Setup status bar
         (requireActivity() as AppCompatActivity).supportActionBar?.apply {
             actionBar = this
             setDisplayHomeAsUpEnabled(true)
         }
-        setupNavController()
 
-        arguments?.getParcelable<Macro>(ARG_MACRO)
-            ?: throw IllegalArgumentException("Macro required")
-        setupMacroDetails(view)
+        setupNavController()
+        setupViews(view)
+        setupViewModel()
     }
 
     private fun setupNavController() {
         navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
     }
 
-    private fun setupMacroDetails(view: View) {
+    private fun setupViews(view: View) {
         actionBar.title = viewModel.macro.name
         setupRecyclerViews(view)
+        view.findViewById<ImageView>(R.id.add_trigger_button).setOnClickListener {
+            //TODO
+        }
+        view.findViewById<ImageView>(R.id.add_action_button).setOnClickListener {
+            //TODO
+        }
     }
 
     private fun setupRecyclerViews(view: View) {
-//        view.findViewById<RecyclerView>(R.id.triggers_recycler_view).adapter =
-//            MacrosListAdapter(this, this).also {
-//                this.triggersAdapter = it
-//            }
-
+        view.findViewById<RecyclerView>(R.id.triggers_recycler_view).adapter =
+            OptionsListAdapter(this).also {
+                this.triggersAdapter = it
+            }
+        view.findViewById<RecyclerView>(R.id.actions_recycler_view).adapter =
+            OptionsListAdapter(this).also {
+                this.actionsAdapter = it
+            }
     }
+
+    private fun setupViewModel() {
+        viewModel.macro.triggersLiveData.observe(viewLifecycleOwner) {
+            triggersAdapter.submitList(it.toList())
+        }
+        viewModel.macro.actionsLiveData.observe(viewLifecycleOwner) {
+            actionsAdapter.submitList(it.toList())
+        }
+    }
+
+    override fun onOptionClick(option: Option) =
+        option.onClickSelected(requireActivity(), viewModel.macro)
 
     fun onBackPressed() {
         navController.navigateUp()

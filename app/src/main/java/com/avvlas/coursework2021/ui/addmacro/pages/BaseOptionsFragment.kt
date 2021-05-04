@@ -6,7 +6,6 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
-import com.afollestad.materialdialogs.MaterialDialog
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.model.options.Option
 import com.avvlas.coursework2021.ui.addmacro.AddMacroFragment
@@ -56,7 +55,11 @@ internal abstract class BaseOptionsFragment<T : Option>(@LayoutRes contentLayout
         }
     }
 
-    override fun onSelectedOptionClick(option: T) {
+    override fun onOptionClick(option: T) {
+        option.onClick(requireActivity(), viewModel.macro)
+    }
 
+    override fun onSelectedOptionClick(option: T) {
+        option.onClickSelected(requireActivity(), viewModel.macro)
     }
 }

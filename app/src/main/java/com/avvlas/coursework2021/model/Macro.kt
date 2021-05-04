@@ -25,33 +25,35 @@ data class Macro(
 ) : Parcelable {
 
     @IgnoredOnParcel
-    private val triggersLiveData = MutableLiveData(triggers)
+    private val _triggersLiveData = MutableLiveData(triggers)
 
-    fun getTriggersLiveData(): LiveData<ArrayList<Trigger>> = triggersLiveData
+    @IgnoredOnParcel
+    val triggersLiveData: LiveData<ArrayList<Trigger>> = _triggersLiveData
 
     fun addTrigger(trigger: Trigger) {
-        triggersLiveData.value?.add(trigger)
-        triggersLiveData.value = triggersLiveData.value
+        _triggersLiveData.value?.add(trigger)
+        _triggersLiveData.value = _triggersLiveData.value
     }
 
     fun removeTrigger(trigger: Trigger) {
-        triggersLiveData.value?.remove(trigger)
-        triggersLiveData.value = triggersLiveData.value
+        _triggersLiveData.value?.remove(trigger)
+        _triggersLiveData.value = _triggersLiveData.value
     }
 
     @IgnoredOnParcel
-    private val actionsLiveData = MutableLiveData(actions)
+    private val _actionsLiveData = MutableLiveData(actions)
 
-    fun getActionsLiveData(): LiveData<ArrayList<Action>> = actionsLiveData
+    @IgnoredOnParcel
+    val actionsLiveData: LiveData<ArrayList<Action>> = _actionsLiveData
 
     fun addAction(action: Action) {
-        actionsLiveData.value?.add(action)
-        actionsLiveData.value = actionsLiveData.value
+        _actionsLiveData.value?.add(action)
+        _actionsLiveData.value = _actionsLiveData.value
     }
 
     fun removeAction(action: Action) {
-        actionsLiveData.value?.remove(action)
-        actionsLiveData.value = actionsLiveData.value
+        _actionsLiveData.value?.remove(action)
+        _actionsLiveData.value = _actionsLiveData.value
     }
 
     fun activate(activity: Activity) {
@@ -66,13 +68,12 @@ data class Macro(
         isActivated = false
     }
 
-    fun runActions(context: Context) {
+    fun runActions(context: Context) =
         CoroutineScope(SupervisorJob() + Dispatchers.Default).launch {
             for (action in actions) {
                 action.execute(context)
             }
         }
-    }
 
     companion object {
 

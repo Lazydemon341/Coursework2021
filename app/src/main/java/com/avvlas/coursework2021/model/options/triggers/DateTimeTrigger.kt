@@ -62,5 +62,14 @@ class DateTimeTrigger(
 
     override fun onClick(context: Context, macro: Macro) {
         TODO("Not yet implemented")
+//        MaterialDialog(viewPagerFragment.requireContext()).show {
+//                dateTimePicker(
+//                    show24HoursView = true,
+//                    requireFutureDateTime = true
+//                ) { _, dateTime ->
+//                    option.timeInMillis = dateTime.timeInMillis
+//                    viewModel.macro.triggers.add(option)
+//                }
+//            }
     }
 }
