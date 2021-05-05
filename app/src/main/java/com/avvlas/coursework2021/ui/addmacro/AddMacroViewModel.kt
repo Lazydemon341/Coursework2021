@@ -17,7 +17,8 @@ class AddMacroViewModel @Inject constructor(
     private val macrosRepository: MacrosRepository
 ) : ViewModel() {
 
-    internal val macro = Macro()
+    internal var macro = Macro()
+    internal var isNewMacro = true
 
     internal val triggers =
         arrayListOf(
@@ -63,7 +64,10 @@ class AddMacroViewModel @Inject constructor(
 
     fun saveMacro() =
         viewModelScope.launch {
-            macrosRepository.insert(macro)
+            if (isNewMacro)
+                macrosRepository.insert(macro)
+            else
+                macrosRepository.update(macro)
         }
 
 

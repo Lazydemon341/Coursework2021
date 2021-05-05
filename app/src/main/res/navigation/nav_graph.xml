@@ -31,7 +31,13 @@
     <fragment
         android:id="@+id/addMacroFragment"
         android:name="com.avvlas.coursework2021.ui.addmacro.AddMacroFragment"
-        android:label="AddMacroFragment" />
+        android:label="AddMacroFragment" >
+        <argument
+            android:name="macro"
+            app:argType="com.avvlas.coursework2021.model.Macro"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
     <fragment
         android:id="@+id/macroDetailsFragment"
         android:name="com.avvlas.coursework2021.ui.macrodetails.MacroDetailsFragment"
@@ -41,5 +47,12 @@
             app:argType="com.avvlas.coursework2021.model.Macro"
             app:nullable="true"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_macroDetailsFragment_to_addMacroFragment"
+            app:destination="@id/addMacroFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 </navigation>

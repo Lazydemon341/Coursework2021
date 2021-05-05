@@ -13,6 +13,8 @@
     <string name="actions_title">Actions</string>
     <string name="triggers_title">Triggers</string>
     <string name="add_macro_fragment_title">Create Macro</string>
+    <string name="edit_macro_fragment_title">Edit Macro</string>
+
 
     <!--  actions titles  -->
     <string name="change_auto_rotate_action_title">Auto-Rotate</string>
@@ -32,7 +34,7 @@
     <string name="ringer_mode_trigger_title">Sound/Vibration</string>
 
     <!-- AlertDialogs -->
-    <string name="quit_without_saving">Quit without saving?</string>
+    <string name="quit_without_saving">Discard changes?</string>
 
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -53,5 +55,10 @@
 
     <string name="invalid_macro_title">Invalid Macro</string>
     <string name="invalid_macro_message">A Macro must have at least one trigger and one action!</string>
+
+    <string name="delete_macro_title">Delete Macro</string>
+    <string name="delete_macro_text">Are you sure to delete this Macro?</string>
+    <string name="rename_macro_title">Rename Macro</string>
+    <string name="rename_macro_text">Enter new name</string>
 
 </resources>

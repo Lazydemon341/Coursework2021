@@ -13,6 +13,8 @@
     <string name="actions_title">Действия</string>
     <string name="triggers_title">Триггеры</string>
     <string name="add_macro_fragment_title">Новый Макрос</string>
+    <string name="edit_macro_fragment_title">Редактировать Макрос</string>
+
 
     <string name="change_auto_rotate_action_title">Автоповорот</string>
     <string name="change_ringer_mode_action_title">Звук и вибрация</string>
@@ -26,7 +28,7 @@
     <string name="day_time_trigger_title">День и время</string>
     <string name="ringer_mode_trigger_title">Звук и вибрация</string>
 
-    <string name="quit_without_saving">Отменить создание макроса?</string>
+    <string name="quit_without_saving">Отменить изменения?</string>
 
     <string name="yes">Да</string>
     <string name="no">Нет</string>
@@ -43,5 +45,10 @@
 
     <string name="invalid_macro_title">Некорректный Макрос</string>
     <string name="invalid_macro_message">У Макроса должны быть по крайней мере один Триггер и одно Действие!</string>
+
+    <string name="delete_macro_title">Удалить Макрос</string>
+    <string name="delete_macro_text">Вы уверены, что хотите удалить этот Макрос?</string>
+    <string name="rename_macro_title">Переименовать Макрос</string>
+    <string name="rename_macro_text">Введите новое имя</string>
 
 </resources>

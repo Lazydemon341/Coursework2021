@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/edit_macro"
+        android:icon="@drawable/ic_baseline_mode_edit_24"
+        android:title="@string/edit"
+        app:showAsAction="ifRoom" />
+
+
+    <item
         android:id="@+id/delete_macro"
         android:icon="@drawable/ic_baseline_delete_outline_24"
         android:title="@string/action_delete_macro"

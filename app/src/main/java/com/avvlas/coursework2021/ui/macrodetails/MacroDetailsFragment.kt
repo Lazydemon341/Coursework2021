@@ -5,9 +5,9 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.ImageView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
@@ -18,6 +18,7 @@ import com.afollestad.materialdialogs.input.input
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.model.Macro
 import com.avvlas.coursework2021.model.options.Option
+import com.avvlas.coursework2021.utils.GridSpacingItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -67,23 +68,21 @@ class MacroDetailsFragment : Fragment(R.layout.fragment_macro_details),
     private fun setupViews(view: View) {
         actionBar.title = viewModel.macro.name
         setupRecyclerViews(view)
-        view.findViewById<ImageView>(R.id.add_trigger_button).setOnClickListener {
-            //TODO
-        }
-        view.findViewById<ImageView>(R.id.add_action_button).setOnClickListener {
-            //TODO
-        }
     }
 
     private fun setupRecyclerViews(view: View) {
-        view.findViewById<RecyclerView>(R.id.triggers_recycler_view).adapter =
-            OptionsListAdapter(this).also {
-                this.triggersAdapter = it
+        view.findViewById<RecyclerView>(R.id.triggers_recycler_view).apply {
+            adapter = OptionsListAdapter(this@MacroDetailsFragment).also {
+                triggersAdapter = it
             }
-        view.findViewById<RecyclerView>(R.id.actions_recycler_view).adapter =
-            OptionsListAdapter(this).also {
-                this.actionsAdapter = it
+            addItemDecoration(GridSpacingItemDecoration(1, 8, false))
+        }
+        view.findViewById<RecyclerView>(R.id.actions_recycler_view).apply {
+            adapter = OptionsListAdapter(this@MacroDetailsFragment).also {
+                actionsAdapter = it
             }
+            addItemDecoration(GridSpacingItemDecoration(1, 8, false))
+        }
     }
 
     private fun setupViewModel() {
@@ -102,25 +101,54 @@ class MacroDetailsFragment : Fragment(R.layout.fragment_macro_details),
         navController.navigateUp()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.macro_details_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.edit_macro -> {
+                editMacro()
+            }
+            R.id.rename_macro -> {
+                renameMacro()
+            }
+            R.id.delete_macro -> {
+                deleteMacro()
+            }
+            R.id.test_actions -> {
+                viewModel.macro.runActions(requireActivity())
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun editMacro() =
+        navController.navigate(
+            R.id.action_macroDetailsFragment_to_addMacroFragment,
+            bundleOf("macro" to viewModel.macro)
+        )
+
+
     private fun renameMacro() {
-        MaterialDialog(requireContext()).show {
-            title(text = "Rename macro")
-            input(hint = "Enter new name") { _, text ->
+        MaterialDialog(requireActivity()).show {
+            title(res = R.string.rename_macro_title)
+            input(hintRes = R.string.rename_macro_text) { _, text ->
                 viewModel.macro.name = text.toString()
                 this@MacroDetailsFragment.actionBar.title = viewModel.macro.name
                 // TODO: check if name is unique
                 viewModel.updateMacro()
             }
-            positiveButton(text = "OK")
-            negativeButton(text = "CANCEL")
+            positiveButton(res = R.string.ok)
+            negativeButton(res = R.string.cancel)
         }
     }
 
     private fun deleteMacro() {
         MaterialDialog(requireContext()).show {
-            title(text = "Delete macro")
-            message(text = "Are you sure to delete this macro?")
-            positiveButton(text = "YES") {
+            title(res = R.string.delete_macro_title)
+            message(res = R.string.delete_macro_text)
+            positiveButton(res = R.string.yes) {
                 viewModel.macro.deactivate(requireActivity())
                 viewModel.deleteMacro()
                 viewModel.deletionState.observe(viewLifecycleOwner) {
@@ -129,30 +157,11 @@ class MacroDetailsFragment : Fragment(R.layout.fragment_macro_details),
                     }
                 }
             }
-            negativeButton(text = "NO")
+            negativeButton(res = R.string.no)
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.macro_details_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.rename_macro -> {
-                renameMacro()
-            }
-            R.id.delete_macro -> {
-                deleteMacro()
-            }
-            R.id.test_actions -> {
-                viewModel.macro.runActions(requireContext())
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     companion object {
-        internal const val ARG_MACRO = "macro"
+        const val ARG_MACRO = "macro"
     }
 }

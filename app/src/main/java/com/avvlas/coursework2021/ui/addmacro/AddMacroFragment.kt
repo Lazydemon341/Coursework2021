@@ -13,8 +13,10 @@ import androidx.viewpager2.widget.ViewPager2
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.input.input
 import com.avvlas.coursework2021.R
+import com.avvlas.coursework2021.model.Macro
 import com.avvlas.coursework2021.ui.addmacro.pages.actions.ActionsFragment
 import com.avvlas.coursework2021.ui.addmacro.pages.triggers.TriggersFragment
+import com.avvlas.coursework2021.ui.macrodetails.MacroDetailsFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,20 +31,43 @@ internal class AddMacroFragment : Fragment(R.layout.fragment_add_macro) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        getArgs()
+
         (requireActivity() as AppCompatActivity).supportActionBar?.apply {
-            title = getString(R.string.add_macro_fragment_title)
+            title =
+                if (viewModel.isNewMacro)
+                    getString(R.string.add_macro_fragment_title)
+                else
+                    getString(R.string.edit_macro_fragment_title)
+
             setDisplayHomeAsUpEnabled(true)
         }
         navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
         initViewPager(view)
 
         view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
-            // TODO: check if valid (at least one trigger and action)
-            if (viewModel.macro.actions.isNotEmpty() && viewModel.macro.triggers.isNotEmpty()) {
+            onFabClick()
+        }
+    }
+
+    private fun getArgs() =
+        arguments?.getParcelable<Macro>(MacroDetailsFragment.ARG_MACRO)?.let {
+            viewModel.macro = it
+            viewModel.isNewMacro = false
+        }
+
+
+    private fun onFabClick() {
+        // TODO: check if valid (at least one trigger and action)
+        if (viewModel.macro.actions.isNotEmpty() && viewModel.macro.triggers.isNotEmpty()) {
+            if (viewModel.isNewMacro) {
                 enterNameAndSaveMacro()
             } else {
-                showInvalidMacroMessage()
+                viewModel.saveMacro()
+                navController.navigateUp()
             }
+        } else {
+            showInvalidMacroMessage()
         }
     }
 
@@ -59,7 +84,7 @@ internal class AddMacroFragment : Fragment(R.layout.fragment_add_macro) {
             title(R.string.enter_macro_name)
             input(hintRes = R.string.macro_name_hint) { _, text ->
                 viewModel.macro.name = text.toString()
-                // TODO: Check if name if unique
+                // TODO: Check if name is unique
                 viewModel.macro.activate(requireActivity())
                 viewModel.saveMacro()
                 navController.navigateUp()
