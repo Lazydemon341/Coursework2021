@@ -15,11 +15,12 @@ abstract class Trigger(
 
     abstract fun cancel(context: Context, macro: Macro)
 
-    override fun onClick(context: Context, macro: Macro) =
+    override fun onClick(context: Context, macro: Macro) {
+        macro.removeOption()
         macro.addTrigger(this)
+    }
 
-
-    override fun removeFromMacro(macro: Macro) =
-        macro.removeTrigger(this)
-
+    override fun Macro.removeOption() {
+        this.triggers.remove(this@Trigger)
+    }
 }

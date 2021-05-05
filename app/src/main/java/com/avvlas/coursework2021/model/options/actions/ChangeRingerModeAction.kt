@@ -38,11 +38,18 @@ class ChangeRingerModeAction(
                     "Sound and Vibration",
                     "Vibration only",
                     "Silent"
-                ), initialSelection = 0
+                ), initialSelection = when (mode) {
+                    AudioManager.RINGER_MODE_NORMAL -> 0
+                    AudioManager.RINGER_MODE_VIBRATE -> 1
+                    AudioManager.RINGER_MODE_SILENT -> 2
+                    else -> 0
+                }
             ) { _, choice, _ ->
                 when (choice) {
-                    0 -> mode = AudioManager.RINGER_MODE_NORMAL
-                    1 -> mode = AudioManager.RINGER_MODE_VIBRATE
+                    0 -> mode =
+                        AudioManager.RINGER_MODE_NORMAL
+                    1 -> mode =
+                        AudioManager.RINGER_MODE_VIBRATE
                     2 -> {
                         requireDoNotDisturbPermission(context)
                         mode = AudioManager.RINGER_MODE_SILENT

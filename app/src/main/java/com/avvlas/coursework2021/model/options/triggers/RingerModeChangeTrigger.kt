@@ -74,7 +74,7 @@ class RingerModeChangeTrigger(
                     "Sound Off, Vibration On",
                     "Sound Off, Vibration Off",
                     "Sound Mode Changed"
-                ), initialSelection = 0
+                ), initialSelection = mode.ordinal
             ) { _, choice, _ ->
                 when (choice) {
                     0 -> mode = Mode.NORMAL

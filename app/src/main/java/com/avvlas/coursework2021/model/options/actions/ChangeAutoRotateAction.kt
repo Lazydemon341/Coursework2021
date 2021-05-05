@@ -41,9 +41,9 @@ class ChangeAutoRotateAction(
                 title(text = "Choose action type")
                 listItemsSingleChoice(
                     items = listOf(
-                        "Disable rotation",
-                        "Enable rotation"
-                    ), initialSelection = 0
+                        "Enable rotation",
+                        "Disable rotation"
+                    ), initialSelection = if (enable) 0 else 1
                 ) { _, choice, _ ->
                     when (choice) {
                         0 -> enable = false

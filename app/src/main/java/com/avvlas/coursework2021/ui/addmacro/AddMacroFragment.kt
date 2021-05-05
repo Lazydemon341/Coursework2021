@@ -42,6 +42,7 @@ internal class AddMacroFragment : Fragment(R.layout.fragment_add_macro) {
 
             setDisplayHomeAsUpEnabled(true)
         }
+
         navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
         initViewPager(view)
 

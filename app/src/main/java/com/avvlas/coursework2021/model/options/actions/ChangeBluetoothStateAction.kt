@@ -36,7 +36,7 @@ class ChangeBluetoothStateAction(
                     "Turn off",
                     "Turn on",
                     "Change"
-                ), initialSelection = 0
+                ), initialSelection = mode.ordinal
             ) { _, choice, _ ->
                 when (choice) {
                     0 -> mode = Mode.TURN_OFF

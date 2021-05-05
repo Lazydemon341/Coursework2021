@@ -76,7 +76,7 @@ class BluetoothStateChangeTrigger(
                     "Bluetooth On",
                     "Bluetooth Off",
                     "Bluetooth On/Off"
-                ), initialSelection = 0
+                ), initialSelection = mode.ordinal
             ) { _, choice, _ ->
                 when (choice) {
                     0 -> mode = Mode.ON

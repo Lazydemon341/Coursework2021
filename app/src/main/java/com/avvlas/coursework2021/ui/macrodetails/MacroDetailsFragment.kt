@@ -161,6 +161,13 @@ class MacroDetailsFragment : Fragment(R.layout.fragment_macro_details),
         }
     }
 
+    override fun onDestroyView() {
+        viewModel.updateMacro()
+        // TODO: WHY MACRO IS NOT UPDATING IN THE LIST?
+        // TODO: also when editing trigger receiver should change accordingly etc
+        super.onDestroyView()
+    }
+
     companion object {
         const val ARG_MACRO = "macro"
     }

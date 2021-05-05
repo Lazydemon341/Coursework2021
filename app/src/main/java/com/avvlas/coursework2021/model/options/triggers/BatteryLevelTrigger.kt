@@ -71,17 +71,17 @@ class BatteryLevelTrigger(
                 items = listOf(
                     "Battery Low",
                     "Battery Okay"
-                ), initialSelection = 0
+                ), initialSelection = if (lowLevel) 0 else 1
             ) { B, choice, _ ->
                 when (choice) {
                     0 -> lowLevel = true
                     1 -> lowLevel = false
                 }
             }
-            positiveButton(text = "OK") {
+            positiveButton(res = R.string.ok) {
                 super.onClick(context, macro)
             }
-            negativeButton(text = "CANCEL")
+            negativeButton(res = R.string.cancel)
         }
     }
 

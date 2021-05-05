@@ -16,15 +16,17 @@ abstract class Option(
 
     abstract fun onClick(context: Context, macro: Macro)
 
-    abstract fun removeFromMacro(macro: Macro)
+    abstract fun Macro.removeOption()
 
     fun onClickSelected(context: Context, macro: Macro) {
         MaterialDialog(context).show {
             title(res = title)
             listItems(R.array.selected_option_options) { _, index, _ ->
                 when (index) {
-                    0 -> onClick(context, macro)
-                    1 -> removeFromMacro(macro)
+                    0 -> {
+                        onClick(context, macro)
+                    }
+                    1 -> macro.removeOption()
                 }
             }
         }

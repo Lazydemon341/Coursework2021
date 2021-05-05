@@ -71,7 +71,7 @@ class BatteryChargingTrigger(
                 items = listOf(
                     "Power Connected",
                     "Power Disconnected"
-                ), initialSelection = 0
+                ), initialSelection = if (connected) 1 else 0
             ) { _, choice, _ ->
                 when (choice) {
                     0 -> connected = true

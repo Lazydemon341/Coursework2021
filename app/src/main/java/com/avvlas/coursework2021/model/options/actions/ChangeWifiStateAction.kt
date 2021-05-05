@@ -39,7 +39,7 @@ class ChangeWifiStateAction(
                 items = listOf(
                     "Wifi On",
                     "Wifi Off"
-                ), initialSelection = 0
+                ), initialSelection = if (enable) 0 else 1
             ) { _, choice, _ ->
                 when (choice) {
                     0 -> enable = true

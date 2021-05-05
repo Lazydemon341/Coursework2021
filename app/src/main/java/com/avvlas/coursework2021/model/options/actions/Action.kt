@@ -13,11 +13,12 @@ abstract class Action(
 
     abstract suspend fun execute(context: Context)
 
-    override fun onClick(context: Context, macro: Macro) =
+    override fun onClick(context: Context, macro: Macro) {
+        macro.removeOption()
         macro.addAction(this)
+    }
 
-
-    override fun removeFromMacro(macro: Macro) =
-        macro.removeAction(this)
+    override fun Macro.removeOption() =
+        removeAction(this@Action)
 
 }
