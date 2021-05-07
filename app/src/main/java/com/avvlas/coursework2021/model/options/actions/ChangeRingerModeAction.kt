@@ -1,17 +1,18 @@
 package com.avvlas.coursework2021.model.options.actions
 
+import android.app.NotificationManager
 import android.content.Context
 import android.content.Context.AUDIO_SERVICE
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.media.AudioManager
 import android.os.Build
-import android.util.Log
+import android.provider.Settings
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.app.ActivityCompat.startActivity
-import androidx.core.content.ContextCompat
 import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.WhichButton
+import com.afollestad.materialdialogs.actions.setActionButtonEnabled
 import com.afollestad.materialdialogs.list.listItemsSingleChoice
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.model.Macro
@@ -43,52 +44,54 @@ class ChangeRingerModeAction(
                     AudioManager.RINGER_MODE_VIBRATE -> 1
                     AudioManager.RINGER_MODE_SILENT -> 2
                     else -> 0
-                }
-            ) { _, choice, _ ->
-                when (choice) {
-                    0 -> mode =
-                        AudioManager.RINGER_MODE_NORMAL
-                    1 -> mode =
-                        AudioManager.RINGER_MODE_VIBRATE
-                    2 -> {
-                        requireDoNotDisturbPermission(context)
-                        mode = AudioManager.RINGER_MODE_SILENT
-                    }
-                }
+                },
+                waitForPositiveButton = false
+            ) { dialog, choice, _ ->
+                onChoice(context, dialog, choice)
             }
-            positiveButton(text = "OK") {
+            positiveButton(res = R.string.ok) {
                 super.onClick(context, macro)
             }
-            negativeButton(text = "CANCEL")
+            negativeButton(res = R.string.cancel)
         }
     }
 
-    private fun requireDoNotDisturbPermission(context: Context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            // Ask for Do Not Disturb Access permission on API 24+
-
-            val packageManager: PackageManager = context.packageManager
-            val intent = Intent()
-            intent.action = DO_NOT_DISTURB_ACCESS_PERMISSION
-
-            if (ContextCompat.checkSelfPermission(
-                    context,
-                    DO_NOT_DISTURB_ACCESS_PERMISSION
-                ) == PackageManager.PERMISSION_DENIED
-            ) {
-                // TODO: launch AlertDialog
-                if (intent.resolveActivity(packageManager) != null) {
-                    startActivity(context, intent, null)
+    private fun onChoice(context: Context, dialog: MaterialDialog, choice: Int) {
+        dialog.setActionButtonEnabled(WhichButton.POSITIVE, true)
+        when (choice) {
+            0 -> mode =
+                AudioManager.RINGER_MODE_NORMAL
+            1 -> mode =
+                AudioManager.RINGER_MODE_VIBRATE
+            2 -> {
+                if (!(context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).isNotificationPolicyAccessGranted) {
+                    // Disable positive button if permission not granted
+                    dialog.setActionButtonEnabled(WhichButton.POSITIVE, false)
+                    requireDoNotDisturbPermission(context)
                 } else {
-                    Log.d("ask_permission", "No Intent available to handle action")
+                    mode = AudioManager.RINGER_MODE_SILENT
                 }
-
             }
         }
     }
 
-    companion object {
-        private const val DO_NOT_DISTURB_ACCESS_PERMISSION =
-            "android.settings.NOTIFICATION_POLICY_ACCESS_SETTINGS"
-    }
+    private fun requireDoNotDisturbPermission(context: Context) =
+        MaterialDialog(context).show {
+            title(text = "Permission required")
+            message(text = "This function requires Do-Not-Disturb access permission for the app")
+            positiveButton(res = R.string.ok) {
+                val notificationManager =
+                    context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                    && !notificationManager.isNotificationPolicyAccessGranted
+                ) {
+                    val intent = Intent(
+                        Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS
+                    )
+                    startActivity(context, intent, null)
+                }
+            }
+            negativeButton(res = R.string.cancel)
+        }
 }
