@@ -8,6 +8,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItems
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.model.Macro
+import com.avvlas.coursework2021.model.options.triggers.Trigger
 
 abstract class Option(
     @Transient @DrawableRes open val icon: Int = 0,
@@ -24,7 +25,11 @@ abstract class Option(
             listItems(R.array.selected_option_options) { _, index, _ ->
                 when (index) {
                     0 -> {
+                        if(this@Option is Trigger)
+                            this@Option.cancel(context, macro)
                         onClick(context, macro)
+                        if(this@Option is Trigger)
+                            this@Option.schedule(context.applicationContext, macro)
                     }
                     1 -> macro.removeOption()
                 }

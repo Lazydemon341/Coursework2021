@@ -59,10 +59,10 @@ class BluetoothStateChangeTrigger(
     override fun cancel(context: Context, macro: Macro) {
         receiver?.let {
             it.macrosWithBluetoothModes.removeAll { pair ->
-                pair.first == macro
+                pair.first.id == macro.id
             }
             if (it.macrosWithBluetoothModes.isEmpty()) {
-                context.unregisterReceiver(it)
+                context.applicationContext.unregisterReceiver(it)
                 receiver = null
             }
         }
@@ -70,7 +70,7 @@ class BluetoothStateChangeTrigger(
 
     override fun onClick(context: Context, macro: Macro) {
         MaterialDialog(context).show {
-            title(text = "Choose trigger type")
+            title(res = R.string.choose_trigger)
             listItemsSingleChoice(
                 items = listOf(
                     "Bluetooth On",

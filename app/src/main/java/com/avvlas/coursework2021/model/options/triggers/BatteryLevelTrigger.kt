@@ -55,10 +55,10 @@ class BatteryLevelTrigger(
     override fun cancel(context: Context, macro: Macro) {
         receiver?.let {
             it.macrosWithBatteryLevel.removeAll { pair ->
-                pair.first == macro
+                pair.first.id == macro.id
             }
             if (it.macrosWithBatteryLevel.isEmpty()) {
-                context.unregisterReceiver(it)
+                context.applicationContext.unregisterReceiver(it)
                 receiver = null
             }
         }
@@ -66,7 +66,7 @@ class BatteryLevelTrigger(
 
     override fun onClick(context: Context, macro: Macro) {
         MaterialDialog(context).show {
-            title(text = "Choose trigger type")
+            title(res = R.string.choose_trigger)
             listItemsSingleChoice(
                 items = listOf(
                     "Battery Low",

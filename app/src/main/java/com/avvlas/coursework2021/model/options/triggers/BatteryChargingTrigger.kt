@@ -55,10 +55,10 @@ class BatteryChargingTrigger(
     override fun cancel(context: Context, macro: Macro) {
         receiver?.let {
             it.macrosWithConnectionState.removeAll { pair ->
-                pair.first == macro
+                pair.first.id == macro.id
             }
             if (it.macrosWithConnectionState.isEmpty()) {
-                context.unregisterReceiver(it)
+                context.applicationContext.unregisterReceiver(it)
                 receiver = null
             }
         }
@@ -66,22 +66,22 @@ class BatteryChargingTrigger(
 
     override fun onClick(context: Context, macro: Macro) {
         MaterialDialog(context).show {
-            title(text = "Choose trigger type")
+            title(res = R.string.choose_trigger)
             listItemsSingleChoice(
                 items = listOf(
                     "Power Connected",
                     "Power Disconnected"
-                ), initialSelection = if (connected) 1 else 0
+                ), initialSelection = if (connected) 0 else 1
             ) { _, choice, _ ->
                 when (choice) {
                     0 -> connected = true
                     1 -> connected = false
                 }
             }
-            positiveButton(text = "OK") {
+            positiveButton(res = R.string.ok) {
                 super.onClick(context, macro)
             }
-            negativeButton(text = "CANCEL")
+            negativeButton(R.string.cancel)
         }
     }
 

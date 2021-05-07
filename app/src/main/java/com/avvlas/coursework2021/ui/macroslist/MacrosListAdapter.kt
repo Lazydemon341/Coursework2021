@@ -55,8 +55,7 @@ class MacrosListAdapter(
             itemView.setOnClickListener {
                 onMacroClickListener.onMacroClick(macro)
             }
-            switch.setOnCheckedChangeListener { buttonView, isChecked ->
-                // TODO: change activation state
+            switch.setOnCheckedChangeListener { _, _ ->
                 onMacroSwitchListener.onMacroSwitch(macro)
             }
             switch.isClickable = true

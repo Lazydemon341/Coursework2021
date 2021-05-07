@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
-import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
@@ -38,7 +37,7 @@ class ChangeAutoRotateAction(
         val activity = context as AppCompatActivity
         if (checkSystemWritePermission(activity)) {
             MaterialDialog(activity).show {
-                title(text = "Choose action type")
+                title(res = R.string.choose_action)
                 listItemsSingleChoice(
                     items = listOf(
                         "Enable rotation",
@@ -50,10 +49,10 @@ class ChangeAutoRotateAction(
                         1 -> enable = true
                     }
                 }
-                positiveButton(text = "OK") {
+                positiveButton(res = R.string.ok) {
                     super.onClick(activity, macro)
                 }
-                negativeButton(text = "CANCEL")
+                negativeButton(res = R.string.cancel)
             }
         }
     }
@@ -62,16 +61,15 @@ class ChangeAutoRotateAction(
         var retVal = true
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             retVal = Settings.System.canWrite(context)
-            Log.d("TAG", "Can Write Settings: $retVal")
             if (!retVal) {
                 // Permission not granted - navigate to permission screen
                 MaterialDialog(context).show {
-                    title(text = "Requires write-settings permission")
-                    message(text = "This action requires the write-settings permission granted.")
-                    positiveButton(text = "OK") {
+                    title(res = R.string.permission_required)
+                    message(res = R.string.write_settings_permission_required)
+                    positiveButton(res = R.string.ok) {
                         openAndroidPermissionsMenu(context)
                     }
-                    negativeButton(text = "CANCEL")
+                    negativeButton(res = R.string.cancel)
                 }
             }
         }

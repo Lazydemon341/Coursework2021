@@ -56,10 +56,10 @@ class RingerModeChangeTrigger(
     override fun cancel(context: Context, macro: Macro) {
         receiver?.let {
             it.macrosWithRingerModes.removeAll { pair ->
-                pair.first == macro
+                pair.first.id == macro.id
             }
             if (it.macrosWithRingerModes.size == 0) {
-                context.unregisterReceiver(it)
+                context.applicationContext.unregisterReceiver(it)
                 receiver = null
             }
         }
@@ -67,7 +67,7 @@ class RingerModeChangeTrigger(
 
     override fun onClick(context: Context, macro: Macro) {
         MaterialDialog(context).show {
-            title(text = "Choose trigger type")
+            title(res = R.string.choose_trigger)
             listItemsSingleChoice(
                 items = listOf(
                     "Sound On",
@@ -83,10 +83,10 @@ class RingerModeChangeTrigger(
                     3 -> mode = Mode.CHANGED
                 }
             }
-            positiveButton(text = "OK") {
+            positiveButton(res = R.string.ok) {
                 super.onClick(context, macro)
             }
-            negativeButton(text = "CANCEL")
+            negativeButton(res = R.string.cancel)
         }
     }
 

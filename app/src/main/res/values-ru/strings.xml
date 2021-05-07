@@ -37,6 +37,11 @@
     <string name="delete">Удалить</string>
     <string name="edit">Изменить</string>
 
+    <string name="permission_required">Требуется разрешение</string>
+    <string name="do_not_disturb_permission_required">Для выполнения этого Действия требуется доступ к режиму "Не беспокоить"</string>
+    <string name="write_settings_permission_required">Для выполнения этого Действия требуется разрешение на изменение системных настроек</string>
+
+
     <string name="enter_macro_name">Введите название макроса</string>
     <string name="macro_name_hint">Название:</string>
 
@@ -50,5 +55,9 @@
     <string name="delete_macro_text">Вы уверены, что хотите удалить этот Макрос?</string>
     <string name="rename_macro_title">Переименовать Макрос</string>
     <string name="rename_macro_text">Введите новое имя</string>
+
+    <string name="choose_action">Выберите действие</string>
+    <string name="choose_trigger">Выберите триггер</string>
+
 
 </resources>

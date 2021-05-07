@@ -33,7 +33,7 @@ class ChangeRingerModeAction(
 
     override fun onClick(context: Context, macro: Macro) {
         MaterialDialog(context).show {
-            title(text = "Choose action type")
+            title(res = R.string.choose_action)
             listItemsSingleChoice(
                 items = listOf(
                     "Sound and Vibration",
@@ -77,8 +77,8 @@ class ChangeRingerModeAction(
 
     private fun requireDoNotDisturbPermission(context: Context) =
         MaterialDialog(context).show {
-            title(text = "Permission required")
-            message(text = "This function requires Do-Not-Disturb access permission for the app")
+            title(res = R.string.permission_required)
+            message(res = R.string.do_not_disturb_permission_required)
             positiveButton(res = R.string.ok) {
                 val notificationManager =
                     context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

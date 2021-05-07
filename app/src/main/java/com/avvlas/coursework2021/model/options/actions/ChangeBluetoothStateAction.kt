@@ -30,7 +30,7 @@ class ChangeBluetoothStateAction(
 
     override fun onClick(context: Context, macro: Macro) {
         MaterialDialog(context).show {
-            title(text = "Choose action type")
+            title(res = R.string.choose_action)
             listItemsSingleChoice(
                 items = listOf(
                     "Turn off",

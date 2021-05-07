@@ -43,6 +43,11 @@
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
 
+    <string name="permission_required">Permission required</string>
+    <string name="do_not_disturb_permission_required">This Action requires "Do not disturb" access permission</string>
+    <string name="write_settings_permission_required">This Action requires permission to write settings</string>
+
+
     <string name="enter_macro_name">Enter macro name</string>
     <string name="macro_name_hint">Macro name:</string>
     <string name="add_trigger_button_cd">Add trigger</string>
@@ -60,5 +65,8 @@
     <string name="delete_macro_text">Are you sure to delete this Macro?</string>
     <string name="rename_macro_title">Rename Macro</string>
     <string name="rename_macro_text">Enter new name</string>
+
+    <string name="choose_action">Choose action</string>
+    <string name="choose_trigger">Choose trigger</string>
 
 </resources>
