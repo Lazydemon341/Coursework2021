@@ -94,8 +94,10 @@ class MacroDetailsFragment : Fragment(R.layout.fragment_macro_details),
         }
     }
 
-    override fun onOptionClick(option: Option) =
-        option.onClickSelected(requireActivity(), viewModel.macro)
+    override fun onOptionClick(option: Option) {
+        // option.onClickSelected(requireActivity(), viewModel.macro)
+        // TODO: instead run if it is an action and do nothing if is a trigger
+    }
 
     fun onBackPressed() {
         navController.navigateUp()

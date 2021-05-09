@@ -87,6 +87,7 @@ internal class AddMacroFragment : Fragment(R.layout.fragment_add_macro) {
                 viewModel.macro.name = text.toString()
                 // TODO: Check if name is unique
                 viewModel.saveMacro()
+                viewModel.macro.isActivated = true
                 viewModel.macro.activate(requireActivity())
                 navController.navigateUp()
             }
