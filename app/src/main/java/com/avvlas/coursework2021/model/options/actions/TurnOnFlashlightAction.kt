@@ -4,7 +4,6 @@ import android.content.Context
 import android.hardware.camera2.CameraManager
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.core.content.ContextCompat.getSystemService
 import com.avvlas.coursework2021.R
 import kotlinx.parcelize.Parcelize
 
@@ -17,8 +16,8 @@ class TurnOnFlashlightAction(
 
     override suspend fun execute(context: Context) {
         val camManager =
-            getSystemService(context, Context.CAMERA_SERVICE::class.java) as CameraManager?
-        val cameraId = camManager!!.cameraIdList[0] // Usually front camera is at 0 position.
+            context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
+        val cameraId = camManager.cameraIdList[0] // Usually front camera is at 0 position.
 
         camManager.setTorchMode(cameraId, true)
     }

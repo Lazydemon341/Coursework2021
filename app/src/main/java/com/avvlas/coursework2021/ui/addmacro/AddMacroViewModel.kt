@@ -55,7 +55,7 @@ class AddMacroViewModel @Inject constructor(
                 )
             ),
             Category(
-                R.drawable.ic_baseline_circle_notifications_24,
+                R.drawable.ic_baseline_menu_24,
                 R.string.other,
                 arrayListOf(
                     TurnOnFlashlightAction()
