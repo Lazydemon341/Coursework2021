@@ -86,8 +86,8 @@ internal class AddMacroFragment : Fragment(R.layout.fragment_add_macro) {
             input(hintRes = R.string.macro_name_hint) { _, text ->
                 viewModel.macro.name = text.toString()
                 // TODO: Check if name is unique
-                viewModel.macro.activate(requireActivity())
                 viewModel.saveMacro()
+                viewModel.macro.activate(requireActivity())
                 navController.navigateUp()
             }
             positiveButton(R.string.ok)

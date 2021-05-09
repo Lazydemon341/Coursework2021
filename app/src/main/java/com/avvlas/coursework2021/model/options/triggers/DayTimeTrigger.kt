@@ -6,6 +6,9 @@ import android.content.Context
 import android.content.Intent
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.datetime.datePicker
+import com.afollestad.materialdialogs.datetime.dateTimePicker
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.model.Macro
 import com.avvlas.coursework2021.utils.broadcastreceivers.TriggerBroadcastReceiver
@@ -58,6 +61,10 @@ class DayTimeTrigger(
     }
 
     override fun onClick(context: Context, macro: Macro) {
-        TODO("Not yet implemented")
+        MaterialDialog(context).show{
+            dateTimePicker{ dialog, datetime ->
+
+            }
+        }
     }
 }

@@ -21,7 +21,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 class ChangeRingerModeAction(
-    @DrawableRes override val icon: Int = R.drawable.ic_baseline_battery_charging_full_24,
+    @DrawableRes override val icon: Int = R.drawable.ic_baseline_volume_up_24,
     @StringRes override val title: Int = R.string.change_ringer_mode_action_title,
     private var mode: Int = AudioManager.RINGER_MODE_NORMAL
 ) : Action(icon, title) {
@@ -35,11 +35,8 @@ class ChangeRingerModeAction(
         MaterialDialog(context).show {
             title(res = R.string.choose_action)
             listItemsSingleChoice(
-                items = listOf(
-                    "Sound and Vibration",
-                    "Vibration only",
-                    "Silent"
-                ), initialSelection = when (mode) {
+                res = R.array.ringer_mode_action_mode,
+                initialSelection = when (mode) {
                     AudioManager.RINGER_MODE_NORMAL -> 0
                     AudioManager.RINGER_MODE_VIBRATE -> 1
                     AudioManager.RINGER_MODE_SILENT -> 2

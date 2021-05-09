@@ -39,10 +39,8 @@ class ChangeAutoRotateAction(
             MaterialDialog(activity).show {
                 title(res = R.string.choose_action)
                 listItemsSingleChoice(
-                    items = listOf(
-                        "Enable rotation",
-                        "Disable rotation"
-                    ), initialSelection = if (enable) 0 else 1
+                    res = R.array.change_auto_rotate_action_mode,
+                    initialSelection = if (enable) 0 else 1
                 ) { _, choice, _ ->
                     when (choice) {
                         0 -> enable = false

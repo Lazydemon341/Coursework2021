@@ -12,7 +12,7 @@ import javax.inject.Inject
 class MacrosRepository @Inject constructor(
     private val macrosDao: MacrosDao
 ) {
-    suspend fun insert(macro: Macro) = withContext(Dispatchers.IO) {
+    suspend fun insert(macro: Macro): Long = withContext(Dispatchers.IO) {
         macrosDao.insert(macro.toMacroEntity())
     }
 

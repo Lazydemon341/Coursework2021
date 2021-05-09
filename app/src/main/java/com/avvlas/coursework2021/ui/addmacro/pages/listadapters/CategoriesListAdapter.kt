@@ -37,7 +37,8 @@ class CategoriesListAdapter<T : Option>(
         itemView: View
     ) : RecyclerView.ViewHolder(itemView) {
 
-        private val optionsRecyclerView: RecyclerView = itemView.findViewById(R.id.categories_recycler_view)
+        private val optionsRecyclerView: RecyclerView =
+            itemView.findViewById(R.id.categories_recycler_view)
         private lateinit var adapter: OptionsListAdapter<T>
 
         fun bind(category: Category<T>) {

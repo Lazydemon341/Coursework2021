@@ -13,8 +13,8 @@ interface MacrosDao {
     @Query("SELECT * FROM macros ORDER BY name ASC")
     fun getAll(): List<MacroEntity>
 
-    @Insert // TODO: onconflict?
-    fun insert(macro: MacroEntity)
+    @Insert
+    fun insert(macro: MacroEntity) : Long
 
     @Update
     fun update(macro: MacroEntity)

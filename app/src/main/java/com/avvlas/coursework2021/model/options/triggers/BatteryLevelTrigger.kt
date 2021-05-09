@@ -68,10 +68,8 @@ class BatteryLevelTrigger(
         MaterialDialog(context).show {
             title(res = R.string.choose_trigger)
             listItemsSingleChoice(
-                items = listOf(
-                    "Battery Low",
-                    "Battery Okay"
-                ), initialSelection = if (lowLevel) 0 else 1
+                res = R.array.battery_level_trigger_mode,
+                initialSelection = if (lowLevel) 0 else 1
             ) { B, choice, _ ->
                 when (choice) {
                     0 -> lowLevel = true

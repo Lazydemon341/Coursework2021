@@ -32,11 +32,8 @@ class ChangeBluetoothStateAction(
         MaterialDialog(context).show {
             title(res = R.string.choose_action)
             listItemsSingleChoice(
-                items = listOf(
-                    "Turn off",
-                    "Turn on",
-                    "Change"
-                ), initialSelection = mode.ordinal
+                res = R.array.bluetooth_state_action_mode,
+                initialSelection = mode.ordinal
             ) { _, choice, _ ->
                 when (choice) {
                     0 -> mode = Mode.TURN_OFF
@@ -44,10 +41,10 @@ class ChangeBluetoothStateAction(
                     2 -> mode = Mode.CHANGE
                 }
             }
-            positiveButton(text = "OK") {
+            positiveButton(res = R.string.ok) {
                 super.onClick(context, macro)
             }
-            negativeButton(text = "CANCEL")
+            negativeButton(res = R.string.cancel)
         }
     }
 

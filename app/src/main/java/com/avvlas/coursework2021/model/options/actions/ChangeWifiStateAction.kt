@@ -36,20 +36,15 @@ class ChangeWifiStateAction(
         MaterialDialog(context).show {
             title(res = R.string.choose_action)
             listItemsSingleChoice(
-                items = listOf(
-                    "Wifi On",
-                    "Wifi Off"
-                ), initialSelection = if (enable) 0 else 1
+                res = R.array.wifi_state_action_mode,
+                initialSelection = if (enable) 0 else 1
             ) { _, choice, _ ->
-                when (choice) {
-                    0 -> enable = true
-                    1 -> enable = false
-                }
+                enable = choice == 0
             }
-            positiveButton(text = "OK") {
+            positiveButton(res = R.string.ok) {
                 super.onClick(context, macro)
             }
-            negativeButton(text = "CANCEL")
+            negativeButton(res = R.string.cancel)
         }
     }
 }

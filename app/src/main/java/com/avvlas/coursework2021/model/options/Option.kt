@@ -25,10 +25,10 @@ abstract class Option(
             listItems(R.array.selected_option_options) { _, index, _ ->
                 when (index) {
                     0 -> {
-                        if(this@Option is Trigger)
-                            this@Option.cancel(context, macro)
+                        if (this@Option is Trigger)
+                            this@Option.cancel(context.applicationContext, macro)
                         onClick(context, macro)
-                        if(this@Option is Trigger)
+                        if (this@Option is Trigger)
                             this@Option.schedule(context.applicationContext, macro)
                     }
                     1 -> macro.removeOption()

@@ -14,7 +14,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 class BatteryChargingTrigger(
-    @DrawableRes override val icon: Int = R.drawable.ic_baseline_calendar_today_24,
+    @DrawableRes override val icon: Int = R.drawable.ic_baseline_battery_charging_full_24,
     @StringRes override val title: Int = R.string.battery_charging_trigger_title,
     private var connected: Boolean = false
 ) : Trigger(icon, title) {
@@ -68,15 +68,10 @@ class BatteryChargingTrigger(
         MaterialDialog(context).show {
             title(res = R.string.choose_trigger)
             listItemsSingleChoice(
-                items = listOf(
-                    "Power Connected",
-                    "Power Disconnected"
-                ), initialSelection = if (connected) 0 else 1
+                res = R.array.battery_charging_trigger_mode,
+                initialSelection = if (connected) 0 else 1
             ) { _, choice, _ ->
-                when (choice) {
-                    0 -> connected = true
-                    1 -> connected = false
-                }
+                connected = choice == 0
             }
             positiveButton(res = R.string.ok) {
                 super.onClick(context, macro)

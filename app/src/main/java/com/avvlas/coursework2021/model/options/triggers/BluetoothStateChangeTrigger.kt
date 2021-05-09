@@ -16,7 +16,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 class BluetoothStateChangeTrigger(
-    @DrawableRes override val icon: Int = R.drawable.ic_baseline_calendar_today_24,
+    @DrawableRes override val icon: Int = R.drawable.ic_baseline_bluetooth_24,
     @StringRes override val title: Int = R.string.bluetooth_state_trigger_title,
     var mode: Mode = Mode.CHANGED
 ) : Trigger(icon, title) {
@@ -72,11 +72,8 @@ class BluetoothStateChangeTrigger(
         MaterialDialog(context).show {
             title(res = R.string.choose_trigger)
             listItemsSingleChoice(
-                items = listOf(
-                    "Bluetooth On",
-                    "Bluetooth Off",
-                    "Bluetooth On/Off"
-                ), initialSelection = mode.ordinal
+                res = R.array.bluetooth_state_trigger_mode,
+                initialSelection = mode.ordinal
             ) { _, choice, _ ->
                 when (choice) {
                     0 -> mode = Mode.ON

@@ -69,4 +69,71 @@
     <string name="choose_action">Choose action</string>
     <string name="choose_trigger">Choose trigger</string>
 
+    <string name="enable_auto_rotate">Enable Auto-rotate</string>
+    <string name="disable_auto_rotate">Disable Auto-rotate</string>
+    <string-array name="change_auto_rotate_action_mode">
+        <item>@string/enable_auto_rotate</item>
+        <item>@string/disable_auto_rotate</item>
+    </string-array>
+
+    <string name="turn_off">Turn off</string>
+    <string name="turn_on">Turn on</string>
+    <string name="_switch">Switch</string>
+    <string-array name="bluetooth_state_action_mode">
+        <item>@string/turn_off</item>
+        <item>@string/turn_on</item>
+        <item>@string/_switch</item>
+    </string-array>
+
+    <string name="sound">Sound</string>
+    <string name="vibration">Vibrate</string>
+    <string name="mute">Mute</string>
+    <string-array name="ringer_mode_action_mode">
+        <item>@string/sound</item>
+        <item>@string/vibration</item>
+        <item>@string/mute</item>
+    </string-array>
+
+    <string-array name="wifi_state_action_mode">
+        <item>@string/turn_on</item>
+        <item>@string/turn_off</item>
+    </string-array>
+
+
+    <string name="power_connected">Power Connected</string>
+    <string name="power_disconnected">Power Disconnected</string>
+    <string-array name="battery_charging_trigger_mode">
+        <item>@string/power_connected</item>
+        <item>@string/power_disconnected</item>
+    </string-array>
+
+    <string name="battery_low">Battery low</string>
+    <string name="battery_okay">Battery okay</string>
+    <string-array name="battery_level_trigger_mode">
+        <item>@string/battery_low</item>
+        <item>@string/battery_okay</item>
+    </string-array>
+
+    <string name="turned_on">Turned on</string>
+    <string name="turned_off">Turned off</string>
+    <string name="switched">Switched</string>
+    <string-array name="bluetooth_state_trigger_mode">
+        <item>@string/turned_on</item>
+        <item>@string/turned_off</item>
+        <item>@string/switched</item>
+    </string-array>
+
+
+    <string-array name="ringer_state_trigger_mode">
+        <item>@string/sound</item>
+        <item>@string/vibration</item>
+        <item>@string/mute</item>
+        <item>@string/switched</item>
+    </string-array>
+
+    <string name="battery">Battery</string>
+    <string name="device_settings">Device settings</string>
+    <string name="date_time">Date/time</string>
+
+
 </resources>

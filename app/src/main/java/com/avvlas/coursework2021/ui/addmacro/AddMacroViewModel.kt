@@ -6,7 +6,10 @@ import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.data.MacrosRepository
 import com.avvlas.coursework2021.model.Macro
 import com.avvlas.coursework2021.model.options.Category
-import com.avvlas.coursework2021.model.options.actions.*
+import com.avvlas.coursework2021.model.options.actions.ChangeAutoRotateAction
+import com.avvlas.coursework2021.model.options.actions.ChangeBluetoothStateAction
+import com.avvlas.coursework2021.model.options.actions.ChangeRingerModeAction
+import com.avvlas.coursework2021.model.options.actions.ChangeWifiStateAction
 import com.avvlas.coursework2021.model.options.triggers.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -22,53 +25,45 @@ class AddMacroViewModel @Inject constructor(
 
     internal val triggers =
         arrayListOf(
-            Category<Trigger>(
-                R.drawable.ic_baseline_watch_24, "Category1", arrayListOf(
+            Category(
+                R.drawable.ic_baseline_watch_24, R.string.date_time, arrayListOf(
                     DayTimeTrigger(),
-                    DateTimeTrigger(),
+                    DateTimeTrigger()
+                )
+            ),
+            Category(
+                R.drawable.ic_baseline_battery_full_24, R.string.battery, arrayListOf(
+                    BatteryChargingTrigger(),
+                    BatteryLevelTrigger()
+                )
+            ),
+            Category(
+                R.drawable.ic_baseline_settings_24, R.string.device_settings, arrayListOf(
                     BluetoothStateChangeTrigger(),
                     RingerModeChangeTrigger(),
-                    BatteryChargingTrigger(),
-                    BatteryLevelTrigger(),
-                    //WifiStateChangeTrigger()
                 )
-            ),
-            Category<Trigger>(
-                R.drawable.ic_baseline_watch_24, "Category2", arrayListOf(
-                    LocationTrigger(R.drawable.ic_baseline_watch_24, R.string.add_macro_button)
-                )
-            ),
-            Category<Trigger>(R.drawable.ic_baseline_watch_24, "Category3", arrayListOf())
+            )
         )
 
     internal val actions =
         arrayListOf(
-            Category<Action>(
+            Category(
                 R.drawable.ic_baseline_circle_notifications_24,
-                "Notifications",
+                R.string.device_settings,
                 arrayListOf(
                     ChangeAutoRotateAction(),
                     ChangeBluetoothStateAction(),
                     ChangeRingerModeAction(),
-                    SendSmsAction()
-                )
-            ),
-            Category<Action>(
-                R.drawable.ic_baseline_watch_24, "Category1", arrayListOf(
-                    ChangeBluetoothStateAction(),
                     ChangeWifiStateAction()
                 )
-            ),
-            Category<Action>(R.drawable.ic_baseline_watch_24, "Category1", arrayListOf())
+            )
         )
 
     fun saveMacro() =
         viewModelScope.launch {
             if (isNewMacro)
-                macrosRepository.insert(macro)
+                macro.id = macrosRepository.insert(macro)
             else
                 macrosRepository.update(macro)
         }
-
-
 }

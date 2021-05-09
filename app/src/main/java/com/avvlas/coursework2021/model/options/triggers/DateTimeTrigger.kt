@@ -7,6 +7,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.datetime.dateTimePicker
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.model.Macro
 import com.avvlas.coursework2021.utils.Parcelables.toByteArray
@@ -36,7 +38,7 @@ class DateTimeTrigger(
 
         val alarmPendingIntent = PendingIntent.getBroadcast(
             appContext,
-            macro.hashCode(),
+            macro.id.toInt(),
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT
         )
@@ -53,7 +55,7 @@ class DateTimeTrigger(
         val intent = Intent(context, TriggerBroadcastReceiver::class.java)
         val alarmPendingIntent = PendingIntent.getBroadcast(
             context,
-            macro.hashCode(),
+            macro.id.toInt(),
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT
         )
@@ -61,15 +63,15 @@ class DateTimeTrigger(
     }
 
     override fun onClick(context: Context, macro: Macro) {
-        TODO("Not yet implemented")
-//        MaterialDialog(viewPagerFragment.requireContext()).show {
-//                dateTimePicker(
-//                    show24HoursView = true,
-//                    requireFutureDateTime = true
-//                ) { _, dateTime ->
-//                    option.timeInMillis = dateTime.timeInMillis
-//                    viewModel.macro.triggers.add(option)
-//                }
-//            }
+        //TODO("Not yet implemented")
+        MaterialDialog(context).show {
+                dateTimePicker(
+                    show24HoursView = true,
+                    requireFutureDateTime = true
+                ) { _, dateTime ->
+                    timeInMillis = dateTime.timeInMillis
+                    super.onClick(context, macro)
+                }
+            }
     }
 }

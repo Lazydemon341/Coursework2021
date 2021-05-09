@@ -69,12 +69,8 @@ class RingerModeChangeTrigger(
         MaterialDialog(context).show {
             title(res = R.string.choose_trigger)
             listItemsSingleChoice(
-                items = listOf(
-                    "Sound On",
-                    "Sound Off, Vibration On",
-                    "Sound Off, Vibration Off",
-                    "Sound Mode Changed"
-                ), initialSelection = mode.ordinal
+                res = R.array.ringer_state_trigger_mode,
+                initialSelection = mode.ordinal
             ) { _, choice, _ ->
                 when (choice) {
                     0 -> mode = Mode.NORMAL

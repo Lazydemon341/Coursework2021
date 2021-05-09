@@ -22,7 +22,7 @@
     <string name="send_sms_action_title">Отправить SMS</string>
     <string name="send_whatsapp_message_action_title">Отправить сообщение в WhatsApp</string>
 
-    <string name="battery_charging_trigger_title">Батарея заряжается</string>
+    <string name="battery_charging_trigger_title">Зарядное устройство</string>
     <string name="battery_level_trigger_title">Уровень заряда</string>
     <string name="date_time_trigger_title">Дата/время</string>
     <string name="day_time_trigger_title">День и время</string>
@@ -41,7 +41,6 @@
     <string name="do_not_disturb_permission_required">Для выполнения этого Действия требуется доступ к режиму "Не беспокоить"</string>
     <string name="write_settings_permission_required">Для выполнения этого Действия требуется разрешение на изменение системных настроек</string>
 
-
     <string name="enter_macro_name">Введите название макроса</string>
     <string name="macro_name_hint">Название:</string>
 
@@ -58,6 +57,31 @@
 
     <string name="choose_action">Выберите действие</string>
     <string name="choose_trigger">Выберите триггер</string>
+
+    <string name="enable_auto_rotate">Включить Автоповорот</string>
+    <string name="disable_auto_rotate">Выключить Автоповорот</string>
+
+    <string name="turn_off">Выключить</string>
+    <string name="turn_on">Включить</string>
+    <string name="_switch">Переключить</string>
+
+    <string name="sound">Звук</string>
+    <string name="vibration">Вибрация</string>
+    <string name="mute">Без звука</string>
+
+    <string name="power_connected">Зарядное устройтсво подключено</string>
+    <string name="power_disconnected">Зарядное устройтсво отключено</string>
+
+    <string name="battery_low">Низкий уровень заряда</string>
+    <string name="battery_okay">Нормальный уровень заряда</string>
+
+    <string name="turned_on">Включен</string>
+    <string name="turned_off">Выключен</string>
+    <string name="switched">Переключен</string>
+
+    <string name="battery">Батарея</string>
+    <string name="device_settings">Настройки устройства</string>
+    <string name="date_time">Дата и время</string>
 
 
 </resources>
