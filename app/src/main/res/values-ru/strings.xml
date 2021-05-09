@@ -86,5 +86,7 @@
     <string name="date_time">Дата и время</string>
     <string name="other">Другое</string>
 
+    <string name="delete_action_text">Вы действительно хотите удалить это Действие?</string>
+
 
 </resources>

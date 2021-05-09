@@ -137,5 +137,6 @@
     <string name="date_time">Date/time</string>
     <string name="other">Other</string>
 
+    <string name="delete_action_text">Are you sure to delete this Action?</string>
 
 </resources>
