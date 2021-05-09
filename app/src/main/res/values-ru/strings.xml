@@ -21,6 +21,8 @@
     <string name="send_email_action_title">Отправить E-Mail</string>
     <string name="send_sms_action_title">Отправить SMS</string>
     <string name="send_whatsapp_message_action_title">Отправить сообщение в WhatsApp</string>
+    <string name="turn_on_flashlight_action_title">Включить фонарик</string>
+
 
     <string name="battery_charging_trigger_title">Зарядное устройство</string>
     <string name="battery_level_trigger_title">Уровень заряда</string>
@@ -69,8 +71,8 @@
     <string name="vibration">Вибрация</string>
     <string name="mute">Без звука</string>
 
-    <string name="power_connected">Зарядное устройтсво подключено</string>
-    <string name="power_disconnected">Зарядное устройтсво отключено</string>
+    <string name="power_connected">Зарядное устройство подключено</string>
+    <string name="power_disconnected">Зарядное устройство отключено</string>
 
     <string name="battery_low">Низкий уровень заряда</string>
     <string name="battery_okay">Нормальный уровень заряда</string>
@@ -82,6 +84,7 @@
     <string name="battery">Батарея</string>
     <string name="device_settings">Настройки устройства</string>
     <string name="date_time">Дата и время</string>
+    <string name="other">Другое</string>
 
 
 </resources>

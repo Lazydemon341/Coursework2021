@@ -6,10 +6,7 @@ import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.data.MacrosRepository
 import com.avvlas.coursework2021.model.Macro
 import com.avvlas.coursework2021.model.options.Category
-import com.avvlas.coursework2021.model.options.actions.ChangeAutoRotateAction
-import com.avvlas.coursework2021.model.options.actions.ChangeBluetoothStateAction
-import com.avvlas.coursework2021.model.options.actions.ChangeRingerModeAction
-import com.avvlas.coursework2021.model.options.actions.ChangeWifiStateAction
+import com.avvlas.coursework2021.model.options.actions.*
 import com.avvlas.coursework2021.model.options.triggers.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -48,7 +45,7 @@ class AddMacroViewModel @Inject constructor(
     internal val actions =
         arrayListOf(
             Category(
-                R.drawable.ic_baseline_circle_notifications_24,
+                R.drawable.ic_baseline_settings_24,
                 R.string.device_settings,
                 arrayListOf(
                     ChangeAutoRotateAction(),
@@ -56,7 +53,15 @@ class AddMacroViewModel @Inject constructor(
                     ChangeRingerModeAction(),
                     ChangeWifiStateAction()
                 )
+            ),
+            Category(
+                R.drawable.ic_baseline_circle_notifications_24,
+                R.string.other,
+                arrayListOf(
+                    TurnOnFlashlightAction()
+                )
             )
+
         )
 
     fun saveMacro() =

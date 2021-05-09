@@ -1,6 +1,7 @@
 package com.avvlas.coursework2021.ui
 
-import android.content.Intent
+import android.content.Context
+import android.hardware.camera2.CameraManager
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -10,7 +11,6 @@ import androidx.lifecycle.lifecycleScope
 import com.avvlas.coursework2021.App
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.data.MacrosRepository
-import com.avvlas.coursework2021.model.options.actions.SendSmsAction
 import com.avvlas.coursework2021.ui.addmacro.AddMacroFragment
 import com.avvlas.coursework2021.ui.macrodetails.MacroDetailsFragment
 import com.avvlas.coursework2021.utils.Utils.currentNavigationFragment
@@ -18,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
@@ -38,7 +39,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 }
             }
         }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

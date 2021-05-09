@@ -24,6 +24,7 @@
     <string name="send_email_action_title">Send E-Mail</string>
     <string name="send_sms_action_title">Send SMS</string>
     <string name="send_whatsapp_message_action_title">Send WhatsApp Message</string>
+    <string name="turn_on_flashlight_action_title">Turn on flashlight</string>
 
     <!--  triggers titles  -->
     <string name="battery_charging_trigger_title">Battery charging</string>
@@ -134,6 +135,7 @@
     <string name="battery">Battery</string>
     <string name="device_settings">Device settings</string>
     <string name="date_time">Date/time</string>
+    <string name="other">Other</string>
 
 
 </resources>

@@ -21,6 +21,9 @@ abstract class Trigger(
     }
 
     override fun Macro.removeOption() {
-        this.triggers.remove(this@Trigger)
+        removeTrigger(this@Trigger)
+//        this.triggers.removeAll{
+//            it == this@Trigger
+//        }
     }
 }
