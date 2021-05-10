@@ -7,16 +7,15 @@ import android.content.Intent
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.datetime.datePicker
 import com.afollestad.materialdialogs.datetime.dateTimePicker
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.model.Macro
-import com.avvlas.coursework2021.utils.broadcastreceivers.TriggerBroadcastReceiver
+import com.avvlas.coursework2021.utils.broadcastreceivers.AlarmReceiver
 import kotlinx.parcelize.Parcelize
 import java.util.*
 
 @Parcelize
-class DayTimeTrigger(
+class RepeatingTimeTrigger(
     @DrawableRes override val icon: Int = R.drawable.ic_baseline_watch_24,
     @StringRes override val title: Int = R.string.day_time_trigger_title,
     var hour: Int = -1,
@@ -27,9 +26,9 @@ class DayTimeTrigger(
     override fun schedule(appContext: Context, macro: Macro) {
         val alarmManager = appContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-        val intent = Intent(appContext, TriggerBroadcastReceiver::class.java)
-        intent.putExtra(TriggerBroadcastReceiver.MACRO, macro)
-        intent.putExtra(TriggerBroadcastReceiver.TRIGGER_TYPE, "Day/Time Trigger")
+        val intent = Intent(appContext, AlarmReceiver::class.java)
+        intent.putExtra(AlarmReceiver.MACRO, macro)
+        intent.action = this.javaClass.simpleName
 
         val alarmPendingIntent = PendingIntent.getBroadcast(appContext, macro.hashCode(), intent, 0)
 
@@ -55,7 +54,7 @@ class DayTimeTrigger(
 
     override fun cancel(context: Context, macro: Macro) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(context, TriggerBroadcastReceiver::class.java)
+        val intent = Intent(context, AlarmReceiver::class.java)
         val alarmPendingIntent = PendingIntent.getBroadcast(context, macro.hashCode(), intent, 0)
         alarmManager.cancel(alarmPendingIntent)
     }

@@ -26,8 +26,8 @@
 
     <string name="battery_charging_trigger_title">Зарядное устройство</string>
     <string name="battery_level_trigger_title">Уровень заряда</string>
-    <string name="date_time_trigger_title">Дата/время</string>
-    <string name="day_time_trigger_title">День и время</string>
+    <string name="date_time_trigger_title">Точная дата и время</string>
+    <string name="day_time_trigger_title">Время с повторением</string>
     <string name="ringer_mode_trigger_title">Звук и вибрация</string>
 
     <string name="quit_without_saving">Отменить изменения?</string>
@@ -88,5 +88,6 @@
 
     <string name="delete_action_text">Вы действительно хотите удалить это Действие?</string>
 
+    <string name="pick_date_and_time">Выберите дату и время</string>
 
 </resources>

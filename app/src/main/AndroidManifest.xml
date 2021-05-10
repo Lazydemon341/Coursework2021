@@ -49,7 +49,7 @@
         </activity>
 
         <receiver
-            android:name=".utils.broadcastreceivers.TriggerBroadcastReceiver"
+            android:name=".utils.broadcastreceivers.AlarmReceiver"
             android:enabled="true"
             android:permission="TODO">
             <intent-filter>
@@ -58,7 +58,7 @@
         </receiver>
 
         <service
-            android:name=".utils.services.AppForegroundService"
+            android:name=".AppForegroundService"
             android:enabled="true" />
     </application>
 

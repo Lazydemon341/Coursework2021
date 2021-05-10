@@ -30,8 +30,8 @@
     <string name="battery_charging_trigger_title">Battery charging</string>
     <string name="battery_level_trigger_title">Battery level</string>
     <string name="bluetooth_state_trigger_title" translatable="false">Bluetooth</string>
-    <string name="date_time_trigger_title">Date/time</string>
-    <string name="day_time_trigger_title">Day/time</string>
+    <string name="date_time_trigger_title">Exact date and time</string>
+    <string name="day_time_trigger_title">Time repeating</string>
     <string name="ringer_mode_trigger_title">Sound/Vibration</string>
 
     <!-- AlertDialogs -->
@@ -138,5 +138,7 @@
     <string name="other">Other</string>
 
     <string name="delete_action_text">Are you sure to delete this Action?</string>
+
+    <string name="pick_date_and_time">Pick date and time</string>
 
 </resources>

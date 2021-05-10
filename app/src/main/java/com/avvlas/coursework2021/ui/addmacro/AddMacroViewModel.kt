@@ -24,8 +24,8 @@ class AddMacroViewModel @Inject constructor(
         arrayListOf(
             Category(
                 R.drawable.ic_baseline_watch_24, R.string.date_time, arrayListOf(
-                    DayTimeTrigger(),
-                    DateTimeTrigger()
+                    RepeatingTimeTrigger(),
+                    ExactDateTimeTrigger()
                 )
             ),
             Category(

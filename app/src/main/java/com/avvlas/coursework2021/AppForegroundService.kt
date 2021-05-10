@@ -1,12 +1,10 @@
-package com.avvlas.coursework2021.utils.services
+package com.avvlas.coursework2021
 
 import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
-import com.avvlas.coursework2021.App
-import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.ui.MainActivity
 
 

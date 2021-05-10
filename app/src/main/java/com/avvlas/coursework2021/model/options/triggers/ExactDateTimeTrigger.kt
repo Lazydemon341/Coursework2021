@@ -12,11 +12,11 @@ import com.afollestad.materialdialogs.datetime.dateTimePicker
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.model.Macro
 import com.avvlas.coursework2021.utils.Parcelables.toByteArray
-import com.avvlas.coursework2021.utils.broadcastreceivers.TriggerBroadcastReceiver
+import com.avvlas.coursework2021.utils.broadcastreceivers.AlarmReceiver
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-class DateTimeTrigger(
+class ExactDateTimeTrigger(
     @DrawableRes override val icon: Int = R.drawable.ic_baseline_calendar_today_24,
     @StringRes override val title: Int = R.string.date_time_trigger_title,
     var timeInMillis: Long = -1
@@ -25,16 +25,12 @@ class DateTimeTrigger(
     override fun schedule(appContext: Context, macro: Macro) {
         val alarmManager = appContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-        val intent = Intent(appContext, TriggerBroadcastReceiver::class.java)
+        val intent = Intent(appContext, AlarmReceiver::class.java)
         val bundle = Bundle().apply {
-            putByteArray(TriggerBroadcastReceiver.MACRO, macro.toByteArray())
-            putString(
-                TriggerBroadcastReceiver.TRIGGER_TYPE,
-                TriggerBroadcastReceiver.DATETIME_TRIGGER
-            )
+            putByteArray(AlarmReceiver.MACRO, macro.toByteArray())
         }
         intent.putExtras(bundle)
-        intent.action = "DateTrigger"
+        intent.action = this.javaClass.simpleName
 
         val alarmPendingIntent = PendingIntent.getBroadcast(
             appContext,
@@ -52,7 +48,7 @@ class DateTimeTrigger(
 
     override fun cancel(context: Context, macro: Macro) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(context, TriggerBroadcastReceiver::class.java)
+        val intent = Intent(context, AlarmReceiver::class.java)
         val alarmPendingIntent = PendingIntent.getBroadcast(
             context,
             macro.id.toInt(),
@@ -63,15 +59,16 @@ class DateTimeTrigger(
     }
 
     override fun onClick(context: Context, macro: Macro) {
-        //TODO("Not yet implemented")
         MaterialDialog(context).show {
-                dateTimePicker(
-                    show24HoursView = true,
-                    requireFutureDateTime = true
-                ) { _, dateTime ->
-                    timeInMillis = dateTime.timeInMillis
-                    super.onClick(context, macro)
-                }
+            title(res =R.string.pick_date_and_time)
+            dateTimePicker(
+                show24HoursView = true,
+                requireFutureDateTime = true,
+                autoFlipToTime = true
+            ) { _, dateTime ->
+                timeInMillis = dateTime.timeInMillis
+                super.onClick(context, macro)
             }
+        }
     }
 }
