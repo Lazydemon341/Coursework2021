@@ -2,8 +2,11 @@ package com.avvlas.coursework2021.ui.macroslist
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
@@ -23,13 +26,27 @@ class MacrosListFragment : Fragment(R.layout.fragment_macros_list),
     private lateinit var navController: NavController
     private lateinit var adapter: MacrosListAdapter
 
+    private lateinit var placeholderImage: ImageView
+    private lateinit var placeholderText: TextView
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupPlaceHolder(view)
         setupStatusBar()
         setupNavController(view)
         setupRecyclerView(view)
         setupViewModel()
+    }
+
+    private fun setupPlaceHolder(view: View) {
+        placeholderImage = view.findViewById(R.id.placeholder_image)
+        placeholderText = view.findViewById(R.id.placeholder_text)
+    }
+
+    private fun changePlaceholderVisibility(isVisible: Boolean) {
+        placeholderImage.isVisible = isVisible
+        placeholderText.isVisible = isVisible
     }
 
     private fun setupStatusBar() =
@@ -43,6 +60,7 @@ class MacrosListFragment : Fragment(R.layout.fragment_macros_list),
         navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
 
         view.findViewById<FloatingActionButton>(R.id.add_macro_fab).setOnClickListener {
+            changePlaceholderVisibility(false)
             navController.navigate(R.id.action_macrosListFragment_to_addMacroFragment)
         }
     }
@@ -57,6 +75,7 @@ class MacrosListFragment : Fragment(R.layout.fragment_macros_list),
 
     private fun setupViewModel() {
         viewModel.macros.observe(viewLifecycleOwner) {
+            changePlaceholderVisibility(it.isEmpty())
             adapter.submitList(it)
         }
     }
