@@ -81,4 +81,8 @@ dependencies {
 
     // Permissions
     implementation 'com.nabinbhandari.android:permissions:3.8'
+
+    // Map location picker
+    implementation 'com.schibstedspain.android:leku:8.0.0'
+
 }

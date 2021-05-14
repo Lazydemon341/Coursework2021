@@ -39,6 +39,13 @@ class AddMacroViewModel @Inject constructor(
                     BluetoothStateChangeTrigger(),
                     RingerModeChangeTrigger(),
                 )
+            ),
+            Category(
+                R.drawable.ic_baseline_menu_24,
+                R.string.other,
+                arrayListOf(
+                    LocationTrigger()
+                )
             )
         )
 

@@ -52,6 +52,8 @@ class RepeatingTimeTrigger(
         )
     }
 
+    // TODO: dodelat'
+
     override fun cancel(context: Context, macro: Macro) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, AlarmReceiver::class.java)
@@ -60,8 +62,8 @@ class RepeatingTimeTrigger(
     }
 
     override fun onClick(context: Context, macro: Macro) {
-        MaterialDialog(context).show{
-            dateTimePicker{ dialog, datetime ->
+        MaterialDialog(context).show {
+            dateTimePicker { dialog, datetime ->
 
             }
         }

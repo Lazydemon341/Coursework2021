@@ -1,6 +1,7 @@
 package com.avvlas.coursework2021.ui.macrodetails
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -59,6 +60,11 @@ class MacroDetailsFragment : Fragment(R.layout.fragment_macro_details),
         setupNavController()
         setupViews(view)
         setupViewModel()
+
+        Log.d(
+            "MacroDetails",
+            navController.previousBackStackEntry.toString()
+        )
     }
 
     private fun setupNavController() {

@@ -91,4 +91,20 @@
     <string name="pick_date_and_time">Выберите дату и время</string>
     <string name="add_a_macro">Создайте Макрос!</string>
 
+    <string name="leku_title_activity_location_picker">Выбор Локации</string>
+    <string name="leku_load_location_error">Что-то пошло не так. Пожалуйста, попробуйте еще раз.</string>
+    <string name="leku_no_search_results">Не найдено локаций по Вашему запросу</string>
+    <string name="leku_unknown_location">неизвестная локация</string>
+    <string name="leku_voice_search_promp">Голосовой поиск…</string>
+    <string name="leku_voice_search_extra_language">ru-RU</string>
+    <string name="leku_toolbar_action_voice_title">Голос</string>
+    <string name="leku_search_hint">Поиск</string>
+    <string name="leku_accessibility_remove_current_location">Отменить выбор текущего местоположения</string>
+    <string name="leku_coordinates">Координаты</string>
+    <string name="leku_latitude">Широта</string>
+    <string name="leku_longitude">Долгота</string>
+    <string name="leku_network_resource">сеть</string>
+    <string name="leku_no_geocoder_available">Сервис недоступен</string>
+    <string name="leku_use_this_location">Использовать эту локацию</string>
+
 </resources>

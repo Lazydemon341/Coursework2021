@@ -14,3 +14,5 @@
 .cxx
 google_maps_api.xml
 local.properties
+/apk
+/release
