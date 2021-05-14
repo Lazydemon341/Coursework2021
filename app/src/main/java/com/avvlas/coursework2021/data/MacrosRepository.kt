@@ -37,4 +37,8 @@ class MacrosRepository @Inject constructor(
             it.toMacro()
         }
     }
+
+    suspend fun getMacrosNames() = withContext(Dispatchers.IO) {
+        macrosDao.getNames()
+    }
 }

@@ -89,7 +89,7 @@
     <string name="delete_action_text">Вы действительно хотите удалить это Действие?</string>
 
     <string name="pick_date_and_time">Выберите дату и время</string>
-    <string name="add_a_macro">Создайте Макрос!</string>
+    <string name="add_a_macro">Создайте Макрос</string>
 
     <string name="leku_title_activity_location_picker">Выбор Локации</string>
     <string name="leku_load_location_error">Что-то пошло не так. Пожалуйста, попробуйте еще раз.</string>

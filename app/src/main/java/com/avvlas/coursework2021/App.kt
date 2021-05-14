@@ -8,8 +8,6 @@ import android.os.Build
 import dagger.hilt.android.HiltAndroidApp
 
 
-// TODO:
-
 @HiltAndroidApp
 class App : Application() {
 

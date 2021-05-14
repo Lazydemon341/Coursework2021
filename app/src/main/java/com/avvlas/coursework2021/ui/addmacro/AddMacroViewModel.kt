@@ -9,6 +9,7 @@ import com.avvlas.coursework2021.model.options.Category
 import com.avvlas.coursework2021.model.options.actions.*
 import com.avvlas.coursework2021.model.options.triggers.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -70,6 +71,10 @@ class AddMacroViewModel @Inject constructor(
             )
 
         )
+
+    fun getMacrosNames() = viewModelScope.async {
+        macrosRepository.getMacrosNames()
+    }
 
     fun saveMacro() =
         viewModelScope.launch {

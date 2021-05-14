@@ -11,20 +11,25 @@ import androidx.navigation.Navigation
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.WhichButton
+import com.afollestad.materialdialogs.actions.setActionButtonEnabled
+import com.afollestad.materialdialogs.input.getInputField
 import com.afollestad.materialdialogs.input.input
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.model.Macro
+import com.avvlas.coursework2021.model.options.triggers.Trigger
 import com.avvlas.coursework2021.ui.addmacro.pages.actions.ActionsFragment
 import com.avvlas.coursework2021.ui.addmacro.pages.triggers.TriggersFragment
 import com.avvlas.coursework2021.ui.macrodetails.MacroDetailsFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
 internal class AddMacroFragment : Fragment(R.layout.fragment_add_macro) {
 
-    private val viewModel: AddMacroViewModel by viewModels()
+    val viewModel: AddMacroViewModel by viewModels()
     private lateinit var viewPager: ViewPager2
     private lateinit var navController: NavController
 
@@ -59,7 +64,6 @@ internal class AddMacroFragment : Fragment(R.layout.fragment_add_macro) {
 
 
     private fun onFabClick() {
-        // TODO: check if valid (at least one trigger and action)
         if (viewModel.macro.actions.isNotEmpty() && viewModel.macro.triggers.isNotEmpty()) {
             if (viewModel.isNewMacro) {
                 enterNameAndSaveMacro()
@@ -80,20 +84,37 @@ internal class AddMacroFragment : Fragment(R.layout.fragment_add_macro) {
         }
 
 
-    private fun enterNameAndSaveMacro() =
+    private fun enterNameAndSaveMacro() {
+        val namesDeferred = viewModel.getMacrosNames()
+
         MaterialDialog(requireContext()).show {
             title(R.string.enter_macro_name)
-            input(hintRes = R.string.macro_name_hint) { _, text ->
-                viewModel.macro.name = text.toString()
-                // TODO: Check if name is unique
+            input(
+                hintRes = R.string.macro_name_hint,
+                waitForPositiveButton = false
+            ) { dialog, text ->
+
+                runBlocking {
+                    val names = namesDeferred.await()
+                    val isValid = !names.contains(text.toString())
+                    // TODO: change to string res for localisation
+                    dialog.getInputField().error =
+                        if (isValid) null else "Macro name must be unique!"
+                    dialog.setActionButtonEnabled(WhichButton.POSITIVE, isValid)
+
+                    if (isValid)
+                        viewModel.macro.name = text.toString()
+                }
+            }
+            positiveButton(R.string.ok) {
                 viewModel.saveMacro()
                 viewModel.macro.isActivated = true
                 viewModel.macro.activate(requireActivity())
                 navController.navigateUp()
             }
-            positiveButton(R.string.ok)
             negativeButton(R.string.cancel)
         }
+    }
 
 
     private fun initViewPager(view: View) {
@@ -123,6 +144,10 @@ internal class AddMacroFragment : Fragment(R.layout.fragment_add_macro) {
                 }
             builder.show()
         }
+    }
+
+    fun addTriggerToMacro(trigger: Trigger) {
+        viewModel.macro.addTrigger(trigger)
     }
 }
 

@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat.startActivityForResult
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.model.Macro
-import com.avvlas.coursework2021.utils.Parcelables.toByteArray
 import com.schibstedspain.leku.LocationPickerActivity
 import kotlinx.parcelize.Parcelize
 
@@ -32,7 +31,7 @@ class LocationTrigger(
             //.withSearchZone("es_ES")
             //.withSearchZone(SearchZoneRect(LatLng(26.525467, -18.910366), LatLng(43.906271, 5.394197)))
             .withDefaultLocaleSearchZone()
-            .shouldReturnOkOnBackPressed()
+            //.shouldReturnOkOnBackPressed()
             //.withStreetHidden()
             //.withCityHidden()
             //.withZipCodeHidden()
@@ -43,7 +42,7 @@ class LocationTrigger(
             .withUnnamedRoadHidden()
             .build(context.applicationContext)
 
-        locationPickerIntent.putExtra(EXTRA_MACRO, macro.toByteArray())
+        locationPickerIntent.putExtra(EXTRA_MACRO, macro)
 
         startActivityForResult(
             context as AppCompatActivity,

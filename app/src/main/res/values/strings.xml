@@ -140,7 +140,7 @@
     <string name="delete_action_text">Are you sure to delete this Action?</string>
 
     <string name="pick_date_and_time">Pick date and time</string>
-    <string name="add_a_macro">Create a Macro!</string>
+    <string name="add_a_macro">Create a Macro</string>
 
     <string name="leku_title_activity_location_picker">Location Picker</string>
     <string name="leku_load_location_error">Something went wrong. Please try again.</string>

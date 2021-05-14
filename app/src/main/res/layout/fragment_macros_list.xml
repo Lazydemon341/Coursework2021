@@ -24,7 +24,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/add_a_macro"
-        android:textColor="@color/black"
         android:textSize="20sp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@id/placeholder_image"
