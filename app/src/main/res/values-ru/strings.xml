@@ -107,4 +107,9 @@
     <string name="leku_no_geocoder_available">Сервис недоступен</string>
     <string name="leku_use_this_location">Использовать эту локацию</string>
 
+    <string name="choose_radius_and_triggers">Выберите радиус и триггеры</string>
+
+    <string name="enter">Вход</string>
+    <string name="exit">Выход</string>
+
 </resources>

@@ -52,13 +52,13 @@ class BatteryLevelTrigger(
         receiver!!.macrosWithBatteryLevel.add(Pair(macro, lowLevel))
     }
 
-    override fun cancel(context: Context, macro: Macro) {
+    override fun cancel(appContext: Context, macro: Macro) {
         receiver?.let {
             it.macrosWithBatteryLevel.removeAll { pair ->
                 pair.first.id == macro.id
             }
             if (it.macrosWithBatteryLevel.isEmpty()) {
-                context.applicationContext.unregisterReceiver(it)
+                appContext.applicationContext.unregisterReceiver(it)
                 receiver = null
             }
         }

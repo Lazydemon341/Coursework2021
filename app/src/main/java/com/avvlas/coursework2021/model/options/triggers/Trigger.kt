@@ -13,7 +13,7 @@ abstract class Trigger(
 
     abstract fun schedule(appContext: Context, macro: Macro)
 
-    abstract fun cancel(context: Context, macro: Macro)
+    abstract fun cancel(appContext: Context, macro: Macro)
 
     override fun onClick(context: Context, macro: Macro) {
         macro.removeOption()
@@ -22,8 +22,5 @@ abstract class Trigger(
 
     override fun Macro.removeOption() {
         removeTrigger(this@Trigger)
-//        this.triggers.removeAll{
-//            it == this@Trigger
-//        }
     }
 }

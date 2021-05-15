@@ -56,13 +56,13 @@ class BluetoothStateChangeTrigger(
         receiver!!.macrosWithBluetoothModes.add(Pair(macro, mode))
     }
 
-    override fun cancel(context: Context, macro: Macro) {
+    override fun cancel(appContext: Context, macro: Macro) {
         receiver?.let {
             it.macrosWithBluetoothModes.removeAll { pair ->
                 pair.first.id == macro.id
             }
             if (it.macrosWithBluetoothModes.isEmpty()) {
-                context.applicationContext.unregisterReceiver(it)
+                appContext.applicationContext.unregisterReceiver(it)
                 receiver = null
             }
         }

@@ -8,6 +8,10 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.customview.customView
+import com.afollestad.materialdialogs.list.isItemChecked
+import com.afollestad.materialdialogs.list.listItemsMultiChoice
 import com.avvlas.coursework2021.App
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.data.MacrosRepository
@@ -15,6 +19,8 @@ import com.avvlas.coursework2021.model.options.triggers.LocationTrigger
 import com.avvlas.coursework2021.ui.addmacro.AddMacroFragment
 import com.avvlas.coursework2021.ui.macrodetails.MacroDetailsFragment
 import com.avvlas.coursework2021.utils.Utils.currentNavigationFragment
+import com.google.android.gms.location.Geofence
+import com.google.android.material.slider.Slider
 import com.schibstedspain.leku.LATITUDE
 import com.schibstedspain.leku.LONGITUDE
 import dagger.hilt.android.AndroidEntryPoint
@@ -76,21 +82,50 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         if (resultCode == Activity.RESULT_OK && data != null) {
             Log.d(TAG, "RESULT OK")
             when (requestCode) {
-                // TODO: how to check if user clicked to select location or not?
                 LocationTrigger.MAP_PICKER_REQUEST_CODE -> {
                     val latitude = data.getDoubleExtra(LATITUDE, 0.0)
                     Log.d(TAG, latitude.toString())
                     val longitude = data.getDoubleExtra(LONGITUDE, 0.0)
                     Log.d(TAG, longitude.toString())
 
-                    when (val currentFragment = supportFragmentManager.currentNavigationFragment) {
-                        is AddMacroFragment -> {
-                            currentFragment.addTriggerToMacro(LocationTrigger())
-                        }
-                        is MacroDetailsFragment -> {
-                            // TODO: addTrigger(?)
-                        }
+                    val slider: Slider = object : Slider(this) {}.apply {
+                        valueFrom = 10.0F
+                        valueTo = 500.0F
+                        stepSize = 5.0F
+                        value = valueFrom
                     }
+
+                    MaterialDialog(this)
+                        .title(res = R.string.choose_radius_and_triggers)
+                        .customView(view = slider)
+                        .listItemsMultiChoice(
+                            res = R.array.geofence_transactions,
+                            allowEmptySelection = false
+                        )
+                        .positiveButton(res = R.string.ok) { dialog ->
+                            when (val currentFragment =
+                                supportFragmentManager.currentNavigationFragment) {
+                                is AddMacroFragment -> {
+                                    currentFragment.addTriggerToMacro(
+                                        LocationTrigger(
+                                            latitude = latitude,
+                                            longitude = longitude,
+                                            radius = slider.value,
+                                            transactions = listOf(
+                                                0,
+                                                1
+                                            ).filter { dialog.isItemChecked(it) }
+                                                .map { if (it == 0) Geofence.GEOFENCE_TRANSITION_ENTER else Geofence.GEOFENCE_TRANSITION_EXIT }
+                                        )
+                                    )
+                                }
+                                is MacroDetailsFragment -> {
+                                    // TODO: addTrigger(?)
+                                }
+                            }
+                        }
+                        .negativeButton(res = R.string.cancel)
+                        .show()
                 }
             }
         } else if (resultCode == Activity.RESULT_CANCELED) {

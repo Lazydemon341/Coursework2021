@@ -52,13 +52,13 @@ class BatteryChargingTrigger(
         receiver!!.macrosWithConnectionState.add(Pair(macro, connected))
     }
 
-    override fun cancel(context: Context, macro: Macro) {
+    override fun cancel(appContext: Context, macro: Macro) {
         receiver?.let {
             it.macrosWithConnectionState.removeAll { pair ->
                 pair.first.id == macro.id
             }
             if (it.macrosWithConnectionState.isEmpty()) {
-                context.applicationContext.unregisterReceiver(it)
+                appContext.applicationContext.unregisterReceiver(it)
                 receiver = null
             }
         }

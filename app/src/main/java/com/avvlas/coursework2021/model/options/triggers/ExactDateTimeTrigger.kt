@@ -46,11 +46,11 @@ class ExactDateTimeTrigger(
         )
     }
 
-    override fun cancel(context: Context, macro: Macro) {
-        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(context, AlarmReceiver::class.java)
+    override fun cancel(appContext: Context, macro: Macro) {
+        val alarmManager = appContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(appContext, AlarmReceiver::class.java)
         val alarmPendingIntent = PendingIntent.getBroadcast(
-            context,
+            appContext,
             macro.id.toInt(),
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT

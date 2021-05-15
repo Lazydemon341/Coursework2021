@@ -53,13 +53,13 @@ class RingerModeChangeTrigger(
         receiver!!.macrosWithRingerModes.add(Pair(macro, mode))
     }
 
-    override fun cancel(context: Context, macro: Macro) {
+    override fun cancel(appContext: Context, macro: Macro) {
         receiver?.let {
             it.macrosWithRingerModes.removeAll { pair ->
                 pair.first.id == macro.id
             }
             if (it.macrosWithRingerModes.size == 0) {
-                context.applicationContext.unregisterReceiver(it)
+                appContext.applicationContext.unregisterReceiver(it)
                 receiver = null
             }
         }

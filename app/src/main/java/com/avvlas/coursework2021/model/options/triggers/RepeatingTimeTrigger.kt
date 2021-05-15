@@ -54,10 +54,10 @@ class RepeatingTimeTrigger(
 
     // TODO: dodelat'
 
-    override fun cancel(context: Context, macro: Macro) {
-        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(context, AlarmReceiver::class.java)
-        val alarmPendingIntent = PendingIntent.getBroadcast(context, macro.hashCode(), intent, 0)
+    override fun cancel(appContext: Context, macro: Macro) {
+        val alarmManager = appContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(appContext, AlarmReceiver::class.java)
+        val alarmPendingIntent = PendingIntent.getBroadcast(appContext, macro.hashCode(), intent, 0)
         alarmManager.cancel(alarmPendingIntent)
     }
 

@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
@@ -78,12 +77,16 @@
 
         <receiver
             android:name=".utils.broadcastreceivers.AlarmReceiver"
-            android:enabled="true"
-            android:permission="TODO">
+            android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.NOTIFY" />
             </intent-filter>
         </receiver>
+
+        <receiver
+            android:name=".utils.broadcastreceivers.GeofenceReceiver"
+            android:enabled="true"
+            android:exported="true" />
 
         <service
             android:name=".AppForegroundService"

@@ -158,4 +158,14 @@
     <string name="leku_no_geocoder_available">Service unavailable</string>
     <string name="leku_use_this_location">User this location</string>
 
+    <string name="choose_radius_and_triggers">Choose radius and triggers</string>
+
+    <string name="enter">Enter</string>
+    <string name="exit">Exit</string>
+
+    <string-array name="geofence_transactions">
+        <item>@string/enter</item>
+        <item>@string/exit</item>
+    </string-array>
+
 </resources>
