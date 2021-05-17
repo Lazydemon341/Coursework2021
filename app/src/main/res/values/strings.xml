@@ -21,9 +21,9 @@
     <string name="change_bluetooth_state_action_title" translatable="false">Bluetooth</string>
     <string name="change_ringer_mode_action_title">Sound/Vibration</string>
     <string name="change_wifi_state_action_title" translatable="false">Wifi</string>
-    <string name="send_email_action_title">Send E-Mail</string>
-    <string name="send_sms_action_title">Send SMS</string>
-    <string name="send_whatsapp_message_action_title">Send WhatsApp Message</string>
+    <string name="send_email_action_title">E-Mail</string>
+    <string name="send_sms_action_title">SMS</string>
+    <string name="send_whatsapp_message_action_title">WhatsApp</string>
     <string name="turn_on_flashlight_action_title">Turn on flashlight</string>
 
     <!--  triggers titles  -->
@@ -181,5 +181,14 @@
 
     <string name="developer_fullname">Vlasyuk Alexander</string>
     <string name="developer_subtitle">Android Developer</string>
+
+    <string name="enter_phone_number">Enter phone number</string>
+    <string name="enter_message_text">Enter message text</string>
+
+    <string name="enter_email_address">Enter Email address</string>
+    <string name="enter_mail_subject">Enter mail subject</string>
+    <string name="enter_mail_text">Enter mail text</string>
+
+    <string name="messaging_category_title">Messaging</string>
 
 </resources>

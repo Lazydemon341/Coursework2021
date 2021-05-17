@@ -1,7 +1,6 @@
 package com.avvlas.coursework2021.model.options.triggers
 
 import android.Manifest
-import android.app.Activity
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
@@ -20,6 +19,8 @@ import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingClient
 import com.google.android.gms.location.GeofencingRequest
 import com.google.android.gms.location.LocationServices
+import com.nabinbhandari.android.permissions.PermissionHandler
+import com.nabinbhandari.android.permissions.Permissions
 import com.schibstedspain.leku.LocationPickerActivity
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
@@ -125,25 +126,7 @@ class LocationTrigger(
     }
 
     override fun onClick(context: Context, macro: Macro) {
-        if (!checkPermissions(context)) {
-            requestPermissions(context)
-        } else {
-            val locationPickerIntent = LocationPickerActivity.Builder()
-                .withLocation(latitude, longitude)
-                .withGeolocApiKey(context.getString(R.string.google_maps_key))
-                .withDefaultLocaleSearchZone()
-                .withGoogleTimeZoneEnabled()
-                .withVoiceSearchHidden()
-                .withUnnamedRoadHidden()
-                .build(context.applicationContext)
-
-            startActivityForResult(
-                context as AppCompatActivity,
-                locationPickerIntent,
-                MAP_PICKER_REQUEST_CODE,
-                null
-            )
-        }
+        requireFineLocationPermission(context)
     }
 
     private fun checkPermissions(context: Context): Boolean {
@@ -159,14 +142,49 @@ class LocationTrigger(
                 accessBackgroundLocationState == PackageManager.PERMISSION_GRANTED
     }
 
-    private fun requestPermissions(context: Context) {
-        ActivityCompat.requestPermissions(
-            context as Activity,
-            arrayOf(
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_BACKGROUND_LOCATION
-            ),
-            REQUEST_PERMISSIONS_REQUEST_CODE
+    private fun requireFineLocationPermission(context: Context) {
+        Permissions.check(
+            context as AppCompatActivity,
+            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+            null,
+            null,
+            object : PermissionHandler() {
+                override fun onGranted() {
+                    requireBackgroundLocationPermission(context)
+                }
+            }
+        )
+    }
+
+    private fun requireBackgroundLocationPermission(context: Context) {
+        Permissions.check(
+            context as AppCompatActivity,
+            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+            null,
+            null,
+            object : PermissionHandler() {
+                override fun onGranted() {
+                    startLocationPicker(context)
+                }
+            }
+        )
+    }
+
+    private fun startLocationPicker(context: Context) {
+        val locationPickerIntent = LocationPickerActivity.Builder()
+            .withLocation(latitude, longitude)
+            .withGeolocApiKey(context.getString(R.string.google_maps_key))
+            .withDefaultLocaleSearchZone()
+            .withGoogleTimeZoneEnabled()
+            .withVoiceSearchHidden()
+            .withUnnamedRoadHidden()
+            .build(context.applicationContext)
+
+        startActivityForResult(
+            context as AppCompatActivity,
+            locationPickerIntent,
+            MAP_PICKER_REQUEST_CODE,
+            null
         )
     }
 

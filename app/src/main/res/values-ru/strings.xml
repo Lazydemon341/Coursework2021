@@ -18,9 +18,9 @@
 
     <string name="change_auto_rotate_action_title">Автоповорот</string>
     <string name="change_ringer_mode_action_title">Звук и вибрация</string>
-    <string name="send_email_action_title">Отправить E-Mail</string>
-    <string name="send_sms_action_title">Отправить SMS</string>
-    <string name="send_whatsapp_message_action_title">Отправить сообщение в WhatsApp</string>
+    <string name="send_email_action_title">E-Mail</string>
+    <string name="send_sms_action_title">SMS</string>
+    <string name="send_whatsapp_message_action_title">WhatsApp</string>
     <string name="turn_on_flashlight_action_title">Включить фонарик</string>
 
 
@@ -126,5 +126,15 @@
 
     <string name="developer_fullname">Власюк Александр</string>
     <string name="developer_subtitle">Android Разработчик</string>
+
+    <string name="enter_phone_number">Введите телефонный номер</string>
+    <string name="enter_message_text">Введите текст сообщения</string>
+
+    <string name="enter_email_address">Введите Email-адрес получателя</string>
+    <string name="enter_mail_subject">Введите тему сообщения</string>
+    <string name="enter_mail_text">Введите текст сообщения</string>
+
+    <string name="messaging_category_title">Сообщения</string>
+
 
 </resources>

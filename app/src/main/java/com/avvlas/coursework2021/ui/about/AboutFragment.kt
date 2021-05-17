@@ -22,7 +22,6 @@ class AboutFragment : Fragment() {
             .setSubTitle(R.string.developer_subtitle)
             .addEmailLink("vlas.s.341@gmail.com")
             .addGitHubLink("Lazydemon341")
-            .addInstagramLink("avvlas_")
             .setAppIcon(R.mipmap.ic_launcher)
             .setAppName(R.string.app_name)
             .setVersionNameAsAppSubTitle()

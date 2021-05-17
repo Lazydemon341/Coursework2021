@@ -63,13 +63,21 @@ class AddMacroViewModel @Inject constructor(
                 )
             ),
             Category(
-                R.drawable.ic_baseline_menu_24,
+                R.drawable.ic_baseline_email_24,
+                R.string.messaging_category_title,
+                arrayListOf(
+                    SendSmsAction(),
+                    SendWhatsappMessageAction(),
+                    SendEmailAction()
+                )
+            ),
+            Category(
+                R.drawable.ic_baseline_sms_24,
                 R.string.other,
                 arrayListOf(
                     TurnOnFlashlightAction()
                 )
             )
-
         )
 
     fun getMacrosNames() = viewModelScope.async {

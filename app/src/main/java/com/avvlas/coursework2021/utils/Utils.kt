@@ -22,20 +22,6 @@ object Utils {
 
     val Macro.Companion.CREATOR: Parcelable.Creator<Macro>
         get() = ParcelableCreators.getMacroCreator()
-
-    fun Context.showInputDialog(
-        title: String,
-        hint: String,
-        onInput: (dialog: MaterialDialog, text: CharSequence) -> Unit,
-        onPositiveButtonClick: (dialog: MaterialDialog) -> Unit
-    ) {
-        MaterialDialog(this).show {
-            title(text = title)
-            input(hint = hint, callback = onInput)
-            positiveButton(R.string.ok, click = onPositiveButtonClick)
-            negativeButton(R.string.cancel)
-        }
-    }
 }
 
 object Parcelables {
