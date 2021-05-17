@@ -14,28 +14,36 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        createNotificationChannel()
+        createNotificationChannels()
         startService(Intent(this, AppForegroundService::class.java))
     }
 
-    private fun createNotificationChannel() {
+    private fun createNotificationChannels() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val serviceChannel = NotificationChannel(
-                CHANNEL_ID,
-                "AutoDroid notification channel",
-                NotificationManager.IMPORTANCE_LOW
-            )
             val manager = getSystemService(
                 NotificationManager::class.java
             )
-            manager.createNotificationChannel(serviceChannel)
+            manager.createNotificationChannel(
+                NotificationChannel(
+                    FOREGROUND_SERVICE_CHANNEL_ID,
+                    getString(R.string.background_work_notification_name),
+                    NotificationManager.IMPORTANCE_LOW
+                ).apply {
+                    setShowBadge(false)
+                }
+            )
+            manager.createNotificationChannel(
+                NotificationChannel(
+                    MACROS_NOTIFICATIONS_CHANNEL_ID,
+                    getString(R.string.macros_notification_name),
+                    NotificationManager.IMPORTANCE_DEFAULT
+                )
+            )
         }
     }
 
     companion object {
-        const val CHANNEL_ID: String = "APP_SERVICE_CHANNEL"
-        const val TAG = "myTag"
-
-        val foregroundService: AppForegroundService? = null
+        const val MACROS_NOTIFICATIONS_CHANNEL_ID: String = "MACROS_NOTIFICATION_CHANNEL"
+        const val FOREGROUND_SERVICE_CHANNEL_ID: String = "FOREGROUND_SERVICE_NOTIFICATION_CHANNEL"
     }
 }

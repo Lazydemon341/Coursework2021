@@ -3,7 +3,7 @@
     <string name="app_name">AutoDroid</string>
     <string name="title_main_activity">AutoDroid</string>
 
-    <string name="action_settings">Настройки</string>
+    <string name="action_about">О приложении</string>
     <string name="add_macro_button">Кнопка для добавления макроса</string>
     <string name="action_delete_macro">Удалить</string>
     <string name="action_test_actions">Запустить действия</string>
@@ -29,6 +29,8 @@
     <string name="date_time_trigger_title">Точная дата и время</string>
     <string name="day_time_trigger_title">Время с повторением</string>
     <string name="ringer_mode_trigger_title">Звук и вибрация</string>
+    <string name="location_trigger_title">Местоположение</string>
+
 
     <string name="quit_without_saving">Отменить изменения?</string>
 
@@ -111,5 +113,18 @@
 
     <string name="enter">Вход</string>
     <string name="exit">Выход</string>
+
+    <string name="background_work_notification_name">Работа в фоне</string>
+    <string name="macros_notification_name">Макросы</string>
+
+    <string name="autodroid_is_running">AutoDroid работает</string>
+
+    <string name="macros_notification_text">Действия Макроса \'%s\' были выполнены</string>
+
+    <string name="pick_time">Выберите время</string>
+    <string name="pick_days_of_week">Выберите дни недели</string>
+
+    <string name="developer_fullname">Власюк Александр</string>
+    <string name="developer_subtitle">Android Разработчик</string>
 
 </resources>

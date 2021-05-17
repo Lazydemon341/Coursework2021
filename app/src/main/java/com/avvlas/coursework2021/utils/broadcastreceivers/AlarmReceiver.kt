@@ -3,9 +3,10 @@ package com.avvlas.coursework2021.utils.broadcastreceivers
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import com.avvlas.coursework2021.model.Macro
-import com.avvlas.coursework2021.model.options.triggers.RepeatingTimeTrigger
 import com.avvlas.coursework2021.model.options.triggers.ExactDateTimeTrigger
+import com.avvlas.coursework2021.model.options.triggers.RepeatingTimeTrigger
 import com.avvlas.coursework2021.utils.Parcelables.toParcelable
 import com.avvlas.coursework2021.utils.Utils.CREATOR
 import java.util.*
@@ -13,12 +14,20 @@ import java.util.*
 class AlarmReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
+        Log.d("AlarmReceiver", intent.action.toString())
         when (intent.action) {
-            ExactDateTimeTrigger::class.java.simpleName ->{
-                val macro = intent.getByteArrayExtra(MACRO)?.toParcelable(Macro.CREATOR)
-                macro?.runActions(context)
+            ExactDateTimeTrigger::class.java.simpleName -> {
+                runMacroActions(context, intent)
+            }
+            RepeatingTimeTrigger::class.java.simpleName -> {
+                runMacroActions(context, intent)
             }
         }
+    }
+
+    private fun runMacroActions(context: Context, intent: Intent) {
+        val macro = intent.getByteArrayExtra(MACRO)?.toParcelable(Macro.CREATOR)
+        macro?.runActions(context)
     }
 
     private fun isDayTimeTriggerToday(repeatingTimeTrigger: RepeatingTimeTrigger): Boolean {

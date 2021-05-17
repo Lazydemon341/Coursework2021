@@ -3,8 +3,12 @@ package com.avvlas.coursework2021.model
 import android.app.Activity
 import android.content.Context
 import android.os.Parcelable
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.avvlas.coursework2021.App
+import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.model.options.actions.Action
 import com.avvlas.coursework2021.model.options.triggers.Trigger
 import kotlinx.coroutines.CoroutineScope
@@ -68,12 +72,30 @@ data class Macro(
         isActivated = false
     }
 
-    fun runActions(context: Context) =
+    fun runActions(context: Context) {
         CoroutineScope(SupervisorJob() + Dispatchers.Default).launch {
             for (action in actions) {
                 action.execute(context)
             }
+            showNotification(context)
         }
+    }
+
+    private fun showNotification(context: Context) {
+        with(NotificationManagerCompat.from(context)) {
+            val notification =
+                NotificationCompat.Builder(context, App.MACROS_NOTIFICATIONS_CHANNEL_ID)
+                    .setOngoing(false)
+                    .setShowWhen(true)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentText(
+                        context.getString(R.string.macros_notification_text).format(name)
+                    )
+                    .setContentTitle(context.getString(R.string.app_name))
+                    .build()
+            notify(id.toInt(), notification)
+        }
+    }
 
     companion object {
 

@@ -2,7 +2,7 @@
     <string name="app_name">AutoDroid</string>
     <string name="title_main_activity">AutoDroid</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="action_about">About</string>
     <string name="add_macro_button">Add macro button</string>
     <string name="action_delete_macro">Delete</string>
     <string name="action_test_actions">Test actions</string>
@@ -33,6 +33,7 @@
     <string name="date_time_trigger_title">Exact date and time</string>
     <string name="day_time_trigger_title">Time repeating</string>
     <string name="ringer_mode_trigger_title">Sound/Vibration</string>
+    <string name="location_trigger_title">Location</string>
 
     <!-- AlertDialogs -->
     <string name="quit_without_saving">Discard changes?</string>
@@ -163,9 +164,22 @@
     <string name="enter">Enter</string>
     <string name="exit">Exit</string>
 
-    <string-array name="geofence_transactions">
+    <string-array name="geofence_transitions">
         <item>@string/enter</item>
         <item>@string/exit</item>
     </string-array>
+
+    <string name="background_work_notification_name">Background work</string>
+    <string name="macros_notification_name">Macros</string>
+
+    <string name="autodroid_is_running">AutoDroid is running</string>
+
+    <string name="macros_notification_text">Actions of Macro \'%s\' are done</string>
+
+    <string name="pick_time">Pick time</string>
+    <string name="pick_days_of_week">Pick days of week</string>
+
+    <string name="developer_fullname">Vlasyuk Alexander</string>
+    <string name="developer_subtitle">Android Developer</string>
 
 </resources>

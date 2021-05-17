@@ -26,11 +26,11 @@ class AppForegroundService : Service() {
             PendingIntent.getActivity(this, 0, it, 0)
         }
 
-        val notification = NotificationCompat.Builder(this, App.CHANNEL_ID)
+        val notification = NotificationCompat.Builder(this, App.FOREGROUND_SERVICE_CHANNEL_ID)
             .setOngoing(true)
-            .setSubText("AutoDroid is running in background")
             .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentText("AutoDroid is running in background")
+            .setShowWhen(false)
+            .setContentText(getString(R.string.autodroid_is_running))
             .setContentTitle(getString(R.string.app_name))
             .setContentIntent(pendingIntent)
             .build()

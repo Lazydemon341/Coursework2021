@@ -10,11 +10,11 @@
         android:id="@+id/category_expandable_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:startExpanded="true"
         app:animationDuration="150"
-        app:expandOnClick="true"
+        app:expandOnClick="false"
         app:icon="@drawable/ic_baseline_watch_24"
         app:inner_view="@layout/item_category_expanded_content"
-        app:startExpanded="false"
         app:title="" />
 
     <View

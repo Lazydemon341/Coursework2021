@@ -2,9 +2,11 @@ package com.avvlas.coursework2021.model.options.triggers
 
 import android.Manifest
 import android.app.Activity
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
-import android.util.Log
+import android.os.Bundle
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
@@ -12,27 +14,114 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.startActivityForResult
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.model.Macro
+import com.avvlas.coursework2021.utils.Parcelables.toByteArray
+import com.avvlas.coursework2021.utils.broadcastreceivers.GeofenceReceiver
+import com.google.android.gms.location.Geofence
+import com.google.android.gms.location.GeofencingClient
+import com.google.android.gms.location.GeofencingRequest
+import com.google.android.gms.location.LocationServices
 import com.schibstedspain.leku.LocationPickerActivity
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
 
 @Parcelize
 class LocationTrigger(
-    @DrawableRes override val icon: Int = R.drawable.ic_baseline_menu_24, // TODO
-    @StringRes override val title: Int = R.string.pick_date_and_time, // TODO
+    @DrawableRes override val icon: Int = R.drawable.ic_baseline_location_on_24, // TODO
+    @StringRes override val title: Int = R.string.location_trigger_title, // TODO
     var latitude: Double = 55.7520,
     var longitude: Double = 37.6175,
     var radius: Float = 10.0F,
-    var transactions: List<Int> = listOf()
+    var transitions: List<Int> = listOf()
 ) : Trigger(icon, title) {
 
+    @IgnoredOnParcel
+    @Transient
+    private var mGeofencePendingIntent: PendingIntent? = null
+
+    @IgnoredOnParcel
+    @Transient
+    private var mGeofencingClient: GeofencingClient? = null
+
     override fun schedule(appContext: Context, macro: Macro) {
-        Log.d("hi", "hi")
-        // register geofence
+        mGeofencingClient = LocationServices.getGeofencingClient(appContext)
+        addGeofences(appContext, macro)
     }
 
     override fun cancel(appContext: Context, macro: Macro) {
-        // cancel geofence
+        mGeofencingClient = LocationServices.getGeofencingClient(appContext)
+        removeGeofences(appContext, macro)
+    }
+
+    private fun removeGeofences(context: Context, macro: Macro) {
+        if (!checkPermissions(context)) {
+            // showSnackbar(getString(R.string.insufficient_permissions))
+            return
+        }
+        mGeofencingClient!!.removeGeofences(getGeofencePendingIntent(context, macro))
+    }
+
+    @SuppressWarnings("MissingPermission")
+    private fun addGeofences(context: Context, macro: Macro) {
+        if (!checkPermissions(context)) {
+            // showSnackbar(getString(R.string.insufficient_permissions))
+            return
+        }
+        mGeofencingClient!!.addGeofences(
+            getGeofencingRequest(macro),
+            getGeofencePendingIntent(context, macro)
+        )
+    }
+
+    private fun getGeofence(macro: Macro): Geofence =
+        Geofence.Builder()
+            .apply {
+                setRequestId(macro.id.toString()) // Set the request ID of the geofence. This is a string to identify this geofence.
+                setCircularRegion( // Set the circular region of this geofence.
+                    latitude,
+                    longitude,
+                    radius
+                )
+                // TODO: never expire
+                setExpirationDuration(300000)
+
+                if (transitions.size == 1) {
+                    setTransitionTypes(transitions[0])
+                } else {
+                    setTransitionTypes(
+                        Geofence.GEOFENCE_TRANSITION_ENTER or
+                                Geofence.GEOFENCE_TRANSITION_EXIT
+                    )
+                }
+            }
+            .build()
+
+    private fun getGeofencingRequest(macro: Macro): GeofencingRequest =
+        GeofencingRequest.Builder().apply {
+            setInitialTrigger(Geofence.GEOFENCE_TRANSITION_ENTER)
+            addGeofence(getGeofence(macro))
+        }.build()
+
+
+    private fun getGeofencePendingIntent(context: Context, macro: Macro): PendingIntent {
+        // Reuse the PendingIntent if we already have it.
+        if (mGeofencePendingIntent != null) {
+            return mGeofencePendingIntent as PendingIntent
+        }
+        val intent = Intent(context, GeofenceReceiver::class.java)
+        val bundle = Bundle().apply {
+            putByteArray(EXTRA_MACRO, macro.toByteArray())
+        }
+        intent.putExtras(bundle)
+        intent.action = this.javaClass.simpleName
+        mGeofencePendingIntent =
+            PendingIntent.getBroadcast(
+                context,
+                macro.id.toInt(),
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+            )
+        return mGeofencePendingIntent as PendingIntent
     }
 
     override fun onClick(context: Context, macro: Macro) {
@@ -43,14 +132,6 @@ class LocationTrigger(
                 .withLocation(latitude, longitude)
                 .withGeolocApiKey(context.getString(R.string.google_maps_key))
                 .withDefaultLocaleSearchZone()
-                //.withSearchZone("es_ES")
-                //.withSearchZone(SearchZoneRect(LatLng(26.525467, -18.910366), LatLng(43.906271, 5.394197)))
-                //.shouldReturnOkOnBackPressed()
-                //.withStreetHidden()
-                //.withCityHidden()
-                //.withZipCodeHidden()
-                //.withSatelliteViewHidden()
-                //.withGooglePlacesEnabled()
                 .withGoogleTimeZoneEnabled()
                 .withVoiceSearchHidden()
                 .withUnnamedRoadHidden()
@@ -66,23 +147,32 @@ class LocationTrigger(
     }
 
     private fun checkPermissions(context: Context): Boolean {
-        val permissionState = ActivityCompat.checkSelfPermission(
+        val accessFineLocationState = ActivityCompat.checkSelfPermission(
             context,
             Manifest.permission.ACCESS_FINE_LOCATION
         )
-        return permissionState == PackageManager.PERMISSION_GRANTED
+        val accessBackgroundLocationState = ActivityCompat.checkSelfPermission(
+            context,
+            Manifest.permission.ACCESS_BACKGROUND_LOCATION
+        )
+        return accessFineLocationState == PackageManager.PERMISSION_GRANTED &&
+                accessBackgroundLocationState == PackageManager.PERMISSION_GRANTED
     }
 
     private fun requestPermissions(context: Context) {
         ActivityCompat.requestPermissions(
-            context as Activity, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+            context as Activity,
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_BACKGROUND_LOCATION
+            ),
             REQUEST_PERMISSIONS_REQUEST_CODE
         )
     }
 
 
     companion object {
-        const val EXTRA_MACRO = "macro"
+        private const val EXTRA_MACRO = "macro"
         const val MAP_PICKER_REQUEST_CODE = 12
         const val REQUEST_PERMISSIONS_REQUEST_CODE = 24
     }

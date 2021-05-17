@@ -7,11 +7,13 @@ import android.content.Intent
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.datetime.dateTimePicker
+import com.afollestad.materialdialogs.datetime.timePicker
+import com.afollestad.materialdialogs.list.listItemsMultiChoice
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.model.Macro
 import com.avvlas.coursework2021.utils.broadcastreceivers.AlarmReceiver
 import kotlinx.parcelize.Parcelize
+import java.text.DateFormatSymbols
 import java.util.*
 
 @Parcelize
@@ -62,10 +64,35 @@ class RepeatingTimeTrigger(
     }
 
     override fun onClick(context: Context, macro: Macro) {
-        MaterialDialog(context).show {
-            dateTimePicker { dialog, datetime ->
+        chooseTime(context, macro)
+    }
 
+    private fun chooseTime(context: Context, macro: Macro) {
+        MaterialDialog(context).show {
+            title(res = R.string.pick_time)
+            timePicker(requireFutureTime = false, show24HoursView = true) { dialog, datetime ->
+                hour = datetime.get(Calendar.HOUR_OF_DAY)
+                minute = datetime.get(Calendar.MINUTE)
             }
+            positiveButton(res = R.string.ok) {
+                chooseDays(context, macro)
+            }
+            negativeButton(res = R.string.cancel)
+        }
+    }
+
+    private fun chooseDays(context: Context, macro: Macro) {
+        MaterialDialog(context).show {
+            title(res = R.string.pick_days_of_week)
+            listItemsMultiChoice(
+                items = DateFormatSymbols.getInstance().shortWeekdays.filter { it.isNotEmpty() },
+                allowEmptySelection = false
+            )
+            positiveButton(res = R.string.ok) {
+                //TODO: set days
+                super.onClick(context, macro)
+            }
+            negativeButton(res = R.string.cancel)
         }
     }
 }

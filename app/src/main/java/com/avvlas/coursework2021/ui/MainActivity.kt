@@ -7,15 +7,16 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.list.isItemChecked
 import com.afollestad.materialdialogs.list.listItemsMultiChoice
-import com.avvlas.coursework2021.App
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.data.MacrosRepository
 import com.avvlas.coursework2021.model.options.triggers.LocationTrigger
+import com.avvlas.coursework2021.ui.about.AboutFragment
 import com.avvlas.coursework2021.ui.addmacro.AddMacroFragment
 import com.avvlas.coursework2021.ui.macrodetails.MacroDetailsFragment
 import com.avvlas.coursework2021.utils.Utils.currentNavigationFragment
@@ -65,6 +66,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 onBackPressed()
                 return true
             }
+            R.id.about -> {
+                supportFragmentManager.commit {
+                    replace(R.id.nav_host_fragment, AboutFragment.getInstance())
+                    addToBackStack(null)
+                }
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -99,7 +106,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                         .title(res = R.string.choose_radius_and_triggers)
                         .customView(view = slider)
                         .listItemsMultiChoice(
-                            res = R.array.geofence_transactions,
+                            res = R.array.geofence_transitions,
                             allowEmptySelection = false
                         )
                         .positiveButton(res = R.string.ok) { dialog ->
@@ -111,7 +118,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                                             latitude = latitude,
                                             longitude = longitude,
                                             radius = slider.value,
-                                            transactions = listOf(
+                                            transitions = listOf(
                                                 0,
                                                 1
                                             ).filter { dialog.isItemChecked(it) }
@@ -134,7 +141,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     override fun onDestroy() {
-        Log.d(App.TAG, "MainActivity Destroyed")
+        Log.d(TAG, "MainActivity Destroyed")
         super.onDestroy()
     }
 

@@ -42,8 +42,8 @@ class CategoriesListAdapter<T : Option>(
         private lateinit var adapter: OptionsListAdapter<T>
 
         fun bind(category: Category<T>) {
-            setTitleAndIcon(category)
             initRecyclerView(category)
+            setTitleAndIcon(category)
         }
 
         private fun setTitleAndIcon(category: Category<T>) =
@@ -65,6 +65,7 @@ class CategoriesListAdapter<T : Option>(
                         )
                     }
                 )
+                expand()
             }
 
 
