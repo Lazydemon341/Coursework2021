@@ -2,10 +2,12 @@ package com.avvlas.coursework2021.model.options.triggers
 
 import android.Manifest
 import android.app.PendingIntent
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +16,9 @@ import androidx.core.app.ActivityCompat.startActivityForResult
 import com.avvlas.coursework2021.R
 import com.avvlas.coursework2021.model.Macro
 import com.avvlas.coursework2021.utils.Parcelables.toByteArray
-import com.avvlas.coursework2021.utils.broadcastreceivers.GeofenceReceiver
+import com.avvlas.coursework2021.utils.Parcelables.toParcelable
+import com.avvlas.coursework2021.utils.Utils.CREATOR
+import com.avvlas.coursework2021.utils.broadcastreceivers.AlarmReceiver
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingClient
 import com.google.android.gms.location.GeofencingRequest
@@ -193,5 +197,16 @@ class LocationTrigger(
         private const val EXTRA_MACRO = "macro"
         const val MAP_PICKER_REQUEST_CODE = 12
         const val REQUEST_PERMISSIONS_REQUEST_CODE = 24
+    }
+}
+
+class GeofenceReceiver : BroadcastReceiver() {
+
+    override fun onReceive(context: Context, intent: Intent) {
+        Log.d("GeofenceReceiver", intent.action.toString())
+        if (intent.action == LocationTrigger::class.java.simpleName) {
+            val macro = intent.getByteArrayExtra(AlarmReceiver.MACRO)?.toParcelable(Macro.CREATOR)
+            macro?.runActions(context)
+        }
     }
 }

@@ -54,8 +54,6 @@ class RepeatingTimeTrigger(
         )
     }
 
-    // TODO: dodelat'
-
     override fun cancel(appContext: Context, macro: Macro) {
         val alarmManager = appContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(appContext, AlarmReceiver::class.java)
@@ -89,7 +87,7 @@ class RepeatingTimeTrigger(
                 allowEmptySelection = false
             )
             positiveButton(res = R.string.ok) {
-                //TODO: set days
+                // TODO: set days
                 super.onClick(context, macro)
             }
             negativeButton(res = R.string.cancel)

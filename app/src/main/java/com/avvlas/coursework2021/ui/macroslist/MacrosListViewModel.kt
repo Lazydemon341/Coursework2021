@@ -12,7 +12,6 @@ import javax.inject.Inject
 class MacrosListViewModel @Inject constructor(
     private val macrosRepository: MacrosRepository
 ) : ViewModel() {
-    // TODO: Implement the ViewModel
     internal val macros = macrosRepository.getAllWithUpdates()
 
     internal fun updateMacro(macro: Macro) = viewModelScope.launch {
