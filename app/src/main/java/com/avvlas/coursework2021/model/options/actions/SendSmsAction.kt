@@ -55,7 +55,7 @@ class SendSmsAction(
     override fun onClick(context: Context, macro: Macro) {
         Permissions.check(
             context as AppCompatActivity,
-            arrayOf(Manifest.permission.SEND_SMS, Manifest.permission.READ_CONTACTS),
+            arrayOf(Manifest.permission.SEND_SMS),
             null,
             null,
             object : PermissionHandler() {
